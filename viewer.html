@@ -1,191 +1,1438 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Slide Deck Viewer</title>
-<style>
-  *{margin:0;box-sizing:border-box}
-  html,body{height:100%;overflow:hidden;font-family:system-ui,sans-serif}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Slide Deck Viewer</title>
+  <!--
+    Slide Deck Viewer is intentionally self-contained.
+    Runtime use must not require Python, Node, a server, a build step, CDNs,
+    or external assets. See AGENTS.md before changing this file.
+  -->
+  <style>
+    /* Theme tokens and global reset */
+    :root {
+      color-scheme: dark;
+      --bg: #0b1020;
+      --panel: #111827;
+      --panel-2: #172033;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --line: rgba(148, 163, 184, .22);
+      --accent: #38bdf8;
+      --accent-2: #2563eb;
+      --shadow: 0 18px 60px rgba(0, 0, 0, .32);
+      --radius: 8px;
+      --chrome-h: 60px;
+      --chrome-b: 72px;
+    }
 
-  /* ---------- Picker screen ---------- */
-  #picker{
-    height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
-    gap:16px;background:#0f172a;color:#fff;text-align:center;padding:20px;
-  }
-  #picker h1{font-size:1.6rem;font-weight:600}
-  #picker p{color:#94a3b8;max-width:480px;font-size:.95rem;line-height:1.5}
-  #pickBtn{
-    padding:12px 28px;font-size:1rem;border:0;border-radius:8px;
-    background:#3b82f6;color:#fff;cursor:pointer;transition:background .15s;
-  }
-  #pickBtn:hover{background:#2563eb}
-  #picker input[type=file]{display:none}
+    [data-theme="light"] {
+      color-scheme: light;
+      --bg: #f8fafc;
+      --panel: #ffffff;
+      --panel-2: #eef2f7;
+      --text: #111827;
+      --muted: #64748b;
+      --line: rgba(15, 23, 42, .16);
+      --accent: #0369a1;
+      --accent-2: #2563eb;
+      --shadow: 0 18px 50px rgba(15, 23, 42, .14);
+    }
 
-  /* ---------- Deck screen ---------- */
-  #deck{height:100vh;display:flex;transition:transform .35s ease}
-  .slide{min-width:100vw;height:100vh;border:0;display:block}
+    * {
+      box-sizing: border-box
+    }
 
-  #dots{
-    position:fixed;bottom:18px;left:50%;transform:translateX(-50%);
-    display:flex;gap:8px;z-index:10;
-  }
-  .dot{width:10px;height:10px;border-radius:50%;background:rgba(0,0,0,.25);cursor:pointer}
-  .dot.active{background:rgba(0,0,0,.65)}
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text)
+    }
 
-  #nav{
-    position:fixed;top:0;bottom:0;width:8%;z-index:9;
-    background:transparent;border:0;cursor:pointer;
-  }
-  #navPrev{left:0}
-  #navNext{right:0}
+    button,
+    input {
+      font: inherit
+    }
 
-  #counter{
-    position:fixed;top:14px;right:16px;font:12px/1 monospace;
-    color:rgba(0,0,0,.4);z-index:10;background:rgba(255,255,255,.6);
-    padding:4px 8px;border-radius:6px;
-  }
+    button {
+      border: 0
+    }
 
-  #changeFolder{
-    position:fixed;top:14px;left:16px;font:12px/1 monospace;z-index:10;
-    background:rgba(255,255,255,.6);border:0;border-radius:6px;
-    padding:4px 8px;cursor:pointer;color:#333;
-  }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      color: var(--text)
+    }
 
-  .hidden{display:none !important}
-</style>
+    .hidden {
+      display: none !important
+    }
+
+    /* Landing screen: user-facing entry point before a deck is selected */
+    #picker {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 24px;
+      background:
+        radial-gradient(circle at 18% 20%, rgba(56, 189, 248, .22), transparent 30%),
+        radial-gradient(circle at 82% 10%, rgba(37, 99, 235, .22), transparent 26%),
+        var(--bg);
+    }
+
+    .landing-tools {
+      position: fixed;
+      top: 24px;
+      right: max(24px, calc((100vw - 1120px) / 2));
+      display: flex;
+      justify-content: flex-end;
+      z-index: 5;
+    }
+
+    .landing-tools .btn {
+      background: rgba(17, 24, 39, .62);
+      backdrop-filter: blur(10px);
+      white-space: nowrap;
+    }
+
+    .welcome {
+      width: min(1120px, 100%);
+      min-height: 0;
+      flex: 1 1 auto;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(340px, .92fr);
+      gap: 40px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .welcome-copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 16px;
+      max-width: 590px;
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 4rem);
+      line-height: 1;
+      letter-spacing: -.02em;
+    }
+
+    .lead {
+      margin: 0;
+      max-width: 52ch;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+
+    .feature-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .pill {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 7px 10px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, .04);
+      font-size: .86rem;
+    }
+
+    .drop-zone {
+      min-height: 320px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(17, 24, 39, .74);
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 30px;
+      text-align: center;
+      transition: border-color .18s, transform .18s, background .18s;
+    }
+
+    [data-theme="light"] .drop-zone {
+      background: rgba(255, 255, 255, .86)
+    }
+
+    .drop-zone.dragging {
+      border-color: var(--accent);
+      background: rgba(56, 189, 248, .12);
+      transform: translateY(-2px)
+    }
+
+    .drop-icon {
+      width: 68px;
+      height: 68px;
+      border-radius: 20px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #fff;
+      font-size: 1.72rem;
+      font-weight: 800;
+    }
+
+    .drop-zone h2 {
+      margin: 0;
+      font-size: 1.5rem
+    }
+
+    .drop-zone p {
+      max-width: 38ch;
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 4px
+    }
+
+    .btn {
+      min-height: 38px;
+      padding: 9px 13px;
+      border-radius: var(--radius);
+      color: var(--text);
+      background: var(--panel-2);
+      border: 1px solid var(--line);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      user-select: none;
+    }
+
+    .btn:hover {
+      border-color: rgba(56, 189, 248, .62)
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, var(--accent-2), var(--accent));
+      border-color: transparent;
+      color: #fff;
+      font-weight: 700
+    }
+
+    .btn.icon {
+      width: 38px;
+      padding: 0;
+      font-size: 1rem
+    }
+
+    .btn:disabled {
+      opacity: .45;
+      cursor: not-allowed
+    }
+
+    .btn.active {
+      border-color: rgba(56, 189, 248, .72);
+      background: rgba(56, 189, 248, .16)
+    }
+
+    #folderInput,
+    #fileInput {
+      display: none
+    }
+
+    #errorMessage {
+      min-height: 20px;
+      color: #fca5a5;
+      font-size: .92rem
+    }
+
+    /* Main viewer shell: toolbar, sidebar, slide stage, and bottom controls */
+    #app {
+      height: 100vh;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      grid-template-rows: var(--chrome-h) 1fr var(--chrome-b);
+      background: var(--bg);
+    }
+
+    #app.sidebar-collapsed {
+      grid-template-columns: 0 1fr
+    }
+
+    #topbar {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--line);
+      background: color-mix(in srgb, var(--panel) 92%, transparent);
+      z-index: 20;
+    }
+
+    .title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0
+    }
+
+    .deck-title {
+      display: flex;
+      flex-direction: column;
+      min-width: 0
+    }
+
+    .deck-title strong {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: .96rem
+    }
+
+    .deck-title span {
+      color: var(--muted);
+      font-size: .78rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end
+    }
+
+    #sidebar {
+      grid-row: 2 / 4;
+      border-right: 1px solid var(--line);
+      background: var(--panel);
+      overflow: auto;
+      min-width: 0;
+    }
+
+    #app.sidebar-collapsed #sidebar {
+      display: none
+    }
+
+    .sidebar-head {
+      position: sticky;
+      top: 0;
+      background: var(--panel);
+      z-index: 1;
+      padding: 14px;
+      border-bottom: 1px solid var(--line)
+    }
+
+    .sidebar-head h2 {
+      font-size: .82rem;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      margin: 0;
+      color: var(--muted)
+    }
+
+    #slideList {
+      display: flex;
+      flex-direction: column;
+      padding: 8px;
+      gap: 4px
+    }
+
+    .slide-item {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 8px;
+      width: 100%;
+      text-align: left;
+      padding: 9px;
+      border-radius: var(--radius);
+      background: transparent;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .slide-item:hover {
+      background: var(--panel-2)
+    }
+
+    .slide-item.active {
+      background: rgba(56, 189, 248, .14);
+      outline: 1px solid rgba(56, 189, 248, .4)
+    }
+
+    .slide-num {
+      color: var(--accent);
+      font-variant-numeric: tabular-nums
+    }
+
+    .slide-name {
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: var(--text)
+    }
+
+    #stage {
+      grid-column: 2;
+      grid-row: 2;
+      position: relative;
+      overflow: hidden;
+      background: #000;
+    }
+
+    #deck {
+      height: 100%;
+      display: flex;
+      transition: transform .32s ease;
+      will-change: transform;
+    }
+
+    .slide {
+      flex: 0 0 100%;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background: #fff;
+    }
+
+    .edge-nav {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: min(12vw, 120px);
+      background: transparent;
+      cursor: pointer;
+      z-index: 7;
+    }
+
+    #navPrev {
+      left: 0
+    }
+
+    #navNext {
+      right: 0
+    }
+
+    .floating-nav {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 18px;
+      z-index: 8;
+    }
+
+    .round-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, .3);
+      background: rgba(15, 23, 42, .64);
+      color: #fff;
+      cursor: pointer;
+      pointer-events: auto;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, .25);
+    }
+
+    .round-btn:hover {
+      background: rgba(15, 23, 42, .86)
+    }
+
+    #bottombar {
+      grid-column: 2;
+      grid-row: 3;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 14px;
+      align-items: center;
+      padding: 12px 16px;
+      border-top: 1px solid var(--line);
+      background: var(--panel);
+      z-index: 20;
+    }
+
+    .nav-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+
+    #counter {
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+      min-width: 76px;
+      text-align: center
+    }
+
+    .progress-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0
+    }
+
+    #slideRange {
+      width: 100%;
+      accent-color: var(--accent)
+    }
+
+    #progressLabel {
+      min-width: 42px;
+      color: var(--muted);
+      font-size: .84rem;
+      text-align: right
+    }
+
+    #notesPanel {
+      max-width: 420px;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: .88rem;
+    }
+
+    /* Docked notes keep navigation usable while notes are visible */
+    #notesDrawer {
+      position: fixed;
+      top: var(--chrome-h);
+      right: 0;
+      bottom: var(--chrome-b);
+      width: min(390px, 92vw);
+      display: flex;
+      flex-direction: column;
+      background: var(--panel);
+      border-left: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      z-index: 24;
+    }
+
+    .drawer-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .drawer-head h2 {
+      margin: 0;
+      font-size: 1rem
+    }
+
+    .drawer-body {
+      padding: 16px;
+      overflow: auto;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .drawer-body p {
+      margin: 0
+    }
+
+    /* Modal overlays are reserved for interruptive views like help and overview */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 23, .78);
+      backdrop-filter: blur(12px);
+      z-index: 50;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    .dialog {
+      width: min(760px, 100%);
+      max-height: min(760px, 92vh);
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .dialog-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .dialog h2 {
+      margin: 0;
+      font-size: 1.1rem
+    }
+
+    .dialog-body {
+      padding: 16px
+    }
+
+    .shortcut-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+    }
+
+    .shortcut {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      color: var(--muted);
+    }
+
+    kbd {
+      min-width: 28px;
+      padding: 4px 7px;
+      border-radius: 6px;
+      background: var(--panel-2);
+      color: var(--text);
+      text-align: center;
+      font: 700 .78rem ui-monospace, SFMono-Regular, Consolas, monospace;
+    }
+
+    #overviewGrid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 14px;
+    }
+
+    .thumb {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--panel-2);
+      color: var(--text);
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .thumb.active {
+      outline: 2px solid var(--accent)
+    }
+
+    .thumb-frame {
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      background: #fff;
+      pointer-events: none;
+    }
+
+    .thumb iframe {
+      width: 400%;
+      height: 400%;
+      border: 0;
+      transform: scale(.25);
+      transform-origin: top left;
+      pointer-events: none;
+    }
+
+    .thumb-title {
+      display: flex;
+      gap: 8px;
+      padding: 10px;
+      color: var(--muted);
+      font-size: .85rem
+    }
+
+    .thumb-title strong {
+      color: var(--text);
+      font-weight: 650;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis
+    }
+
+    /* Zen mode removes chrome without leaving the user trapped */
+    .zen #topbar,
+    .zen #sidebar,
+    .zen #bottombar,
+    .zen .floating-nav,
+    .zen #notesDrawer {
+      display: none
+    }
+
+    .zen #app {
+      display: block;
+      height: 100vh
+    }
+
+    .zen #stage {
+      height: 100vh;
+      width: 100vw
+    }
+
+    .zen #deck {
+      height: 100vh
+    }
+
+    .zen-exit {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      z-index: 60;
+      display: none;
+      background: rgba(15, 23, 42, .72);
+      color: #fff;
+      border-color: rgba(255, 255, 255, .3);
+    }
+
+    .zen .zen-exit {
+      display: inline-flex
+    }
+
+    @media (max-width:820px) {
+      /* Preserve feature access on small screens; horizontal toolbar scroll is preferable to hiding modes */
+      #picker {
+        padding: 16px;
+        overflow: auto
+      }
+
+      .landing-tools {
+        top: 16px;
+        right: 16px
+      }
+
+      .welcome {
+        grid-template-columns: 1fr;
+        gap: 22px;
+        align-items: start
+      }
+
+      .drop-zone {
+        min-height: 300px
+      }
+
+      #app {
+        grid-template-columns: 1fr;
+        grid-template-rows: var(--chrome-h) 1fr var(--chrome-b)
+      }
+
+      #sidebar {
+        position: fixed;
+        left: 0;
+        top: var(--chrome-h);
+        bottom: 0;
+        width: min(320px, 88vw);
+        z-index: 30;
+        box-shadow: var(--shadow)
+      }
+
+      #app.sidebar-collapsed #sidebar {
+        display: none
+      }
+
+      #stage,
+      #bottombar {
+        grid-column: 1
+      }
+
+      .deck-title span,
+      #notesPanel {
+        display: none
+      }
+
+      .toolbar {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        max-width: 58vw;
+        overflow-x: auto;
+        padding-bottom: 2px
+      }
+
+      .toolbar .btn {
+        min-height: 34px;
+        padding: 7px 9px;
+        white-space: nowrap
+      }
+
+      #notesDrawer {
+        top: var(--chrome-h);
+        bottom: var(--chrome-b);
+        width: min(340px, 92vw)
+      }
+
+      #bottombar {
+        grid-template-columns: auto 1fr auto;
+        padding: 10px
+      }
+
+      #firstBtn,
+      #lastBtn {
+        display: none
+      }
+
+      .round-btn {
+        width: 42px;
+        height: 42px
+      }
+    }
+  </style>
 </head>
-<body>
 
-<!-- ===== Folder picker (shown first) ===== -->
-<div id="picker">
-  <h1>Slide Deck Viewer</h1>
-  <p>
-    Pick a local folder containing your slide files (e.g. <code>slide01.html</code>,
-    <code>slide02.html</code>, ...). Files are sorted alphabetically/numerically
-    and shown as a swipeable deck. Nothing leaves your browser.
-  </p>
-  <button id="pickBtn">Choose Folder</button>
-  <input type="file" id="folderInput" webkitdirectory directory multiple>
-</div>
+<body data-theme="dark">
 
-<!-- ===== Deck (shown after a folder is picked) ===== -->
-<div id="deck" class="hidden"></div>
-<div id="dots" class="hidden"></div>
-<button id="navPrev" class="hidden" aria-label="Previous slide"></button>
-<button id="navNext" class="hidden" aria-label="Next slide"></button>
-<div id="counter" class="hidden"></div>
-<button id="changeFolder" class="hidden">Change folder</button>
+  <div class="landing-tools">
+    <button id="landingThemeBtn" class="btn" title="Theme mode (M)">Theme <kbd>M</kbd></button>
+  </div>
 
-<script>
-const picker      = document.getElementById('picker');
-const folderInput = document.getElementById('folderInput');
-const pickBtn     = document.getElementById('pickBtn');
-const deck        = document.getElementById('deck');
-const dotsEl      = document.getElementById('dots');
-const counter     = document.getElementById('counter');
-const navPrev     = document.getElementById('navPrev');
-const navNext     = document.getElementById('navNext');
-const changeFolderBtn = document.getElementById('changeFolder');
+  <main id="picker">
+    <section class="welcome" aria-labelledby="welcomeTitle">
+      <div class="welcome-copy">
+        <div class="eyebrow">Present local slide decks</div>
+        <h1 id="welcomeTitle">Slide Deck Viewer</h1>
+        <p class="lead">Turn a folder of HTML slides into a presentation with clear controls, speaker notes, overview
+          mode, fullscreen, and private offline playback.</p>
+        <div class="feature-row" aria-label="Key features">
+          <span class="pill">Open any deck</span>
+          <span class="pill">Drag and drop</span>
+          <span class="pill">Presenter tools</span>
+          <span class="pill">Overview grid</span>
+          <span class="pill">Fullscreen</span>
+          <span class="pill">No uploads</span>
+        </div>
+      </div>
 
-let i = 0;
-let slideCount = 0;
-let objectUrls = [];
+      <div id="dropZone" class="drop-zone">
+        <div class="drop-icon" aria-hidden="true">HTML</div>
+        <h2>Open your slide deck</h2>
+        <p>Drop a folder here, or choose the folder that contains your slide files. The viewer will sort them and build
+          the deck for you.</p>
+        <div class="actions">
+          <button id="pickBtn" class="btn primary">Choose Folder</button>
+          <button id="pickFilesBtn" class="btn">Choose Files</button>
+        </div>
+        <p id="errorMessage" role="alert"></p>
+        <input type="file" id="folderInput" webkitdirectory directory multiple>
+        <input type="file" id="fileInput" multiple accept=".html,.htm,text/html">
+      </div>
+    </section>
+  </main>
 
-pickBtn.addEventListener('click', () => folderInput.click());
-folderInput.addEventListener('change', handleFolderSelect);
-changeFolderBtn.addEventListener('click', resetToPicker);
+  <section id="app" class="hidden sidebar-collapsed" aria-label="Slide viewer">
+    <header id="topbar">
+      <div class="title-wrap">
+        <button id="sidebarBtn" class="btn icon" title="Slide list (L)" aria-label="Toggle slide list">☰</button>
+        <div class="deck-title">
+          <strong id="deckName">No deck loaded</strong>
+          <span id="deckMeta">Choose a folder to begin</span>
+        </div>
+      </div>
+      <div class="toolbar">
+        <button id="overviewBtn" class="btn optional" title="Overview (O)">Overview <kbd>O</kbd></button>
+        <button id="notesBtn" class="btn optional" title="Speaker notes (N)">Notes <kbd>N</kbd></button>
+        <button id="presenterBtn" class="btn optional" title="Presenter window (P)">Presenter <kbd>P</kbd></button>
+        <button id="zenBtn" class="btn optional" title="Zen mode (Z)">Zen <kbd>Z</kbd></button>
+        <button id="themeBtn" class="btn icon" title="Theme mode (M)" aria-label="Theme mode">◐</button>
+        <button id="fullscreenBtn" class="btn icon" title="Fullscreen (F)" aria-label="Fullscreen">⛶</button>
+        <button id="helpBtn" class="btn icon" title="Help (?)" aria-label="Keyboard shortcuts">?</button>
+        <button id="changeFolder" class="btn" title="Open deck (D)">Open Deck <kbd>D</kbd></button>
+      </div>
+    </header>
 
-function handleFolderSelect(e){
-  const files = [...e.target.files].filter(f => /\.html?$/i.test(f.name));
+    <aside id="sidebar" aria-label="Slide list">
+      <div class="sidebar-head">
+        <h2>Slides</h2>
+      </div>
+      <div id="slideList"></div>
+    </aside>
 
-  if(files.length === 0){
-    alert('No .html files found in that folder.');
-    return;
-  }
+    <section id="stage" aria-label="Current slide">
+      <div id="deck"></div>
+      <button id="navPrev" class="edge-nav" aria-label="Previous slide"></button>
+      <button id="navNext" class="edge-nav" aria-label="Next slide"></button>
+      <div class="floating-nav" aria-hidden="false">
+        <button id="prevVisible" class="round-btn" aria-label="Previous slide">←</button>
+        <button id="nextVisible" class="round-btn" aria-label="Next slide">→</button>
+      </div>
+    </section>
 
-  // Sort alphabetically/numerically by filename (e.g. slide2 before slide10)
-  files.sort((a, b) =>
-    a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' })
-  );
+    <footer id="bottombar">
+      <div class="nav-group">
+        <button id="firstBtn" class="btn" title="First slide (Home)">First</button>
+        <button id="prevBtn" class="btn" title="Previous slide (←)">← Previous</button>
+      </div>
+      <div class="progress-wrap">
+        <span id="counter">0 / 0</span>
+        <input id="slideRange" type="range" min="1" max="1" value="1" aria-label="Slide position">
+        <span id="progressLabel">0%</span>
+        <span id="notesPanel"></span>
+      </div>
+      <div class="nav-group">
+        <button id="nextBtn" class="btn primary" title="Next slide (→)">Next →</button>
+        <button id="lastBtn" class="btn" title="Last slide (End)">Last</button>
+      </div>
+    </footer>
 
-  buildDeck(files);
-}
+    <aside id="notesDrawer" class="hidden" aria-label="Speaker notes">
+      <div class="drawer-head">
+        <h2>Speaker Notes</h2>
+        <button id="closeNotesBtn" class="btn icon" aria-label="Close notes">×</button>
+      </div>
+      <div id="notesBody" class="drawer-body"></div>
+    </aside>
+  </section>
 
-function buildDeck(files){
-  // Clean up any previous deck
-  revokeObjectUrls();
-  deck.innerHTML = '';
-  dotsEl.innerHTML = '';
-  i = 0;
-  slideCount = files.length;
+  <button id="zenExitBtn" class="btn zen-exit">Exit Zen <kbd>Z</kbd></button>
 
-  files.forEach((file, idx) => {
-    const url = URL.createObjectURL(file);
-    objectUrls.push(url);
+  <section id="helpOverlay" class="overlay hidden" aria-modal="true" role="dialog" aria-labelledby="helpTitle">
+    <div class="dialog">
+      <div class="dialog-head">
+        <h2 id="helpTitle">Keyboard Shortcuts</h2>
+        <button class="btn icon" data-close="helpOverlay" aria-label="Close">×</button>
+      </div>
+      <div class="dialog-body">
+        <div class="shortcut-grid">
+          <div class="shortcut"><span>Next slide</span><kbd>→</kbd></div>
+          <div class="shortcut"><span>Previous slide</span><kbd>←</kbd></div>
+          <div class="shortcut"><span>Next slide</span><kbd>Space</kbd></div>
+          <div class="shortcut"><span>First slide</span><kbd>Home</kbd></div>
+          <div class="shortcut"><span>Last slide</span><kbd>End</kbd></div>
+          <div class="shortcut"><span>Overview grid</span><kbd>O</kbd></div>
+          <div class="shortcut"><span>Speaker notes</span><kbd>N</kbd></div>
+          <div class="shortcut"><span>Presenter window</span><kbd>P</kbd></div>
+          <div class="shortcut"><span>Fullscreen</span><kbd>F</kbd></div>
+          <div class="shortcut"><span>Zen mode</span><kbd>Z</kbd></div>
+          <div class="shortcut"><span>Slide list</span><kbd>L</kbd></div>
+          <div class="shortcut"><span>Theme mode</span><kbd>M</kbd></div>
+          <div class="shortcut"><span>Open deck</span><kbd>D</kbd></div>
+          <div class="shortcut"><span>Help</span><kbd>?</kbd></div>
+          <div class="shortcut"><span>Close overlay</span><kbd>Esc</kbd></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    const iframe = document.createElement('iframe');
-    iframe.className = 'slide';
-    iframe.src = url;
-    deck.appendChild(iframe);
+  <section id="overviewOverlay" class="overlay hidden" aria-modal="true" role="dialog" aria-labelledby="overviewTitle">
+    <div class="dialog">
+      <div class="dialog-head">
+        <h2 id="overviewTitle">Slide Overview</h2>
+        <button class="btn icon" data-close="overviewOverlay" aria-label="Close">×</button>
+      </div>
+      <div class="dialog-body">
+        <div id="overviewGrid"></div>
+      </div>
+    </div>
+  </section>
 
-    const dot = document.createElement('div');
-    dot.className = 'dot' + (idx === 0 ? ' active' : '');
-    dot.addEventListener('click', () => goTo(idx));
-    dotsEl.appendChild(dot);
-  });
+  <script>
+    // Cache DOM references in one place so behavior functions stay readable.
+    const els = {
+      body: document.body,
+      picker: document.getElementById('picker'),
+      landingTools: document.querySelector('.landing-tools'),
+      app: document.getElementById('app'),
+      dropZone: document.getElementById('dropZone'),
+      pickBtn: document.getElementById('pickBtn'),
+      pickFilesBtn: document.getElementById('pickFilesBtn'),
+      landingThemeBtn: document.getElementById('landingThemeBtn'),
+      folderInput: document.getElementById('folderInput'),
+      fileInput: document.getElementById('fileInput'),
+      errorMessage: document.getElementById('errorMessage'),
+      deck: document.getElementById('deck'),
+      deckName: document.getElementById('deckName'),
+      deckMeta: document.getElementById('deckMeta'),
+      slideList: document.getElementById('slideList'),
+      slideRange: document.getElementById('slideRange'),
+      counter: document.getElementById('counter'),
+      progressLabel: document.getElementById('progressLabel'),
+      notesPanel: document.getElementById('notesPanel'),
+      themeBtn: document.getElementById('themeBtn'),
+      notesDrawer: document.getElementById('notesDrawer'),
+      notesBody: document.getElementById('notesBody'),
+      overviewGrid: document.getElementById('overviewGrid'),
+      helpOverlay: document.getElementById('helpOverlay'),
+      overviewOverlay: document.getElementById('overviewOverlay')
+    };
 
-  picker.classList.add('hidden');
-  [deck, dotsEl, navPrev, navNext, counter, changeFolderBtn]
-    .forEach(el => el.classList.remove('hidden'));
+    let current = 0;
+    let slides = [];
+    let objectUrls = [];
+    let presenterWindow = null;
+    const storageKey = 'htmlSlideViewerState';
 
-  updateCounter();
-}
+    // Restore only lightweight preferences. Browsers require users to pick local folders again.
+    const saved = readState();
+    setTheme(saved.theme || 'dark');
 
-function resetToPicker(){
-  revokeObjectUrls();
-  deck.innerHTML = '';
-  dotsEl.innerHTML = '';
-  folderInput.value = '';
-  [deck, dotsEl, navPrev, navNext, counter, changeFolderBtn]
-    .forEach(el => el.classList.add('hidden'));
-  picker.classList.remove('hidden');
-}
+    els.pickBtn.addEventListener('click', openFolderPicker);
+    els.pickFilesBtn.addEventListener('click', openFilePicker);
+    els.landingThemeBtn.addEventListener('click', toggleTheme);
+    els.folderInput.addEventListener('change', e => loadFiles([...e.target.files]));
+    els.fileInput.addEventListener('change', e => loadFiles([...e.target.files]));
+    document.getElementById('changeFolder').addEventListener('click', openFolderPicker);
+    document.getElementById('firstBtn').addEventListener('click', () => goTo(0));
+    document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
+    document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
+    document.getElementById('lastBtn').addEventListener('click', () => goTo(slides.length - 1));
+    document.getElementById('navPrev').addEventListener('click', () => goTo(current - 1));
+    document.getElementById('navNext').addEventListener('click', () => goTo(current + 1));
+    document.getElementById('prevVisible').addEventListener('click', () => goTo(current - 1));
+    document.getElementById('nextVisible').addEventListener('click', () => goTo(current + 1));
+    document.getElementById('sidebarBtn').addEventListener('click', toggleSidebar);
+    document.getElementById('overviewBtn').addEventListener('click', openOverview);
+    document.getElementById('notesBtn').addEventListener('click', toggleNotes);
+    document.getElementById('presenterBtn').addEventListener('click', openPresenter);
+    document.getElementById('helpBtn').addEventListener('click', () => showOverlay(els.helpOverlay));
+    document.getElementById('fullscreenBtn').addEventListener('click', toggleFullscreen);
+    document.getElementById('themeBtn').addEventListener('click', toggleTheme);
+    document.getElementById('zenBtn').addEventListener('click', toggleZen);
+    document.getElementById('zenExitBtn').addEventListener('click', toggleZen);
+    document.getElementById('closeNotesBtn').addEventListener('click', closeNotes);
+    els.slideRange.addEventListener('input', e => goTo(Number(e.target.value) - 1));
 
-function revokeObjectUrls(){
-  objectUrls.forEach(u => URL.revokeObjectURL(u));
-  objectUrls = [];
-}
+    // Close buttons for modal overlays share the same data-close mechanism.
+    document.querySelectorAll('[data-close]').forEach(btn => {
+      btn.addEventListener('click', () => hideOverlay(document.getElementById(btn.dataset.close)));
+    });
 
-function goTo(n){
-  i = Math.max(0, Math.min(slideCount - 1, n));
-  deck.style.transform = `translateX(-${i * 100}vw)`;
-  [...dotsEl.children].forEach((d, idx) => d.classList.toggle('active', idx === i));
-  updateCounter();
-}
+    // Drag/drop is an enhancement. The picker buttons remain the reliable fallback.
+    ['dragenter', 'dragover'].forEach(type => {
+      els.dropZone.addEventListener(type, e => {
+        e.preventDefault();
+        els.dropZone.classList.add('dragging');
+      });
+    });
 
-function updateCounter(){
-  counter.textContent = `${i + 1} / ${slideCount}`;
-}
+    ['dragleave', 'drop'].forEach(type => {
+      els.dropZone.addEventListener(type, e => {
+        e.preventDefault();
+        els.dropZone.classList.remove('dragging');
+      });
+    });
 
-navPrev.addEventListener('click', () => goTo(i - 1));
-navNext.addEventListener('click', () => goTo(i + 1));
+    els.dropZone.addEventListener('drop', async e => {
+      const files = await filesFromDrop(e.dataTransfer);
+      loadFiles(files);
+    });
 
-document.addEventListener('keydown', e => {
-  if(slideCount === 0) return;
-  if(e.key === 'ArrowRight' || e.key === ' ') goTo(i + 1);
-  if(e.key === 'ArrowLeft') goTo(i - 1);
-});
+    // Keyboard shortcuts mirror visible controls. Keep README.md in sync when changing these.
+    document.addEventListener('keydown', e => {
+      if (e.target.matches('input,textarea,select')) return;
+      const key = e.key.toLowerCase();
+      const overlayOpen = !els.helpOverlay.classList.contains('hidden') || !els.overviewOverlay.classList.contains('hidden');
 
-// Touch swipe
-let startX = 0;
-document.addEventListener('touchstart', e => startX = e.touches[0].clientX);
-document.addEventListener('touchend', e => {
-  if(slideCount === 0) return;
-  const diff = e.changedTouches[0].clientX - startX;
-  if(diff < -50) goTo(i + 1);
-  if(diff > 50) goTo(i - 1);
-});
-</script>
+      if (e.key === 'Escape') {
+        if (overlayOpen) hideAllOverlays();
+        else if (notesOpen()) closeNotes();
+        else if (els.body.classList.contains('zen')) toggleZen();
+        return;
+      }
+      if (e.key === '?' || key === 'h') {
+        showOverlay(els.helpOverlay);
+        return;
+      }
+      if (overlayOpen) return;
+      if (key === 'm') {
+        toggleTheme();
+        return;
+      }
+      if (!slides.length) {
+        if (key === 'd') openFolderPicker();
+        return;
+      }
+
+      if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+        e.preventDefault();
+        goTo(current + 1);
+      }
+      if (e.key === 'ArrowLeft' || e.key === 'PageUp') goTo(current - 1);
+      if (e.key === 'Home') goTo(0);
+      if (e.key === 'End') goTo(slides.length - 1);
+      if (key === 'o') openOverview();
+      if (key === 'n') toggleNotes();
+      if (key === 'p') openPresenter();
+      if (key === 'f') toggleFullscreen();
+      if (key === 'z') toggleZen();
+      if (key === 'l') toggleSidebar();
+      if (key === 'd') openFolderPicker();
+    });
+
+    // Touch swipe is intentionally simple and only changes slides.
+    let startX = 0;
+    document.addEventListener('touchstart', e => startX = e.touches[0].clientX, { passive: true });
+    document.addEventListener('touchend', e => {
+      if (!slides.length) return;
+      const diff = e.changedTouches[0].clientX - startX;
+      if (diff < -50) goTo(current + 1);
+      if (diff > 50) goTo(current - 1);
+    }, { passive: true });
+
+    window.addEventListener('hashchange', () => {
+      const fromHash = slideFromHash();
+      if (slides.length && fromHash !== null && fromHash !== current) goTo(fromHash, { skipHash: true });
+    });
+
+    // File inputs are cleared before opening so choosing the same deck again still fires change.
+    function openFolderPicker() {
+      els.folderInput.value = '';
+      els.folderInput.click();
+    }
+
+    function openFilePicker() {
+      els.fileInput.value = '';
+      els.fileInput.click();
+    }
+
+    // Load selected HTML files, derive titles/notes, create local object URLs, then build the deck UI.
+    async function loadFiles(inputFiles) {
+      clearError();
+      const files = inputFiles
+        .filter(file => /\.html?$/i.test(file.name))
+        .sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' }));
+
+      if (!files.length) {
+        showError('No .html or .htm slide files were found.');
+        return;
+      }
+
+      revokeObjectUrls();
+      slides = await Promise.all(files.map(async file => {
+        const text = await file.text();
+        const parsed = parseSlideMeta(text, file.name);
+        const url = URL.createObjectURL(file);
+        objectUrls.push(url);
+        return {
+          file,
+          url,
+          title: parsed.title,
+          notes: parsed.notes,
+          folder: folderName(file)
+        };
+      }));
+
+      const preferred = slideFromHash();
+      const remembered = saved.lastSlide && saved.lastDeckName === deckLabel(slides) ? saved.lastSlide - 1 : 0;
+      current = Math.max(0, Math.min(slides.length - 1, preferred ?? remembered));
+      buildDeck();
+    }
+
+    // Rebuild all deck-derived UI surfaces from the current slides array.
+    function buildDeck() {
+      els.deck.innerHTML = '';
+      els.slideList.innerHTML = '';
+      els.overviewGrid.innerHTML = '';
+
+      slides.forEach((slide, idx) => {
+        const iframe = document.createElement('iframe');
+        iframe.className = 'slide';
+        iframe.src = slide.url;
+        iframe.title = slide.title || slide.file.name;
+        els.deck.appendChild(iframe);
+
+        const item = document.createElement('button');
+        item.className = 'slide-item';
+        item.innerHTML = `<span class="slide-num">${idx + 1}</span><span class="slide-name">${escapeHtml(slide.title || slide.file.name)}</span>`;
+        item.addEventListener('click', () => goTo(idx));
+        els.slideList.appendChild(item);
+
+        const thumb = document.createElement('button');
+        thumb.className = 'thumb';
+        thumb.innerHTML = `
+      <div class="thumb-frame"><iframe src="${slide.url}" title="${escapeHtml(slide.title)} preview" tabindex="-1"></iframe></div>
+      <div class="thumb-title"><span>${idx + 1}</span><strong>${escapeHtml(slide.title || slide.file.name)}</strong></div>
+    `;
+        thumb.addEventListener('click', () => {
+          hideOverlay(els.overviewOverlay);
+          goTo(idx);
+        });
+        els.overviewGrid.appendChild(thumb);
+      });
+
+      els.deckName.textContent = deckLabel(slides);
+      els.deckMeta.textContent = `${slides.length} slide${slides.length === 1 ? '' : 's'} loaded`;
+      els.slideRange.max = slides.length;
+      els.picker.classList.add('hidden');
+      els.landingTools.classList.add('hidden');
+      els.app.classList.remove('hidden');
+      goTo(current, { skipHash: false });
+    }
+
+    // Central slide navigation path. All buttons, keys, range input, and deep links route through here.
+    function goTo(index, options = {}) {
+      if (!slides.length) return;
+      current = Math.max(0, Math.min(slides.length - 1, index));
+      els.deck.style.transform = `translateX(-${current * 100}%)`;
+      els.slideRange.value = current + 1;
+      els.counter.textContent = `${current + 1} / ${slides.length}`;
+      const percent = Math.round(((current + 1) / slides.length) * 100);
+      els.progressLabel.textContent = `${percent}%`;
+      els.notesPanel.textContent = slides[current].notes ? `Notes: ${slides[current].notes}` : '';
+
+      document.querySelectorAll('.slide-item').forEach((item, idx) => item.classList.toggle('active', idx === current));
+      document.querySelectorAll('.thumb').forEach((item, idx) => item.classList.toggle('active', idx === current));
+      document.getElementById('prevBtn').disabled = current === 0;
+      document.getElementById('nextBtn').disabled = current === slides.length - 1;
+      document.getElementById('firstBtn').disabled = current === 0;
+      document.getElementById('lastBtn').disabled = current === slides.length - 1;
+      document.getElementById('prevVisible').disabled = current === 0;
+      document.getElementById('nextVisible').disabled = current === slides.length - 1;
+
+      if (!options.skipHash) history.replaceState(null, '', `#slide=${current + 1}`);
+      saveState({ lastDeckName: deckLabel(slides), lastSlide: current + 1, theme: els.body.dataset.theme });
+      updatePresenter();
+      if (notesOpen()) renderNotes();
+    }
+
+    // Extract display metadata without executing slide scripts.
+    function parseSlideMeta(html, fallback) {
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+      const title = (doc.querySelector('title')?.textContent || doc.querySelector('h1,h2')?.textContent || fallback).trim();
+      const notesEl = doc.querySelector('aside.notes,[data-notes],.speaker-notes');
+      const notes = notesEl ? notesEl.textContent.trim().replace(/\s+/g, ' ') : '';
+      return { title, notes };
+    }
+
+    // Browser folder drops expose directory entries recursively in Chromium/Safari-style APIs.
+    async function filesFromDrop(dataTransfer) {
+      const items = [...dataTransfer.items || []];
+      if (items.length && items[0].webkitGetAsEntry) {
+        const files = [];
+        await Promise.all(items.map(item => traverseEntry(item.webkitGetAsEntry(), files)));
+        return files;
+      }
+      return [...dataTransfer.files || []];
+    }
+
+    function traverseEntry(entry, files) {
+      return new Promise(resolve => {
+        if (!entry) return resolve();
+        if (entry.isFile) {
+          entry.file(file => {
+            files.push(file);
+            resolve();
+          });
+          return;
+        }
+        if (entry.isDirectory) {
+          const reader = entry.createReader();
+          const readBatch = () => {
+            reader.readEntries(async entries => {
+              if (!entries.length) return resolve();
+              await Promise.all(entries.map(child => traverseEntry(child, files)));
+              readBatch();
+            });
+          };
+          readBatch();
+          return;
+        }
+        resolve();
+      });
+    }
+
+    // Overview is modal because it is a temporary slide-picking task.
+    function openOverview() {
+      if (!slides.length) return;
+      showOverlay(els.overviewOverlay);
+      els.overviewGrid.children[current]?.scrollIntoView({ block: 'nearest' });
+    }
+
+    // Notes are docked, not modal, so presenters can keep navigating while reading them.
+    function toggleNotes() {
+      if (!slides.length) return;
+      if (notesOpen()) {
+        closeNotes();
+        return;
+      }
+      openNotes();
+    }
+
+    function openNotes() {
+      renderNotes();
+      els.notesDrawer.classList.remove('hidden');
+      document.getElementById('notesBtn').classList.add('active');
+    }
+
+    function closeNotes() {
+      els.notesDrawer.classList.add('hidden');
+      document.getElementById('notesBtn').classList.remove('active');
+    }
+
+    function notesOpen() {
+      return !els.notesDrawer.classList.contains('hidden');
+    }
+
+    function renderNotes() {
+      const slide = slides[current];
+      els.notesBody.innerHTML = slide.notes
+        ? `<p>${escapeHtml(slide.notes)}</p>`
+        : '<p>No speaker notes found for this slide. Add <code>&lt;aside class="notes"&gt;...&lt;/aside&gt;</code> to a slide file to show notes here.</p>';
+    }
+
+    // Presenter mode opens a separate local window with notes and timer only.
+    function openPresenter() {
+      if (!slides.length) return;
+      presenterWindow = window.open('', 'htmlSlidePresenter', 'width=720,height=520');
+      if (!presenterWindow) {
+        alert('The presenter window was blocked by the browser. Allow pop-ups for this file and try again.');
+        return;
+      }
+      presenterWindow.document.write(`<!DOCTYPE html><html><head><title>Presenter</title><style>
+    body{margin:0;font-family:system-ui,sans-serif;background:#0b1020;color:#f8fafc}
+    main{padding:24px;display:grid;gap:18px}
+    .meta{color:#94a3b8;font-size:.95rem}
+    h1{margin:0;font-size:2rem}
+    .notes{border:1px solid rgba(148,163,184,.28);border-radius:8px;padding:16px;min-height:160px;line-height:1.55;background:#111827}
+    .timer{font-variant-numeric:tabular-nums;color:#38bdf8;font-weight:700}
+  </style></head><body><main>
+    <div class="meta"><span id="count"></span> · <span class="timer" id="timer">00:00</span></div>
+    <h1 id="title"></h1>
+    <section class="notes" id="notes"></section>
+  </main><script>
+    const started = Date.now();
+    setInterval(() => {
+      const s = Math.floor((Date.now() - started) / 1000);
+      timer.textContent = String(Math.floor(s / 60)).padStart(2,'0') + ':' + String(s % 60).padStart(2,'0');
+    }, 500);
+  <\/script></body></html>`);
+      presenterWindow.document.close();
+      updatePresenter();
+    }
+
+    function updatePresenter() {
+      if (!presenterWindow || presenterWindow.closed || !slides[current]) return;
+      presenterWindow.document.getElementById('count').textContent = `Slide ${current + 1} / ${slides.length}`;
+      presenterWindow.document.getElementById('title').textContent = slides[current].title;
+      presenterWindow.document.getElementById('notes').textContent = slides[current].notes || 'No speaker notes for this slide.';
+    }
+
+    // Fullscreen and zen are separate: fullscreen asks the browser for screen space; zen hides viewer chrome.
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen?.();
+      else document.exitFullscreen?.();
+    }
+
+    function toggleZen() {
+      if (!slides.length) return;
+      hideAllOverlays();
+      closeNotes();
+      els.body.classList.toggle('zen');
+    }
+
+    // Theme changes are local viewer preferences and do not affect slide iframe contents.
+    function toggleTheme() {
+      setTheme(els.body.dataset.theme === 'dark' ? 'light' : 'dark');
+      saveState({ theme: els.body.dataset.theme });
+    }
+
+    function setTheme(theme) {
+      els.body.dataset.theme = theme === 'light' ? 'light' : 'dark';
+      const nextLabel = els.body.dataset.theme === 'dark' ? 'Light Mode' : 'Dark Mode';
+      els.landingThemeBtn.innerHTML = `${nextLabel} <kbd>M</kbd>`;
+      els.landingThemeBtn.title = `${nextLabel} (M)`;
+      els.themeBtn.textContent = els.body.dataset.theme === 'dark' ? '☾' : '☀';
+      els.themeBtn.title = `${nextLabel} (M)`;
+    }
+
+    function toggleSidebar() {
+      els.app.classList.toggle('sidebar-collapsed');
+    }
+
+    function showOverlay(overlay) {
+      hideAllOverlays();
+      overlay.classList.remove('hidden');
+    }
+
+    function hideOverlay(overlay) {
+      overlay.classList.add('hidden');
+    }
+
+    function hideAllOverlays() {
+      [els.helpOverlay, els.overviewOverlay].forEach(hideOverlay);
+    }
+
+    function showError(message) {
+      els.errorMessage.textContent = message;
+    }
+
+    function clearError() {
+      els.errorMessage.textContent = '';
+    }
+
+    function deckLabel(deckSlides) {
+      return deckSlides[0]?.folder || 'Selected slides';
+    }
+
+    function folderName(file) {
+      const path = file.webkitRelativePath || file.name;
+      const parts = path.split('/').filter(Boolean);
+      return parts.length > 1 ? parts[0] : 'Selected slides';
+    }
+
+    function slideFromHash() {
+      const match = location.hash.match(/slide=(\d+)/i);
+      if (!match) return null;
+      return Number(match[1]) - 1;
+    }
+
+    // Small persistence helpers. Never store slide contents.
+    function readState() {
+      try { return JSON.parse(localStorage.getItem(storageKey)) || {}; }
+      catch { return {}; }
+    }
+
+    function saveState(next) {
+      const state = { ...readState(), ...next };
+      localStorage.setItem(storageKey, JSON.stringify(state));
+    }
+
+    // Always revoke old local object URLs when replacing decks to avoid leaking memory.
+    function revokeObjectUrls() {
+      objectUrls.forEach(url => URL.revokeObjectURL(url));
+      objectUrls = [];
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, char => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+      }[char]));
+    }
+  </script>
 </body>
+
 </html>
