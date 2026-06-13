@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Code Snippet — Light</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      background: #f9fafb;
+      color: #111827;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 48px;
+    }
+
+    h2 {
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    .sub {
+      font-size: 0.95rem;
+      color: #6b7280;
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .code-window {
+      width: 100%;
+      max-width: 760px;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    }
+
+    .window-bar {
+      background: #f3f4f6;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .dot-r {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #f87171;
+    }
+
+    .dot-y {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #fbbf24;
+    }
+
+    .dot-g {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #34d399;
+    }
+
+    .filename {
+      font-size: 0.8rem;
+      color: #6b7280;
+      margin-left: 8px;
+      font-family: monospace;
+    }
+
+    pre {
+      background: #ffffff;
+      padding: 28px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
+    .kw {
+      color: #7c3aed;
+      font-weight: 600;
+    }
+
+    .fn {
+      color: #2563eb;
+    }
+
+    .str {
+      color: #059669;
+    }
+
+    .cmt {
+      color: #9ca3af;
+      font-style: italic;
+    }
+
+    .num {
+      color: #db2777;
+    }
+
+    aside.notes {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Minimal Async Fetch Pattern</h2>
+  <p class="sub">Error-safe, composable, and easy to test</p>
+
+  <div class="code-window">
+    <div class="window-bar">
+      <div class="dot-r"></div>
+      <div class="dot-y"></div>
+      <div class="dot-g"></div>
+      <span class="filename">api.ts</span>
+    </div>
+    <pre><span class="cmt">// Generic fetch wrapper with typed errors</span>
+<span class="kw">async function</span> <span class="fn">fetchData</span>&lt;T&gt;(
+  url: <span class="kw">string</span>,
+  options?: RequestInit
+): Promise&lt;{ data: T | <span class="kw">null</span>; error: <span class="kw">string</span> | <span class="kw">null</span> }&gt; {
+  <span class="kw">try</span> {
+    <span class="kw">const</span> res = <span class="kw">await</span> fetch(url, options);
+    <span class="kw">if</span> (!res.ok) <span class="kw">throw new</span> <span class="fn">Error</span>(<span class="str">`HTTP </span>${res.status}<span class="str">`</span>);
+    <span class="kw">const</span> data = <span class="kw">await</span> res.<span class="fn">json</span>();
+    <span class="kw">return</span> { data, error: <span class="kw">null</span> };
+  } <span class="kw">catch</span> (err) {
+    <span class="kw">return</span> { data: <span class="kw">null</span>, error: (err <span class="kw">as</span> Error).message };
+  }
+}</pre>
+  </div>
+
+  <aside class="notes">
+    Key points: generic type T keeps it reusable, try/catch prevents unhandled
+    rejections, the return shape is consistent so callers never need to check
+    if data is undefined. Swap the fetch call for any HTTP client.
+  </aside>
+</body>
+
+</html>

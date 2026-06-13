@@ -133,6 +133,20 @@ Each slide is a standalone HTML file. Use whatever HTML, CSS, and JavaScript you
 
 **File naming matters:** The viewer sorts slides naturally, so `slide02.html` appears before `slide10.html`.
 
+## Slide Templates
+
+The `300-templates/` folder contains ready-to-use starting points:
+
+| Template         | Description                                        |
+| ---------------- | -------------------------------------------------- |
+| `100-basic.html` | Minimal starter — copy and customise               |
+| `200-light/`     | 25 light-theme layouts with varied colour palettes |
+| `300-dark/`      | 25 dark-theme layouts with varied colour palettes  |
+
+Templates cover 25 distinct layout patterns including: classic title, title+body with divider, split diagram+text, image focus, three columns, big quote, stats/numbers, section header, agenda, two-column comparison, horizontal timeline, code snippet, image+text overlay, 2×2 grid cards, consulting style, bold statement, data table, horizontal band split, accent sidebar, pastel gradient, diagonal split, top accent band, minimal typography, visual pyramid, and full-bleed solid colour.
+
+To start a new slide, copy `100-basic.html`, rename it following your deck's numbering scheme, and adapt the content and styles.
+
 ## Advanced Features
 
 ### Speaker Notes

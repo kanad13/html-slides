@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Top Accent Band — Dark Electric</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .top-band {
+      background: linear-gradient(90deg, #7c3aed, #2563eb);
+      padding: 24px 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .top-band h1 {
+      font-size: clamp(1.4rem, 3vw, 2.2rem);
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .top-band .slide-meta {
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.6);
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .stripe {
+      height: 3px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .content {
+      flex: 1;
+      background: #0f172a;
+      padding: 40px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .col-heading {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #334155;
+      border-bottom: 1px solid #1e293b;
+      padding-bottom: 10px;
+      margin-bottom: 18px;
+    }
+
+    ul {
+      padding-left: 0;
+      list-style: none;
+      display: grid;
+      gap: 11px;
+    }
+
+    li {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #64748b;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    li::before {
+      content: "—";
+      position: absolute;
+      left: 0;
+      color: #7c3aed;
+      font-weight: 700;
+    }
+
+    aside.notes {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="top-band">
+    <h1>Revenue Growth Strategy — FY2026</h1>
+    <div class="slide-meta">Board Presentation<br>Q4 Review</div>
+  </div>
+  <div class="stripe"></div>
+
+  <div class="content">
+    <div class="two-col">
+      <div>
+        <p class="col-heading">Core Markets</p>
+        <ul>
+          <li>Double-down on enterprise segment (80 % of ARR)</li>
+          <li>Expand into APAC — launch Singapore office H1</li>
+          <li>Deepen partner channel to cover SMB without direct sales</li>
+        </ul>
+      </div>
+      <div>
+        <p class="col-heading">Growth Levers</p>
+        <ul>
+          <li>Seat expansion — current accounts at 40 % penetration</li>
+          <li>Platform upsell — analytics module now GA</li>
+          <li>Professional services as a land-and-expand motion</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <aside class="notes">
+    The gradient band signals premium context — high-stakes board-level content.
+    Spend 60 % of the time on the column driving the most revenue for this audience.
+  </aside>
+</body>
+
+</html>

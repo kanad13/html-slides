@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Horizontal Band Split — Dark Crimson</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .band-top {
+      background: #9f1239;
+      padding: 36px 60px 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      flex: 0 0 38%;
+    }
+
+    .eyebrow {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255, 182, 193, 0.7);
+      margin-bottom: 10px;
+    }
+
+    .band-top h1 {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.15;
+    }
+
+    .band-bottom {
+      background: #0a0a14;
+      padding: 36px 60px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .points {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      max-width: 760px;
+    }
+
+    .point {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .point-icon {
+      font-size: 1.6rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .point-text strong {
+      display: block;
+      font-size: 0.97rem;
+      font-weight: 700;
+      color: #f43f5e;
+      margin-bottom: 4px;
+    }
+
+    .point-text span {
+      font-size: 0.88rem;
+      color: #475569;
+      line-height: 1.55;
+    }
+
+    aside.notes {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="band-top">
+    <p class="eyebrow">Strategic Initiative</p>
+    <h1>Rebuilding for the Next Decade of Growth</h1>
+  </div>
+
+  <div class="band-bottom">
+    <div class="points">
+      <div class="point">
+        <span class="point-icon">📐</span>
+        <div class="point-text">
+          <strong>Scalable Architecture</strong>
+          <span>Designed to handle 100× current load without re-platforming.</span>
+        </div>
+      </div>
+      <div class="point">
+        <span class="point-icon">👥</span>
+        <div class="point-text">
+          <strong>Team Autonomy</strong>
+          <span>Each squad ships independently with no cross-team blocking.</span>
+        </div>
+      </div>
+      <div class="point">
+        <span class="point-icon">💸</span>
+        <div class="point-text">
+          <strong>Unit Economics</strong>
+          <span>Cost per transaction drops 60 % by Year 2 of the programme.</span>
+        </div>
+      </div>
+      <div class="point">
+        <span class="point-icon">🔄</span>
+        <div class="point-text">
+          <strong>Continuous Delivery</strong>
+          <span>Multiple deployments per day with zero-downtime releases.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <aside class="notes">
+    The crimson band creates urgency and authority.
+    Spend 60 % of the time on whichever point drives the most value for this audience.
+  </aside>
+</body>
+
+</html>

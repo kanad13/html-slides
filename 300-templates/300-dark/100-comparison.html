@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Two-Column Comparison — Dark Forest Lime</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      background: #052e16;
+      color: #dcfce7;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 48px;
+    }
+
+    h2 {
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 700;
+      color: #84cc16;
+      margin-bottom: 36px;
+      text-align: center;
+    }
+
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr 1px 1fr;
+      max-width: 820px;
+      width: 100%;
+    }
+
+    .col {
+      padding: 0 36px;
+    }
+
+    .col-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 8px 14px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      display: inline-block;
+    }
+
+    .col-a .col-label {
+      background: rgba(132, 204, 22, 0.15);
+      color: #a3e635;
+      border: 1px solid rgba(132, 204, 22, 0.3);
+    }
+
+    .col-b .col-label {
+      background: rgba(74, 222, 128, 0.15);
+      color: #4ade80;
+      border: 1px solid rgba(74, 222, 128, 0.3);
+    }
+
+    .divider-line {
+      background: rgba(132, 204, 22, 0.15);
+    }
+
+    ul {
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+
+    li {
+      font-size: 0.95rem;
+      line-height: 1.55;
+      color: #86efac;
+      padding-left: 22px;
+      position: relative;
+    }
+
+    .col-a li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #84cc16;
+      font-weight: 700;
+    }
+
+    .col-b li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #4ade80;
+      font-weight: 700;
+    }
+
+    aside.notes {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Approach A vs Approach B</h2>
+
+  <div class="comparison">
+    <div class="col col-a">
+      <span class="col-label">Option A — Migrate</span>
+      <ul>
+        <li>Lower upfront cost, phased investment</li>
+        <li>Familiar tooling for existing team</li>
+        <li>Risk is isolated to migration windows</li>
+        <li>Reversible within first 6 months</li>
+      </ul>
+    </div>
+    <div class="divider-line"></div>
+    <div class="col col-b">
+      <span class="col-label">Option B — Rebuild</span>
+      <ul>
+        <li>Clean-slate architecture, no legacy debt</li>
+        <li>Enables new capabilities from day one</li>
+        <li>Better long-term performance ceiling</li>
+        <li>Stronger hiring story for engineers</li>
+      </ul>
+    </div>
+  </div>
+
+  <aside class="notes">
+    Both options are viable — the decision hinges on risk appetite and timeline.
+    If leaning Option A, probe the long-term cost of carried tech debt.
+    If leaning Option B, probe resource requirement and disruption during rebuild.
+  </aside>
+</body>
+
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gradient + Glass — Dark Navy Purple</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 52px;
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 40%, #3b0764 100%);
+    }
+
+    .slide {
+      max-width: 760px;
+      width: 100%;
+      display: grid;
+      gap: 20px;
+    }
+
+    h2 {
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 700;
+      color: #e9d5ff;
+      text-align: center;
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      color: #7c3aed;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 24px;
+    }
+
+    .card-icon {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .card h3 {
+      font-size: 0.97rem;
+      font-weight: 700;
+      color: #c4b5fd;
+      margin-bottom: 6px;
+    }
+
+    .card p {
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: rgba(196, 181, 253, 0.5);
+    }
+
+    /* Emphasis cards: brighter text */
+    .card.emphasis p {
+      color: rgba(196, 181, 253, 0.8);
+      font-weight: 400;
+    }
+
+    aside.notes {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="slide">
+    <div>
+      <h2>Designing for Delight</h2>
+      <p class="subtitle">Small moments of joy compound into lasting loyalty</p>
+    </div>
+
+    <div class="cards">
+      <div class="card emphasis">
+        <span class="card-icon">✨</span>
+        <h3>Micro-interactions</h3>
+        <p>Subtle animations and feedback loops that confirm actions and reduce anxiety.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🎨</span>
+        <h3>Cohesive Visual Language</h3>
+        <p>Colour, type, and spacing working together to express a single personality.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">⚡</span>
+        <h3>Perceived Performance</h3>
+        <p>Optimistic UI patterns that feel instant, even when the network is slow.</p>
+      </div>
+      <div class="card emphasis">
+        <span class="card-icon">🤝</span>
+        <h3>Trust Signals</h3>
+        <p>Transparency about data use, errors, and limitations builds long-term confidence.</p>
+      </div>
+    </div>
+  </div>
+
+  <aside class="notes">
+    The deep gradient + frosted glass combination creates a premium feel.
+    The "emphasis" class uses brighter text to create visual hierarchy within the glass cards.
+    Perfect for product vision or design-forward presentations.
+  </aside>
+</body>
+
+</html>

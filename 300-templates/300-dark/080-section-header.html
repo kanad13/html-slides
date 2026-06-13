@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Section Header — Dark Black Crimson</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      background: #050505;
+      color: #f1f5f9;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px;
+    }
+
+    .slide {
+      max-width: 700px;
+      width: 100%;
+    }
+
+    .chapter-num {
+      font-size: 6rem;
+      font-weight: 800;
+      color: rgba(225, 29, 72, 0.12);
+      line-height: 1;
+      margin-bottom: 0;
+      display: block;
+    }
+
+    .section-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #e11d48;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 800;
+      color: #f1f5f9;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .accent-bar {
+      width: 72px;
+      height: 3px;
+      background: #e11d48;
+      border-radius: 2px;
+      margin-bottom: 24px;
+    }
+
+    .description {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: #64748b;
+    }
+
+    aside.notes {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="slide">
+    <span class="chapter-num">02</span>
+    <span class="section-label">Section Two</span>
+    <h1>Understanding the Market</h1>
+    <div class="accent-bar"></div>
+    <p class="description">
+      In this section we examine the competitive landscape, identify white-space
+      opportunities, and map customer needs to product capabilities.
+    </p>
+  </div>
+
+  <aside class="notes">
+    Section-break slide — brief and orienting.
+    Tell the audience what they just covered, what's coming, and why it matters.
+    Good moment to take a breath and check the room.
+  </aside>
+</body>
+
+</html>

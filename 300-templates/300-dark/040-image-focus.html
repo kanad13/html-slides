@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Image Focus — Dark</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      background: #000000;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      padding: 24px;
+      gap: 16px;
+    }
+
+    .image-area {
+      flex: 1;
+      border-radius: 10px;
+      background: #111111;
+      border: 1px solid #2a2a2a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .placeholder-content {
+      text-align: center;
+      color: #3a3a3a;
+      pointer-events: none;
+    }
+
+    .placeholder-icon {
+      font-size: 3.5rem;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .placeholder-text {
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #3a3a3a;
+    }
+
+    .caption {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 4px;
+    }
+
+    .caption-text {
+      font-size: 0.95rem;
+      color: #6b7280;
+      font-style: italic;
+    }
+
+    .caption-source {
+      font-size: 0.78rem;
+      color: #374151;
+    }
+
+    aside.notes {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="image-area">
+    <div class="placeholder-content">
+      <span class="placeholder-icon">🖼</span>
+      <p class="placeholder-text">Replace with your image</p>
+    </div>
+  </div>
+
+  <div class="caption">
+    <span class="caption-text">One powerful image, zero distractions.</span>
+    <span class="caption-source">Source / Credit</span>
+  </div>
+
+  <aside class="notes">
+    Let the image breathe. On a black background, images have maximum impact.
+    Don't add text on top. Tell the story verbally.
+    Give the audience 5 seconds to take the image in before speaking.
+  </aside>
+</body>
+
+</html>

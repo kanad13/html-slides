@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Image + Text Overlay — Light</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-start;
+      padding: 36px;
+    }
+
+    /* Full-bleed image placeholder */
+    .bg-image {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #dde4ee 0%, #b8c8e8 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 0;
+    }
+
+    .bg-placeholder {
+      color: #8fa3c0;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .bg-placeholder span {
+      font-size: 3rem;
+      display: block;
+      margin-bottom: 8px;
+      opacity: 0.4;
+    }
+
+    /* Text card overlay */
+    .card {
+      position: relative;
+      z-index: 1;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 14px;
+      padding: 32px 36px;
+      max-width: 480px;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+    }
+
+    .card-eyebrow {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #2563eb;
+      margin-bottom: 10px;
+    }
+
+    .card h2 {
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 12px;
+      line-height: 1.25;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: #334155;
+    }
+
+    aside.notes {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bg-image">
+    <div class="bg-placeholder">
+      <span>🏔</span>
+      Replace with your full-bleed image
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-eyebrow">Case Study · 2025</div>
+    <h2>Transforming the Customer Experience</h2>
+    <p>
+      By rethinking every touchpoint from first visit to renewal, we reduced
+      churn by 38 % while growing NPS from 34 to 61 in a single quarter.
+    </p>
+  </div>
+
+  <aside class="notes">
+    Let the image create an emotional context before you speak.
+    The card anchors the key takeaway — make sure the image and the text
+    reinforce each other thematically. Don't cover more than one idea here.
+  </aside>
+</body>
+
+</html>

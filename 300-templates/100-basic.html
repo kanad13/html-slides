@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- ① Change this to your slide's topic -->
+  <title>Slide Title</title>
+  <style>
+    /* ── Reset ── */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      /* ② Swap background color / gradient to match your deck's theme */
+      background: #ffffff;
+      color: #1e293b;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px;
+    }
+
+    /* ── Main content wrapper ── */
+    .slide {
+      max-width: 760px;
+      width: 100%;
+    }
+
+    /* ── Title ── */
+    h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 12px;
+      color: #1e293b;
+    }
+
+    /* ③ Accent line — change color to your accent hue */
+    .accent-line {
+      width: 56px;
+      height: 4px;
+      background: #2563eb;
+      border-radius: 2px;
+      margin-bottom: 28px;
+    }
+
+    /* ── Body text ── */
+    p {
+      font-size: 1.1rem;
+      line-height: 1.75;
+      color: #475569;
+      margin-bottom: 14px;
+    }
+
+    /* ── Optional bullet list ── */
+    ul {
+      padding-left: 1.4em;
+      margin-top: 8px;
+    }
+
+    li {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: #475569;
+      margin-bottom: 6px;
+    }
+
+    /* ── Speaker notes: hidden in the slide, shown in the viewer's notes panel ── */
+    aside.notes {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="slide">
+    <!-- ④ Replace with your slide title -->
+    <h1>Slide Title Here</h1>
+    <div class="accent-line"></div>
+
+    <!-- ⑤ Replace with your slide content -->
+    <p>
+      Add your main body content here. This is the minimal starting template —
+      change the title, text, colors, and layout to match your deck's style.
+    </p>
+    <p>
+      Keep it focused: one clear idea per slide works best. If you need more
+      detail, use the speaker notes below instead of crowding the slide.
+    </p>
+
+    <!-- Optional bullet list — remove if not needed -->
+    <ul>
+      <li>First key point</li>
+      <li>Second key point</li>
+      <li>Third key point</li>
+    </ul>
+  </div>
+
+  <!-- ⑥ Press N in the viewer to reveal notes, or P for presenter window -->
+  <aside class="notes">
+    Write your speaker notes here. These are private — visible only in the
+    notes panel or presenter window, never shown to the audience.
+    Tip: write talking cues, not a full script. Short phrases work best.
+  </aside>
+</body>
+
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Code Snippet — Dark Terminal</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      background: #0d1117;
+      color: #e6edf3;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 48px;
+    }
+
+    h2 {
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      color: #e6edf3;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    .sub {
+      font-size: 0.95rem;
+      color: #484f58;
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .code-window {
+      width: 100%;
+      max-width: 760px;
+      border-radius: 10px;
+      border: 1px solid #30363d;
+      overflow: hidden;
+    }
+
+    .window-bar {
+      background: #161b22;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid #30363d;
+    }
+
+    .dot-r {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #ff5f57;
+    }
+
+    .dot-y {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #febc2e;
+    }
+
+    .dot-g {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #28c840;
+    }
+
+    .filename {
+      font-size: 0.8rem;
+      color: #484f58;
+      margin-left: 8px;
+      font-family: monospace;
+    }
+
+    pre {
+      background: #0d1117;
+      padding: 28px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.88rem;
+      line-height: 1.75;
+    }
+
+    /* GitHub-style terminal green syntax */
+    .kw {
+      color: #ff7b72;
+      font-weight: 600;
+    }
+
+    .fn {
+      color: #d2a8ff;
+    }
+
+    .str {
+      color: #a5d6ff;
+    }
+
+    .cmt {
+      color: #8b949e;
+      font-style: italic;
+    }
+
+    .num {
+      color: #79c0ff;
+    }
+
+    .def {
+      color: #ffa657;
+    }
+
+    aside.notes {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Minimal Async Fetch Pattern</h2>
+  <p class="sub">Error-safe, composable, and easy to test</p>
+
+  <div class="code-window">
+    <div class="window-bar">
+      <div class="dot-r"></div>
+      <div class="dot-y"></div>
+      <div class="dot-g"></div>
+      <span class="filename">api.ts</span>
+    </div>
+    <pre><span class="cmt">// Generic fetch wrapper with typed errors</span>
+<span class="kw">async function</span> <span class="fn">fetchData</span>&lt;T&gt;(
+  url: <span class="def">string</span>,
+  options?: <span class="def">RequestInit</span>
+): Promise&lt;{ data: T | <span class="kw">null</span>; error: <span class="def">string</span> | <span class="kw">null</span> }&gt; {
+  <span class="kw">try</span> {
+    <span class="kw">const</span> res = <span class="kw">await</span> <span class="fn">fetch</span>(url, options);
+    <span class="kw">if</span> (!res.ok) <span class="kw">throw new</span> <span class="fn">Error</span>(<span class="str">`HTTP </span>${res.status}<span class="str">`</span>);
+    <span class="kw">const</span> data = <span class="kw">await</span> res.<span class="fn">json</span>();
+    <span class="kw">return</span> { data, error: <span class="kw">null</span> };
+  } <span class="kw">catch</span> (err) {
+    <span class="kw">return</span> { data: <span class="kw">null</span>, error: (err <span class="kw">as</span> <span class="def">Error</span>).message };
+  }
+}</pre>
+  </div>
+
+  <aside class="notes">
+    Key points: generic type T keeps it reusable, try/catch prevents unhandled
+    rejections, the return shape is consistent so callers never need to check
+    if data is undefined.
+  </aside>
+</body>
+
+</html>

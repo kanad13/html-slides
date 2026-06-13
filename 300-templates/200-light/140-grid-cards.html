@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2×2 Grid Cards — Light Orange</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      background: #ffffff;
+      color: #1e293b;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 48px;
+    }
+
+    h2 {
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 36px;
+      text-align: center;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      max-width: 780px;
+      width: 100%;
+    }
+
+    .card {
+      padding: 28px;
+      border-radius: 14px;
+      border: 1px solid #fed7aa;
+      background: linear-gradient(140deg, #fff7ed, #fffbf5);
+      box-shadow: 0 4px 16px rgba(249, 115, 22, 0.06);
+    }
+
+    .card-icon {
+      font-size: 2rem;
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #c2410c;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      font-size: 0.92rem;
+      line-height: 1.65;
+      color: #57534e;
+    }
+
+    aside.notes {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>What Makes This Different</h2>
+
+  <div class="grid">
+    <div class="card">
+      <span class="card-icon">🚀</span>
+      <h3>10× Faster Setup</h3>
+      <p>From sign-up to first value in under 5 minutes — no documentation required.</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">🔌</span>
+      <h3>Native Integrations</h3>
+      <p>Connects to your existing stack out of the box. No custom scripts needed.</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">📊</span>
+      <h3>Real-Time Insights</h3>
+      <p>Dashboards refresh live. Spot trends the moment they emerge, not next week.</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">🛡️</span>
+      <h3>Enterprise Security</h3>
+      <p>SOC 2 Type II certified. GDPR-compliant. SSO included at every tier.</p>
+    </div>
+  </div>
+
+  <aside class="notes">
+    Lead with the value that resonates most for this audience.
+    For technical audiences, start with integrations. For executives, lead with insights.
+    Have a one-liner for each card ready in case someone asks to go deeper.
+  </aside>
+</body>
+
+</html>

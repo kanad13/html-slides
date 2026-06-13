@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Title + Body Divider — Dark Charcoal Violet</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      background: #1e2028;
+      color: #e2e8f0;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 56px;
+    }
+
+    .slide {
+      max-width: 780px;
+      width: 100%;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #a78bfa;
+      background: rgba(139, 92, 246, 0.15);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      border-radius: 4px;
+      padding: 3px 10px;
+      margin-bottom: 18px;
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      color: #c4b5fd;
+      margin-bottom: 6px;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid rgba(139, 92, 246, 0.3);
+      margin-bottom: 32px;
+    }
+
+    p {
+      font-size: 1.1rem;
+      line-height: 1.78;
+      color: #94a3b8;
+      margin-bottom: 20px;
+    }
+
+    ul {
+      padding-left: 1.4em;
+      display: grid;
+      gap: 10px;
+    }
+
+    li {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: #cbd5e1;
+    }
+
+    li::marker {
+      color: #7c3aed;
+    }
+
+    aside.notes {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="slide">
+    <span class="tag">Context</span>
+    <h2>The Problem We're Solving</h2>
+    <hr>
+    <p>
+      Every team hits a point where information stops flowing clearly.
+      Decisions slow down, duplicated effort increases, and the gap between
+      strategy and execution widens.
+    </p>
+    <ul>
+      <li>Teams spend 40 % of meeting time re-aligning on context</li>
+      <li>Key decisions are undocumented and later forgotten</li>
+      <li>New joiners take 3× longer to become effective</li>
+    </ul>
+  </div>
+
+  <aside class="notes">
+    Start with the pain point. Make it concrete — use numbers your audience
+    will recognise from their own experience.
+    Pause after the bullet list to let the numbers land before moving on.
+  </aside>
+</body>
+
+</html>

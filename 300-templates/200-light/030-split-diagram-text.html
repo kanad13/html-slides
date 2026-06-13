@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Split Diagram + Text — Light</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      background: #fdfaf6;
+      color: #1e293b;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      padding: 40px 52px;
+    }
+
+    /* Header row */
+    .header {
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+      font-weight: 700;
+      color: #0f766e;
+      margin-bottom: 4px;
+    }
+
+    hr {
+      border: none;
+      border-top: 2px solid #99f6e4;
+      margin-bottom: 0;
+    }
+
+    /* Body: two columns */
+    .body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 36px;
+      flex: 1;
+      padding-top: 20px;
+      align-items: start;
+    }
+
+    /* Left: diagram placeholder */
+    .diagram-box {
+      border: 2px dashed #5eead4;
+      border-radius: 10px;
+      background: #f0fdfa;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 220px;
+      padding: 24px;
+      gap: 12px;
+      color: #0d9488;
+    }
+
+    .diagram-icon {
+      font-size: 2.5rem;
+      opacity: 0.6;
+    }
+
+    .diagram-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #0d9488;
+      text-align: center;
+    }
+
+    /* Right: text */
+    .text-col h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #0f766e;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .text-col ul {
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+
+    .text-col li {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #374151;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .text-col li::before {
+      content: "▶";
+      position: absolute;
+      left: 0;
+      color: #0d9488;
+      font-size: 0.7rem;
+      top: 4px;
+    }
+
+    aside.notes {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header">
+    <h2>System Architecture Overview</h2>
+    <hr>
+  </div>
+
+  <div class="body">
+    <div class="diagram-box">
+      <div class="diagram-icon">⬡</div>
+      <div class="diagram-label">
+        Embed Mermaid or SVG diagram here
+      </div>
+    </div>
+
+    <div class="text-col">
+      <h3>Key Components</h3>
+      <ul>
+        <li>Ingestion layer handles 50 k events/sec with back-pressure</li>
+        <li>Stateless processors scale horizontally behind a load balancer</li>
+        <li>Persistent store uses event-sourcing for full audit trail</li>
+        <li>API gateway enforces auth, rate-limiting, and versioning</li>
+        <li>Observability pipeline emits metrics, logs, and traces</li>
+      </ul>
+    </div>
+  </div>
+
+  <aside class="notes">
+    Walk through the diagram left to right — ingestion to storage to API.
+    Emphasise the stateless middle layer: that's what enables linear scaling.
+    If pressed on the database choice, acknowledge trade-offs but defend
+    event-sourcing for auditability.
+  </aside>
+</body>
+
+</html>

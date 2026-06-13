@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Data Table — Dark</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      background: #0f172a;
+      color: #e2e8f0;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 48px;
+    }
+
+    h2 {
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      color: #f1f5f9;
+      margin-bottom: 6px;
+      text-align: center;
+    }
+
+    .caption {
+      font-size: 0.88rem;
+      color: #475569;
+      margin-bottom: 28px;
+      text-align: center;
+    }
+
+    .table-wrap {
+      width: 100%;
+      max-width: 820px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #1e293b;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead th {
+      background: #1e293b;
+      color: #94a3b8;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 14px 20px;
+      text-align: left;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #0a1628;
+    }
+
+    tbody tr:nth-child(odd) {
+      background: #0f172a;
+    }
+
+    tbody td {
+      padding: 13px 20px;
+      font-size: 0.92rem;
+      color: #94a3b8;
+      border-bottom: 1px solid rgba(30, 41, 59, 0.8);
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    .green {
+      background: rgba(74, 222, 128, 0.12);
+      color: #4ade80;
+      border: 1px solid rgba(74, 222, 128, 0.2);
+    }
+
+    .yellow {
+      background: rgba(251, 191, 36, 0.12);
+      color: #fbbf24;
+      border: 1px solid rgba(251, 191, 36, 0.2);
+    }
+
+    .red {
+      background: rgba(248, 113, 113, 0.12);
+      color: #f87171;
+      border: 1px solid rgba(248, 113, 113, 0.2);
+    }
+
+    aside.notes {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Initiative Scorecard — Q3 2025</h2>
+  <p class="caption">Updated weekly. RAG status reflects delivery confidence.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Initiative</th>
+          <th>Owner</th>
+          <th>Target Date</th>
+          <th>Status</th>
+          <th>Progress</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>API Gateway v2</td>
+          <td>E. Carter</td>
+          <td>30 Sep 2025</td>
+          <td><span class="badge green">On Track</span></td>
+          <td>72 %</td>
+        </tr>
+        <tr>
+          <td>Auth Refactor</td>
+          <td>M. Patel</td>
+          <td>15 Aug 2025</td>
+          <td><span class="badge yellow">At Risk</span></td>
+          <td>45 %</td>
+        </tr>
+        <tr>
+          <td>Data Pipeline</td>
+          <td>S. Kim</td>
+          <td>31 Oct 2025</td>
+          <td><span class="badge green">On Track</span></td>
+          <td>28 %</td>
+        </tr>
+        <tr>
+          <td>UI Redesign</td>
+          <td>A. Russo</td>
+          <td>01 Aug 2025</td>
+          <td><span class="badge red">Delayed</span></td>
+          <td>61 %</td>
+        </tr>
+        <tr>
+          <td>Observability Stack</td>
+          <td>T. Wong</td>
+          <td>30 Sep 2025</td>
+          <td><span class="badge green">On Track</span></td>
+          <td>88 %</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <aside class="notes">
+    Scan red and yellow items first — those are your conversation starters.
+    UI Redesign is delayed; have the recovery plan ready.
+    Auth Refactor is at risk due to resourcing, not scope.
+  </aside>
+</body>
+
+</html>

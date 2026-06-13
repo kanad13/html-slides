@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Visual Pyramid — Dark Gold</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      background: #0c0a06;
+      color: #fef3c7;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 52px;
+    }
+
+    h2 {
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      color: #f59e0b;
+      margin-bottom: 36px;
+      text-align: center;
+    }
+
+    .pyramid {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      width: 100%;
+      max-width: 680px;
+    }
+
+    .tier {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      border-radius: 4px;
+      padding: 18px 24px;
+      text-align: center;
+    }
+
+    .tier:nth-child(1) {
+      width: 32%;
+      background: #92400e;
+      color: #fde68a;
+      font-size: 0.88rem;
+    }
+
+    .tier:nth-child(2) {
+      width: 56%;
+      background: #78350f;
+      color: #fef3c7;
+      font-size: 0.92rem;
+    }
+
+    .tier:nth-child(3) {
+      width: 76%;
+      background: #451a03;
+      color: #fde68a;
+      font-size: 0.95rem;
+      border: 1px solid rgba(245, 158, 11, 0.2);
+    }
+
+    .tier:nth-child(4) {
+      width: 96%;
+      background: rgba(245, 158, 11, 0.06);
+      color: #f59e0b;
+      font-size: 0.97rem;
+      border: 1px solid rgba(245, 158, 11, 0.15);
+    }
+
+    .tier-content strong {
+      display: block;
+      font-size: 1.05em;
+      margin-bottom: 2px;
+    }
+
+    .tier-content span {
+      font-size: 0.8em;
+      opacity: 0.75;
+      font-weight: 400;
+    }
+
+    aside.notes {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Technology Maturity Model</h2>
+
+  <div class="pyramid">
+    <div class="tier">
+      <div class="tier-content">
+        <strong>Optimise</strong>
+        <span>Continuous improvement</span>
+      </div>
+    </div>
+    <div class="tier">
+      <div class="tier-content">
+        <strong>Measure</strong>
+        <span>Observability &amp; feedback loops</span>
+      </div>
+    </div>
+    <div class="tier">
+      <div class="tier-content">
+        <strong>Automate</strong>
+        <span>CI/CD, testing, and infrastructure as code</span>
+      </div>
+    </div>
+    <div class="tier">
+      <div class="tier-content">
+        <strong>Standardise</strong>
+        <span>Consistent tooling, practices, and documentation across teams</span>
+      </div>
+    </div>
+  </div>
+
+  <aside class="notes">
+    Start at the bottom — you must standardise before you can automate.
+    Ask the audience where their organisation sits on this pyramid.
+    The goal isn't to reach "Optimise" quickly; build each layer solidly first.
+  </aside>
+</body>
+
+</html>

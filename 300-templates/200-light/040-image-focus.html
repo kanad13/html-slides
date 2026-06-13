@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Image Focus — Light</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      background: #f1f5f9;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      padding: 28px;
+      gap: 20px;
+    }
+
+    /* Full-area image placeholder */
+    .image-area {
+      flex: 1;
+      border-radius: 12px;
+      background: #e2e8f0;
+      border: 2px dashed #94a3b8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .placeholder-content {
+      text-align: center;
+      color: #94a3b8;
+      pointer-events: none;
+    }
+
+    .placeholder-icon {
+      font-size: 3.5rem;
+      display: block;
+      margin-bottom: 10px;
+      opacity: 0.5;
+    }
+
+    .placeholder-text {
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* Caption bar */
+    .caption {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 4px;
+    }
+
+    .caption-text {
+      font-size: 1rem;
+      color: #475569;
+      font-style: italic;
+    }
+
+    .caption-source {
+      font-size: 0.8rem;
+      color: #94a3b8;
+    }
+
+    aside.notes {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="image-area">
+    <div class="placeholder-content">
+      <span class="placeholder-icon">🖼</span>
+      <p class="placeholder-text">Replace with your image</p>
+    </div>
+  </div>
+
+  <div class="caption">
+    <span class="caption-text">A single powerful image speaks louder than a slide full of text.</span>
+    <span class="caption-source">Source / Credit</span>
+  </div>
+
+  <aside class="notes">
+    Let the image breathe — don't add text on top. Tell the story verbally.
+    Give the audience 5 seconds to take the image in before you speak.
+    Reference the caption source if asked.
+  </aside>
+</body>
+
+</html>

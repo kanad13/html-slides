@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Diagonal Split — Dark Two-Tone</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      font-family: system-ui, -apple-system, sans-serif;
+      overflow: hidden;
+    }
+
+    body {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .bg-right {
+      position: absolute;
+      inset: 0;
+      background: #0f172a;
+      z-index: -1;
+    }
+
+    .bg-left {
+      position: absolute;
+      inset: 0;
+      background: #1e293b;
+      clip-path: polygon(0 0, 58% 0, 44% 100%, 0 100%);
+      z-index: 0;
+    }
+
+    /* Diagonal accent line */
+    .diagonal-line {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, transparent, #38bdf8, transparent);
+      left: calc(58% - 8%);
+      transform: skewX(-12deg);
+      z-index: 1;
+      opacity: 0.4;
+    }
+
+    .left-content {
+      position: relative;
+      z-index: 2;
+      padding: 60px 48px 60px 60px;
+      max-width: 52%;
+    }
+
+    .eyebrow {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #38bdf8;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 800;
+      color: #f1f5f9;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+
+    .desc {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #64748b;
+      margin-bottom: 28px;
+    }
+
+    .tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      padding: 5px 14px;
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #38bdf8;
+    }
+
+    .right-content {
+      position: absolute;
+      right: 52px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+      text-align: center;
+      width: 34%;
+    }
+
+    .big-icon {
+      font-size: 5.5rem;
+      display: block;
+      margin-bottom: 12px;
+      filter: drop-shadow(0 8px 24px rgba(56, 189, 248, 0.3));
+    }
+
+    .icon-label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #334155;
+      letter-spacing: 0.06em;
+    }
+
+    aside.notes {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bg-right"></div>
+  <div class="bg-left"></div>
+  <div class="diagonal-line"></div>
+
+  <div class="left-content">
+    <p class="eyebrow">Product Vision</p>
+    <h1>Built for the way teams actually work</h1>
+    <p class="desc">
+      Not the way process diagrams say they should.
+      Real workflows are messy, collaborative, and always changing.
+    </p>
+    <div class="tags">
+      <span class="tag">Async-first</span>
+      <span class="tag">Keyboard-driven</span>
+      <span class="tag">AI-augmented</span>
+    </div>
+  </div>
+
+  <div class="right-content">
+    <span class="big-icon">☁️</span>
+    <p class="icon-label">Replace with image or diagram</p>
+  </div>
+
+  <aside class="notes">
+    The diagonal creates energy in the dark — the accent glow line adds depth.
+    Replace the right-side icon with a product screenshot for max impact.
+    The subtle two-tone background adds texture without distracting.
+  </aside>
+</body>
+
+</html>
