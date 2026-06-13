@@ -1,129 +1,631 @@
 <!DOCTYPE html>
-<!--
-TEMPLATE METADATA:
-Name: Basic Starter Template
-Layout: Flexible foundation for custom slide design
-Usage: Use as-is or as starting point. Follow numbered customization comments (①-⑥)
-Light Theme: background #ffffff, text #1e293b, accent #2563eb (blue)
-Typography: system-ui font stack with flexible sizing
-Use Cases: Any slide type. Customize colours, layout, and content freely
-Customization: Follow the 6 numbered comment sections in the CSS/HTML for quick adaptation
-Accent Colour: #2563eb (blue) by default; change to any hex for theme
-Responsive: Flexbox and clamp() ensure readability on all screen sizes
--->
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- ① Change this to your slide's topic -->
-  <title>Slide Title</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!--
+  Template: Basic Token-Based Slide
+  Category: Starter
+  Theme: Light
+  Use Case: Starting point for new slide templates
+  Recommended Content:
+  - One title
+  - One short supporting statement
+  - 2–3 cards or key points
+  Notes:
+  - Copy this file when creating new templates
+  - Change token values for branding
+  - Do not hardcode colours inside components
+  -->
+
+  <title>Basic Token-Based Slide</title>
+
   <style>
-    /* ── Reset ── */
+    :root {
+      /* =========================================================
+         DESIGN TOKENS
+         Change colours here only.
+         Layouts and components should consume these tokens.
+      ========================================================= */
+
+      /* Neutrals */
+      --surface-0: #ffffff;
+      --surface-1: #f8fafc;
+      --surface-2: #eef2f7;
+
+      --text-primary: #0f172a;
+      --text-secondary: #64748b;
+
+      --border: #e2e8f0;
+
+      /* Brand */
+      --brand-primary: #2563eb;
+      --brand-secondary: #06b6d4;
+      --brand-tertiary: #d97706;
+      --brand-quaternary: #7c3aed;
+
+      /* Semantic */
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --info: #3b82f6;
+
+      /* Charts */
+      --chart-1: #2563eb;
+      --chart-2: #06b6d4;
+      --chart-3: #10b981;
+      --chart-4: #f59e0b;
+      --chart-5: #7c3aed;
+      --chart-6: #ef4444;
+
+      /* Spacing */
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.5rem;
+      --space-6: 2rem;
+      --space-7: 3rem;
+      --space-8: 4rem;
+
+      /* Shape */
+      --radius-sm: 0.5rem;
+      --radius-md: 0.9rem;
+      --radius-lg: 1.25rem;
+      --radius-xl: 1.75rem;
+
+      /* Shadow */
+      --shadow-soft: 0 18px 50px rgba(15, 23, 42, 0.08);
+    }
+
     * {
-      margin: 0;
-      padding: 0;
       box-sizing: border-box;
     }
 
-    html,
     body {
-      height: 100%;
-      /* ② Swap background color / gradient to match your deck's theme */
-      background: #ffffff;
-      color: #1e293b;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      background: var(--surface-2);
+      color: var(--text-primary);
+      font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+      display: grid;
+      place-items: center;
     }
 
-    body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 48px;
-    }
-
-    /* ── Main content wrapper ── */
     .slide {
-      max-width: 760px;
-      width: 100%;
+      width: min(100vw, 1280px);
+      aspect-ratio: 16 / 9;
+      background:
+        radial-gradient(circle at top right, color-mix(in srgb, var(--brand-primary) 12%, transparent), transparent 34%),
+        var(--surface-0);
+      padding: 4.5rem;
+      overflow: hidden;
+      position: relative;
+      box-shadow: var(--shadow-soft);
     }
 
-    /* ── Title ── */
+    .slide::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 0.55rem;
+      background: linear-gradient(180deg,
+          var(--brand-primary),
+          var(--brand-secondary));
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-7);
+    }
+
+    .eyebrow {
+      color: var(--brand-primary);
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-4);
+    }
+
     h1 {
-      font-size: clamp(2rem, 5vw, 3.2rem);
-      font-weight: 700;
-      line-height: 1.15;
-      margin-bottom: 12px;
-      color: #1e293b;
+      margin: 0;
+      max-width: 850px;
+      font-size: clamp(2.7rem, 5vw, 4.7rem);
+      line-height: 0.96;
+      letter-spacing: -0.055em;
+      font-weight: 850;
     }
 
-    /* ③ Accent line — change color to your accent hue */
-    .accent-line {
-      width: 56px;
-      height: 4px;
-      background: #2563eb;
-      border-radius: 2px;
-      margin-bottom: 28px;
+    .subtitle {
+      margin: var(--space-5) 0 0;
+      max-width: 760px;
+      color: var(--text-secondary);
+      font-size: 1.18rem;
+      line-height: 1.65;
     }
 
-    /* ── Body text ── */
-    p {
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-5);
+      margin-top: auto;
+    }
+
+    .card {
+      background: var(--surface-1);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+    }
+
+    .card-number {
+      color: var(--brand-primary);
+      font-size: 2.4rem;
+      font-weight: 850;
+      letter-spacing: -0.05em;
+      margin-bottom: var(--space-3);
+    }
+
+    .card h2 {
+      margin: 0 0 var(--space-3);
       font-size: 1.1rem;
-      line-height: 1.75;
-      color: #475569;
-      margin-bottom: 14px;
+      line-height: 1.25;
     }
 
-    /* ── Optional bullet list ── */
-    ul {
-      padding-left: 1.4em;
-      margin-top: 8px;
+    .card p {
+      margin: 0;
+      color: var(--text-secondary);
+      font-size: 0.96rem;
+      line-height: 1.6;
     }
 
-    li {
-      font-size: 1.05rem;
-      line-height: 1.7;
-      color: #475569;
-      margin-bottom: 6px;
+    .badge-row {
+      display: flex;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+      margin-top: var(--space-5);
     }
 
-    /* ── Speaker notes: hidden in the slide, shown in the viewer's notes panel ── */
-    aside.notes {
-      display: none;
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 0.45rem 0.75rem;
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      background: var(--surface-1);
+      border: 1px solid var(--border);
+    }
+
+    .badge.success {
+      color: var(--success);
+    }
+
+    .badge.warning {
+      color: var(--warning);
+    }
+
+    .badge.info {
+      color: var(--info);
+    }
+
+    @media (max-width: 900px) {
+      body {
+        display: block;
+        background: var(--surface-0);
+      }
+
+      .slide {
+        width: 100%;
+        min-height: 100vh;
+        aspect-ratio: auto;
+        padding: 2rem;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 
 <body>
-  <div class="slide">
-    <!-- ④ Replace with your slide title -->
-    <h1>Slide Title Here</h1>
-    <div class="accent-line"></div>
+  <main class="slide">
+    <section class="content">
+      <header>
+        <div class="eyebrow">Template System v2</div>
+        <h1>Build branded slides by changing tokens, not layouts.</h1>
+        <p class="subtitle">
+          This starter template demonstrates the token-based structure used across
+          the presentation system. Copy it when creating new slide layouts.
+        </p>
 
-    <!-- ⑤ Replace with your slide content -->
-    <p>
-      Add your main body content here. This is the minimal starting template —
-      change the title, text, colors, and layout to match your deck's style.
-    </p>
-    <p>
-      Keep it focused: one clear idea per slide works best. If you need more
-      detail, use the speaker notes below instead of crowding the slide.
-    </p>
+        <div class="badge-row">
+          <span class="badge success">Success</span>
+          <span class="badge warning">Warning</span>
+          <span class="badge info">Information</span>
+        </div>
+      </header>
 
-    <!-- Optional bullet list — remove if not needed -->
-    <ul>
-      <li>First key point</li>
-      <li>Second key point</li>
-      <li>Third key point</li>
-    </ul>
+      <section class="grid" aria-label="Template principles">
+        <article class="card">
+          <div class="card-number">01</div>
+          <h2>Use tokens</h2>
+          <p>
+            Components consume semantic variables such as brand, surface, text,
+            border, semantic, and chart tokens.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="card-number">02</div>
+          <h2>Keep layouts stable</h2>
+          <p>
+            A new brand should not require a new layout. Update token values and
+            keep the structure intact.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="card-number">03</div>
+          <h2>Use colour with intent</h2>
+          <p>
+            Brand colours create identity. Semantic colours communicate meaning.
+            Chart colours support data.
+          </p>
+        </article>
+      </section>
+    </section>
+  </main>
+</body>
+
+</html>
+````
+
+---
+
+## `100-viewer.html`
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!--
+  File: Template Viewer
+  Purpose: Simple local viewer for browsing slide templates and design-system references
+  Notes:
+  - Update the template list when new templates are added
+  - Links open files directly
+  - Preview uses an iframe where browser permissions allow it
+  -->
+
+  <title>Presentation Template Viewer</title>
+
+  <style>
+    :root {
+      --surface-0: #ffffff;
+      --surface-1: #f8fafc;
+      --surface-2: #eef2f7;
+
+      --text-primary: #0f172a;
+      --text-secondary: #64748b;
+
+      --border: #e2e8f0;
+
+      --brand-primary: #2563eb;
+      --brand-secondary: #06b6d4;
+      --brand-tertiary: #d97706;
+      --brand-quaternary: #7c3aed;
+
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --info: #3b82f6;
+
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.5rem;
+      --space-6: 2rem;
+      --space-7: 3rem;
+
+      --radius-md: 0.9rem;
+      --radius-lg: 1.25rem;
+
+      --shadow-soft: 0 18px 50px rgba(15, 23, 42, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--surface-2);
+      color: var(--text-primary);
+      font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+    }
+
+    .app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 360px 1fr;
+    }
+
+    aside {
+      background: var(--surface-0);
+      border-right: 1px solid var(--border);
+      padding: var(--space-6);
+      overflow: auto;
+    }
+
+    main {
+      padding: var(--space-6);
+      overflow: auto;
+    }
+
+    .eyebrow {
+      color: var(--brand-primary);
+      font-size: 0.72rem;
+      font-weight: 850;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-3);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2.2rem;
+      line-height: 1;
+      letter-spacing: -0.045em;
+    }
+
+    .intro {
+      margin: var(--space-4) 0 var(--space-6);
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    .section-title {
+      margin: var(--space-6) 0 var(--space-3);
+      color: var(--text-secondary);
+      font-size: 0.76rem;
+      font-weight: 850;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .template-list {
+      display: grid;
+      gap: var(--space-3);
+    }
+
+    .template-button {
+      width: 100%;
+      text-align: left;
+      border: 1px solid var(--border);
+      background: var(--surface-1);
+      color: var(--text-primary);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      cursor: pointer;
+      font: inherit;
+      transition:
+        border-color 160ms ease,
+        background 160ms ease,
+        transform 160ms ease;
+    }
+
+    .template-button:hover {
+      border-color: var(--brand-primary);
+      background: var(--surface-0);
+      transform: translateY(-1px);
+    }
+
+    .template-button strong {
+      display: block;
+      margin-bottom: var(--space-2);
+      font-size: 0.95rem;
+    }
+
+    .template-button span {
+      display: block;
+      color: var(--text-secondary);
+      font-size: 0.82rem;
+      line-height: 1.45;
+    }
+
+    .actions {
+      display: flex;
+      gap: var(--space-3);
+      margin-bottom: var(--space-5);
+      flex-wrap: wrap;
+    }
+
+    .action-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 0.7rem 1rem;
+      background: var(--surface-0);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 750;
+    }
+
+    .action-link.primary {
+      background: var(--brand-primary);
+      color: white;
+      border-color: var(--brand-primary);
+    }
+
+    .preview-shell {
+      background: var(--surface-0);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-soft);
+      padding: var(--space-5);
+    }
+
+    .preview-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      margin-bottom: var(--space-4);
+    }
+
+    .preview-title {
+      font-weight: 850;
+      letter-spacing: -0.02em;
+    }
+
+    .preview-path {
+      color: var(--text-secondary);
+      font-size: 0.86rem;
+    }
+
+    iframe {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: white;
+    }
+
+    .note {
+      margin-top: var(--space-4);
+      color: var(--text-secondary);
+      font-size: 0.86rem;
+      line-height: 1.55;
+    }
+
+    @media (max-width: 1000px) {
+      .app {
+        grid-template-columns: 1fr;
+      }
+
+      aside {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <aside>
+      <div class="eyebrow">Template Viewer</div>
+      <h1>Presentation System</h1>
+      <p class="intro">
+        Browse the starter template and design-system references. Add new
+        templates to the list in this file as the library grows.
+      </p>
+
+      <div class="section-title">Core Files</div>
+      <div class="template-list">
+        <button class="template-button" data-title="Basic Token-Based Slide" data-path="100-basic.html">
+          <strong>100-basic.html</strong>
+          <span>Starter template for new token-based slides.</span>
+        </button>
+      </div>
+
+      <div class="section-title">Light Theme</div>
+      <div class="template-list">
+        <button class="template-button" data-title="Light Design System" data-path="200-light/005-design-system.html">
+          <strong>200-light/005-design-system.html</strong>
+          <span>Visual reference for light-theme tokens and components.</span>
+        </button>
+      </div>
+
+      <div class="section-title">Dark Theme</div>
+      <div class="template-list">
+        <button class="template-button" data-title="Dark Design System" data-path="300-dark/005-design-system.html">
+          <strong>300-dark/005-design-system.html</strong>
+          <span>Visual reference for dark-theme tokens and components.</span>
+        </button>
+      </div>
+    </aside>
+
+    <main>
+      <div class="actions">
+        <a class="action-link primary" id="openLink" href="100-basic.html" target="_blank">
+          Open selected file
+        </a>
+        <a class="action-link" href="README.md" target="_blank">README</a>
+        <a class="action-link" href="TEMPLATE-SYSTEM.md" target="_blank">Template guide</a>
+      </div>
+
+      <section class="preview-shell">
+        <div class="preview-header">
+          <div>
+            <div class="preview-title" id="previewTitle">Basic Token-Based Slide</div>
+            <div class="preview-path" id="previewPath">100-basic.html</div>
+          </div>
+        </div>
+
+        <iframe id="previewFrame" src="100-basic.html" title="Template preview"></iframe>
+
+        <p class="note">
+          Some browsers restrict local iframe previews depending on how files are opened.
+          Use “Open selected file” if the preview does not load.
+        </p>
+      </section>
+    </main>
   </div>
 
-  <!-- ⑥ Press N in the viewer to reveal notes, or P for presenter window -->
-  <aside class="notes">
-    Write your speaker notes here. These are private — visible only in the
-    notes panel or presenter window, never shown to the audience.
-    Tip: write talking cues, not a full script. Short phrases work best.
-  </aside>
+  <script>
+    const buttons = document.querySelectorAll(".template-button");
+    const frame = document.getElementById("previewFrame");
+    const title = document.getElementById("previewTitle");
+    const path = document.getElementById("previewPath");
+    const openLink = document.getElementById("openLink");
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const nextTitle = button.dataset.title;
+        const nextPath = button.dataset.path;
+
+        title.textContent = nextTitle;
+        path.textContent = nextPath;
+        frame.src = nextPath;
+        openLink.href = nextPath;
+      });
+    });
+  </script>
 </body>
 
 </html>
