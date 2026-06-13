@@ -2,7 +2,7 @@
 
 AI agents make it increasingly easy to create quick presentations as standalone HTML files. That is useful because HTML gives you direct control over layout, spacing, typography, animation, charts, images, and custom styling without fighting a traditional slide editor.
 
-The missing piece is presentation. Once you have a folder full of HTML slide files, you need a reliable way to open them as a real deck: next and previous controls, fullscreen, overview, speaker notes, a presenter view, keyboard shortcuts, and a clean audience display.
+The missing piece is presentation. Once you have a folder full of HTML slide files, you need a reliable way to open them as a real deck: next and previous controls, Zen presentation mode, overview, speaker notes, a presenter view, keyboard shortcuts, and a clean audience display.
 
 That is what `viewer.html` provides.
 
@@ -63,8 +63,7 @@ But a folder of HTML files is not a presentation by itself. Manually opening fil
 | Visible navigation | Use buttons, arrow keys, spacebar, swipe, or the progress slider. |
 | Slide list | Jump by slide title instead of guessing filenames. |
 | Overview grid | Scan the whole deck and jump to any slide. |
-| Fullscreen | Present without browser clutter. |
-| Zen mode | Hide viewer controls for a clean slide-only view. |
+| Zen mode | Enter fullscreen and hide viewer controls for a clean slide-only view. |
 | Speaker notes | Keep private talking points beside the deck. |
 | Presenter window | Use a second window with notes and a timer. |
 | Theme toggle | Switch the viewer shell between dark and light mode. |
@@ -77,7 +76,7 @@ But a folder of HTML files is not a presentation by itself. Manually opening fil
 2. Click **Choose Folder**.
 3. Select the folder containing your slide HTML files.
 4. Use **Next**, **Previous**, arrow keys, or Space to present.
-5. Press `F` for fullscreen.
+5. Press **Zen**, `Z`, or `F` to present fullscreen without viewer controls.
 
 If folder picking is unavailable in your browser, click **Choose Files** and select the slide files manually.
 
@@ -92,13 +91,12 @@ If folder picking is unavailable in your browser, click **Choose Files** and sel
 | Open overview grid | **Overview** | `O` |
 | Show or hide speaker notes | **Notes** | `N` |
 | Open presenter window | **Presenter** | `P` |
-| Toggle fullscreen | fullscreen button | `F` |
-| Toggle zen mode | **Zen** | `Z` |
+| Toggle Zen presentation mode | **Zen** | `Z` or `F` |
 | Toggle slide list | sidebar button | `L` |
 | Toggle light/dark theme | theme button | `M` |
 | Open another deck | **Open Deck** | `D` |
-| Show help | help button | `?` |
-| Close overlay or mode | close button | `Esc` |
+| Show help | **Help** | `H` or `?` |
+| Close overlay or exit Zen | close button or browser fullscreen exit | `Esc` |
 
 Touch devices can swipe left and right between slides.
 

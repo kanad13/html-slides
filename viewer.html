@@ -17,6 +17,7 @@
       --bg: #0b1020;
       --panel: #111827;
       --panel-2: #172033;
+      --panel-3: #202a3d;
       --text: #f8fafc;
       --muted: #94a3b8;
       --line: rgba(148, 163, 184, .22);
@@ -33,6 +34,7 @@
       --bg: #f8fafc;
       --panel: #ffffff;
       --panel-2: #eef2f7;
+      --panel-3: #e2e8f0;
       --text: #111827;
       --muted: #64748b;
       --line: rgba(15, 23, 42, .16);
@@ -76,48 +78,37 @@
     /* Landing screen: user-facing entry point before a deck is selected */
     #picker {
       height: 100vh;
-      display: flex;
-      flex-direction: column;
-      padding: 24px;
-      background:
-        radial-gradient(circle at 18% 20%, rgba(56, 189, 248, .22), transparent 30%),
-        radial-gradient(circle at 82% 10%, rgba(37, 99, 235, .22), transparent 26%),
-        var(--bg);
+      overflow: auto;
+      padding: 28px;
+      background: var(--bg);
     }
 
     .landing-tools {
-      position: fixed;
-      top: 24px;
-      right: max(24px, calc((100vw - 1120px) / 2));
       display: flex;
       justify-content: flex-end;
-      z-index: 5;
-    }
-
-    .landing-tools .btn {
-      background: rgba(17, 24, 39, .62);
-      backdrop-filter: blur(10px);
-      white-space: nowrap;
     }
 
     .welcome {
-      width: min(1120px, 100%);
-      min-height: 0;
-      flex: 1 1 auto;
+      width: min(1040px, 100%);
+      min-height: calc(100vh - 56px);
       margin: 0 auto;
       display: grid;
-      grid-template-columns: minmax(0, 1.08fr) minmax(340px, .92fr);
-      gap: 40px;
+      grid-template-rows: auto 1fr;
+      gap: 28px;
+    }
+
+    .landing-header {
+      display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
+      gap: 16px;
     }
 
     .welcome-copy {
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      gap: 16px;
-      max-width: 590px;
+      gap: 12px;
+      max-width: 720px;
     }
 
     .eyebrow {
@@ -130,53 +121,79 @@
 
     h1 {
       margin: 0;
-      font-size: clamp(2rem, 5vw, 4rem);
-      line-height: 1;
-      letter-spacing: -.02em;
+      font-size: clamp(2.2rem, 4vw, 4rem);
+      line-height: 1.05;
     }
 
     .lead {
       margin: 0;
-      max-width: 52ch;
       color: var(--muted);
       font-size: 1.05rem;
-      line-height: 1.6;
+      line-height: 1.55;
     }
 
-    .feature-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 8px;
+    .landing-main {
+      display: grid;
+      grid-template-columns: minmax(340px, .92fr) minmax(280px, .68fr);
+      gap: 24px;
+      align-items: start;
     }
 
-    .pill {
+    .landing-panel {
       border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+    }
+
+    .workflow-list {
+      margin: 0;
+      padding: 22px;
+      list-style: none;
+      display: grid;
+      gap: 18px;
+    }
+
+    .workflow-list li {
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: 12px;
+    }
+
+    .step-num {
+      width: 32px;
+      height: 32px;
       border-radius: 999px;
-      padding: 7px 10px;
+      display: grid;
+      place-items: center;
+      background: var(--panel-2);
+      color: var(--accent);
+      font-weight: 800;
+    }
+
+    .workflow-list strong {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--text);
+    }
+
+    .workflow-list span:last-child {
       color: var(--muted);
-      background: rgba(255, 255, 255, .04);
-      font-size: .86rem;
+      line-height: 1.45;
     }
 
     .drop-zone {
-      min-height: 320px;
-      border: 1px solid var(--line);
+      min-height: 390px;
+      border: 2px dashed var(--line);
       border-radius: var(--radius);
-      background: rgba(17, 24, 39, .74);
-      box-shadow: var(--shadow);
+      background: var(--panel);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 16px;
-      padding: 30px;
+      gap: 18px;
+      padding: 32px;
       text-align: center;
       transition: border-color .18s, transform .18s, background .18s;
-    }
-
-    [data-theme="light"] .drop-zone {
-      background: rgba(255, 255, 255, .86)
     }
 
     .drop-zone.dragging {
@@ -186,27 +203,39 @@
     }
 
     .drop-icon {
-      width: 68px;
-      height: 68px;
-      border-radius: 20px;
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
       display: grid;
       place-items: center;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      color: #fff;
-      font-size: 1.72rem;
+      background: var(--panel-2);
+      color: var(--accent);
+      font-size: 1rem;
       font-weight: 800;
     }
 
     .drop-zone h2 {
       margin: 0;
-      font-size: 1.5rem
+      font-size: 1.45rem
     }
 
     .drop-zone p {
-      max-width: 38ch;
+      max-width: 44ch;
       margin: 0;
       color: var(--muted);
       line-height: 1.5
+    }
+
+    .drop-hint {
+      font-size: .9rem;
+    }
+
+    .privacy-note {
+      border-top: 1px solid var(--line);
+      padding: 16px 22px;
+      color: var(--muted);
+      line-height: 1.45;
+      font-size: .92rem;
     }
 
     .actions {
@@ -233,7 +262,8 @@
     }
 
     .btn:hover {
-      border-color: rgba(56, 189, 248, .62)
+      border-color: rgba(56, 189, 248, .62);
+      background: var(--panel-3);
     }
 
     .btn.primary {
@@ -285,9 +315,9 @@
 
     #topbar {
       grid-column: 1 / -1;
-      display: flex;
+      display: grid;
+      grid-template-columns: minmax(180px, 1fr) auto minmax(180px, 1fr);
       align-items: center;
-      justify-content: space-between;
       gap: 12px;
       padding: 10px 14px;
       border-bottom: 1px solid var(--line);
@@ -327,8 +357,16 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      flex-wrap: wrap;
-      justify-content: flex-end
+      justify-content: center;
+      min-width: 0
+    }
+
+    .toolbar.end {
+      justify-content: flex-end;
+    }
+
+    .toolbar .btn {
+      white-space: nowrap;
     }
 
     #sidebar {
@@ -622,6 +660,11 @@
       color: var(--muted);
     }
 
+    .shortcut-keys {
+      display: inline-flex;
+      gap: 6px;
+    }
+
     kbd {
       min-width: 28px;
       padding: 4px 7px;
@@ -684,7 +727,7 @@
       text-overflow: ellipsis
     }
 
-    /* Zen mode removes chrome without leaving the user trapped */
+    /* Zen mode asks for browser fullscreen and removes all viewer chrome */
     .zen #topbar,
     .zen #sidebar,
     .zen #bottombar,
@@ -707,41 +750,28 @@
       height: 100vh
     }
 
-    .zen-exit {
-      position: fixed;
-      right: 16px;
-      bottom: 16px;
-      z-index: 60;
-      display: none;
-      background: rgba(15, 23, 42, .72);
-      color: #fff;
-      border-color: rgba(255, 255, 255, .3);
-    }
-
-    .zen .zen-exit {
-      display: inline-flex
-    }
-
     @media (max-width:820px) {
       /* Preserve feature access on small screens; horizontal toolbar scroll is preferable to hiding modes */
       #picker {
-        padding: 16px;
-        overflow: auto
-      }
-
-      .landing-tools {
-        top: 16px;
-        right: 16px
+        padding: 18px;
       }
 
       .welcome {
-        grid-template-columns: 1fr;
+        min-height: calc(100vh - 36px);
         gap: 22px;
-        align-items: start
+      }
+
+      .landing-header,
+      .landing-main {
+        grid-template-columns: 1fr;
+      }
+
+      .landing-header {
+        align-items: flex-start;
       }
 
       .drop-zone {
-        min-height: 300px
+        min-height: 320px
       }
 
       #app {
@@ -773,12 +803,19 @@
         display: none
       }
 
+      #topbar {
+        grid-template-columns: auto 1fr auto;
+      }
+
       .toolbar {
-        flex-wrap: nowrap;
         justify-content: flex-start;
-        max-width: 58vw;
+        max-width: 46vw;
         overflow-x: auto;
         padding-bottom: 2px
+      }
+
+      .toolbar.end {
+        max-width: 36vw;
       }
 
       .toolbar .btn {
@@ -813,39 +850,52 @@
 
 <body data-theme="dark">
 
-  <div class="landing-tools">
-    <button id="landingThemeBtn" class="btn" title="Theme mode (M)">Theme <kbd>M</kbd></button>
-  </div>
-
   <main id="picker">
     <section class="welcome" aria-labelledby="welcomeTitle">
-      <div class="welcome-copy">
-        <div class="eyebrow">Present local slide decks</div>
-        <h1 id="welcomeTitle">Slide Deck Viewer</h1>
-        <p class="lead">Turn a folder of HTML slides into a presentation with clear controls, speaker notes, overview
-          mode, fullscreen, and private offline playback.</p>
-        <div class="feature-row" aria-label="Key features">
-          <span class="pill">Open any deck</span>
-          <span class="pill">Drag and drop</span>
-          <span class="pill">Presenter tools</span>
-          <span class="pill">Overview grid</span>
-          <span class="pill">Fullscreen</span>
-          <span class="pill">No uploads</span>
+      <div class="landing-header">
+        <div class="welcome-copy">
+          <div class="eyebrow">Local HTML presentation viewer</div>
+          <h1 id="welcomeTitle">Open a slide deck</h1>
+          <p class="lead">Choose a folder of standalone HTML slides. The viewer sorts the files, keeps each slide in its
+            own iframe, and gives you presentation controls without uploading anything.</p>
+        </div>
+        <div class="landing-tools">
+          <button id="landingThemeBtn" class="btn" title="Theme mode (M)">Theme <kbd>M</kbd></button>
         </div>
       </div>
 
-      <div id="dropZone" class="drop-zone">
-        <div class="drop-icon" aria-hidden="true">HTML</div>
-        <h2>Open your slide deck</h2>
-        <p>Drop a folder here, or choose the folder that contains your slide files. The viewer will sort them and build
-          the deck for you.</p>
-        <div class="actions">
-          <button id="pickBtn" class="btn primary">Choose Folder</button>
-          <button id="pickFilesBtn" class="btn">Choose Files</button>
+      <div class="landing-main">
+        <div id="dropZone" class="drop-zone">
+          <div class="drop-icon" aria-hidden="true">HTML</div>
+          <h2>Choose the folder with your slides</h2>
+          <p>Use one HTML file per slide. Drag the folder here, or open the browser folder picker.</p>
+          <div class="actions">
+            <button id="pickBtn" class="btn primary">Choose Folder</button>
+            <button id="pickFilesBtn" class="btn">Choose Files</button>
+          </div>
+          <p class="drop-hint">Choose Files is the fallback for browsers without folder picking.</p>
+          <p id="errorMessage" role="alert"></p>
+          <input type="file" id="folderInput" webkitdirectory directory multiple>
+          <input type="file" id="fileInput" multiple accept=".html,.htm,text/html">
         </div>
-        <p id="errorMessage" role="alert"></p>
-        <input type="file" id="folderInput" webkitdirectory directory multiple>
-        <input type="file" id="fileInput" multiple accept=".html,.htm,text/html">
+
+        <aside class="landing-panel" aria-label="How it works">
+          <ol class="workflow-list">
+            <li>
+              <span class="step-num">1</span>
+              <span><strong>Select local files</strong>The browser grants access only to the folder or files you choose.</span>
+            </li>
+            <li>
+              <span class="step-num">2</span>
+              <span><strong>Review the deck</strong>Use the slide list, overview, notes, and presenter window while navigating.</span>
+            </li>
+            <li>
+              <span class="step-num">3</span>
+              <span><strong>Present in Zen</strong>Zen enters fullscreen and hides viewer controls. Press Esc to return.</span>
+            </li>
+          </ol>
+          <div class="privacy-note">Works offline. Slide contents stay in this browser tab and are not uploaded.</div>
+        </aside>
       </div>
     </section>
   </main>
@@ -859,14 +909,15 @@
           <span id="deckMeta">Choose a folder to begin</span>
         </div>
       </div>
-      <div class="toolbar">
+      <div class="toolbar" aria-label="Presentation tools">
         <button id="overviewBtn" class="btn optional" title="Overview (O)">Overview <kbd>O</kbd></button>
         <button id="notesBtn" class="btn optional" title="Speaker notes (N)">Notes <kbd>N</kbd></button>
         <button id="presenterBtn" class="btn optional" title="Presenter window (P)">Presenter <kbd>P</kbd></button>
-        <button id="zenBtn" class="btn optional" title="Zen mode (Z)">Zen <kbd>Z</kbd></button>
+        <button id="zenBtn" class="btn primary" title="Zen presentation mode (Z or F)">Zen <kbd>Z</kbd></button>
+      </div>
+      <div class="toolbar end" aria-label="Viewer actions">
         <button id="themeBtn" class="btn icon" title="Theme mode (M)" aria-label="Theme mode">◐</button>
-        <button id="fullscreenBtn" class="btn icon" title="Fullscreen (F)" aria-label="Fullscreen">⛶</button>
-        <button id="helpBtn" class="btn icon" title="Help (?)" aria-label="Keyboard shortcuts">?</button>
+        <button id="helpBtn" class="btn" title="Help (H or ?)">Help</button>
         <button id="changeFolder" class="btn" title="Open deck (D)">Open Deck <kbd>D</kbd></button>
       </div>
     </header>
@@ -914,8 +965,6 @@
     </aside>
   </section>
 
-  <button id="zenExitBtn" class="btn zen-exit">Exit Zen <kbd>Z</kbd></button>
-
   <section id="helpOverlay" class="overlay hidden" aria-modal="true" role="dialog" aria-labelledby="helpTitle">
     <div class="dialog">
       <div class="dialog-head">
@@ -932,13 +981,13 @@
           <div class="shortcut"><span>Overview grid</span><kbd>O</kbd></div>
           <div class="shortcut"><span>Speaker notes</span><kbd>N</kbd></div>
           <div class="shortcut"><span>Presenter window</span><kbd>P</kbd></div>
-          <div class="shortcut"><span>Fullscreen</span><kbd>F</kbd></div>
-          <div class="shortcut"><span>Zen mode</span><kbd>Z</kbd></div>
+          <div class="shortcut"><span>Zen presentation mode</span><kbd>Z</kbd></div>
+          <div class="shortcut"><span>Zen presentation mode</span><kbd>F</kbd></div>
           <div class="shortcut"><span>Slide list</span><kbd>L</kbd></div>
           <div class="shortcut"><span>Theme mode</span><kbd>M</kbd></div>
           <div class="shortcut"><span>Open deck</span><kbd>D</kbd></div>
-          <div class="shortcut"><span>Help</span><kbd>?</kbd></div>
-          <div class="shortcut"><span>Close overlay</span><kbd>Esc</kbd></div>
+          <div class="shortcut"><span>Help</span><span class="shortcut-keys"><kbd>H</kbd><kbd>?</kbd></span></div>
+          <div class="shortcut"><span>Close overlay or exit Zen</span><kbd>Esc</kbd></div>
         </div>
       </div>
     </div>
@@ -1015,12 +1064,11 @@
     document.getElementById('notesBtn').addEventListener('click', toggleNotes);
     document.getElementById('presenterBtn').addEventListener('click', openPresenter);
     document.getElementById('helpBtn').addEventListener('click', () => showOverlay(els.helpOverlay));
-    document.getElementById('fullscreenBtn').addEventListener('click', toggleFullscreen);
     document.getElementById('themeBtn').addEventListener('click', toggleTheme);
     document.getElementById('zenBtn').addEventListener('click', toggleZen);
-    document.getElementById('zenExitBtn').addEventListener('click', toggleZen);
     document.getElementById('closeNotesBtn').addEventListener('click', closeNotes);
     els.slideRange.addEventListener('input', e => goTo(Number(e.target.value) - 1));
+    document.addEventListener('fullscreenchange', syncZenWithFullscreen);
 
     // Close buttons for modal overlays share the same data-close mechanism.
     document.querySelectorAll('[data-close]').forEach(btn => {
@@ -1083,7 +1131,7 @@
       if (key === 'o') openOverview();
       if (key === 'n') toggleNotes();
       if (key === 'p') openPresenter();
-      if (key === 'f') toggleFullscreen();
+      if (key === 'f') toggleZen();
       if (key === 'z') toggleZen();
       if (key === 'l') toggleSidebar();
       if (key === 'd') openFolderPicker();
@@ -1337,17 +1385,36 @@
       presenterWindow.document.getElementById('notes').textContent = slides[current].notes || 'No speaker notes for this slide.';
     }
 
-    // Fullscreen and zen are separate: fullscreen asks the browser for screen space; zen hides viewer chrome.
-    function toggleFullscreen() {
-      if (!document.fullscreenElement) document.documentElement.requestFullscreen?.();
-      else document.exitFullscreen?.();
-    }
-
     function toggleZen() {
       if (!slides.length) return;
+      if (els.body.classList.contains('zen')) {
+        exitZen();
+        return;
+      }
+      enterZen();
+    }
+
+    function enterZen() {
       hideAllOverlays();
       closeNotes();
-      els.body.classList.toggle('zen');
+      els.body.classList.add('zen');
+      const fullscreenRequest = document.documentElement.requestFullscreen?.();
+      if (fullscreenRequest) {
+        fullscreenRequest.catch(() => {
+          // File URLs and browser settings can deny fullscreen; zen still hides the viewer chrome.
+        });
+      }
+    }
+
+    function exitZen() {
+      els.body.classList.remove('zen');
+      if (document.fullscreenElement) document.exitFullscreen?.();
+    }
+
+    function syncZenWithFullscreen() {
+      if (!document.fullscreenElement && els.body.classList.contains('zen')) {
+        els.body.classList.remove('zen');
+      }
     }
 
     // Theme changes are local viewer preferences and do not affect slide iframe contents.
