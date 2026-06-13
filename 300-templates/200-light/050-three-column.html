@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<!--
+TEMPLATE METADATA:
+Name: Three Columns / Pillars Layout
+Layout: Three equal-width cards in a responsive grid, stacks to single column on mobile
+Light Theme: background #ffffff, card bg #f8fafc, text #1e293b, accent #f97316 (orange)
+Typography: system-ui; card title 1.2rem weight 700; body 0.9rem weight 400; icon emoji 3.2rem
+Use Cases: Feature highlights, three pillars, capability showcase, service tiers
+Customization: Replace emoji/icon, update card titles and descriptions. Swap card background colours
+Accent Colour: #f97316 (orange) used in card title underlines and accents
+Responsive: Grid auto-fits: 3 cols on desktop, 2 on tablet, 1 on mobile
+-->
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Three Columns — Light</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      background: #ffffff;
+      color: #1e293b;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 52px;
+    }
+
+    h2 {
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      color: #64748b;
+      margin-bottom: 48px;
+      text-align: center;
+    }
+
+    .cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 28px;
+      width: 100%;
+      max-width: 880px;
+    }
+
+    .col {
+      text-align: center;
+      padding: 32px 24px;
+      border-radius: 12px;
+      border: 1px solid #fed7aa;
+      background: #fff7ed;
+      transition: box-shadow 0.2s;
+    }
+
+    .icon {
+      font-size: 2.4rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .col h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #c2410c;
+      margin-bottom: 10px;
+    }
+
+    .col p {
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: #57534e;
+    }
+
+    aside.notes {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Three Core Pillars</h2>
+  <p class="subtitle">Each pillar is essential — weakening one compromises the whole.</p>
+
+  <div class="cols">
+    <div class="col">
+      <span class="icon">🎯</span>
+      <h3>Focus</h3>
+      <p>Ruthlessly prioritise the highest-leverage work. Say no to everything else.</p>
+    </div>
+    <div class="col">
+      <span class="icon">⚡</span>
+      <h3>Speed</h3>
+      <p>Ship early, gather real feedback, and iterate faster than the competition.</p>
+    </div>
+    <div class="col">
+      <span class="icon">🔒</span>
+      <h3>Trust</h3>
+      <p>Build reliability into every layer so customers never have to think about it.</p>
+    </div>
+  </div>
+
+  <aside class="notes">
+    Each pillar feeds the others — Focus enables Speed, Speed builds Trust.
+    Ask the audience which pillar their team struggles with most. This always
+    sparks a productive discussion.
+  </aside>
+</body>
+
+</html>

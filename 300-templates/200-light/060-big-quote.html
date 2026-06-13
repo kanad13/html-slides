@@ -1,0 +1,110 @@
+<!DOCTYPE html><!--
+TEMPLATE METADATA:
+Name: Big Quote Slide
+Layout: Large, centred quotation with speaker attribution below
+Light Theme: background #fffbf5 (warm cream), quote #1e293b, speaker #64748b, accent #d97706 (amber)
+Typography: Georgia serif; quote 2.2rem weight 700 italic; speaker 1rem weight 500 uppercase
+Use Cases: Testimonials, thought leadership quotes, keynote moments, inspirational text
+Customization: Replace quote text and speaker name. Update colours by modifying hex values
+Accent Colour: #d97706 (amber) for quotation mark decoration
+Responsive: Quote scales with clamp(); remains impactful on mobile
+-->
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Big Quote — Light Warm</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      background: #fdf8f0;
+      color: #1c1917;
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px;
+    }
+
+    .slide {
+      max-width: 760px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .open-quote {
+      font-size: 8rem;
+      line-height: 0.6;
+      color: #d97706;
+      display: block;
+      margin-bottom: 16px;
+      font-family: Georgia, serif;
+    }
+
+    blockquote {
+      font-size: clamp(1.4rem, 3.5vw, 2.1rem);
+      font-weight: 400;
+      line-height: 1.6;
+      color: #292524;
+      font-style: italic;
+      margin-bottom: 36px;
+    }
+
+    .close-quote {
+      font-size: 8rem;
+      line-height: 0;
+      color: #d97706;
+      display: block;
+      text-align: right;
+      margin-bottom: 32px;
+      font-family: Georgia, serif;
+    }
+
+    .attribution {
+      font-size: 1rem;
+      color: #78716c;
+      font-style: normal;
+      font-family: system-ui, -apple-system, sans-serif;
+      letter-spacing: 0.04em;
+    }
+
+    .attribution strong {
+      color: #d97706;
+      font-weight: 600;
+    }
+
+    aside.notes {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="slide">
+    <span class="open-quote">&ldquo;</span>
+    <blockquote>
+      If you want to go fast, go alone. If you want to go far, go together.
+    </blockquote>
+    <span class="close-quote">&rdquo;</span>
+    <p class="attribution">— <strong>African Proverb</strong></p>
+  </div>
+
+  <aside class="notes">
+    Pause after reading this quote. Let it settle.
+    Apply it to the theme of collaboration in the next section.
+    Ask: which phase of the project are we in — fast alone, or far together?
+  </aside>
+</body>
+
+</html>
