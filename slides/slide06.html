@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      background: linear-gradient(135deg, #141820 0%, #1a1f2e 100%);
+      color: #f5f6f8;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+
+    .container {
+      max-width: 680px;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      color: #8b92a0;
+      margin-bottom: 50px;
+      line-height: 1.6;
+    }
+
+    .use-cases {
+      display: grid;
+      gap: 18px;
+      margin-bottom: 40px;
+    }
+
+    .use-case {
+      padding: 18px 20px;
+      background: rgba(124, 92, 255, 0.08);
+      border: 1px solid rgba(124, 92, 255, 0.15);
+      border-radius: 8px;
+      text-align: left;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .use-case-icon {
+      font-size: 1.8rem;
+      flex-shrink: 0;
+    }
+
+    .use-case-text {
+      font-size: 0.95rem;
+      color: #c5cad1;
+    }
+
+    .cta {
+      color: #7c5cff;
+      font-weight: 600;
+    }
+
+    @media (max-width: 640px) {
+      h2 {
+        font-size: 2rem;
+      }
+
+      .subtitle {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>Perfect for AI-Generated Slides</h2>
+    <p class="subtitle">Use this viewer when you want full HTML control without servers or build steps</p>
+
+    <div class="use-cases">
+      <div class="use-case">
+        <span class="use-case-icon">🤖</span>
+        <span class="use-case-text">Ask AI to <span class="cta">generate HTML slides</span> from content or ideas</span>
+      </div>
+      <div class="use-case">
+        <span class="use-case-icon">📄</span>
+        <span class="use-case-text">Get <span class="cta">instant layout control</span> without a slide template</span>
+      </div>
+      <div class="use-case">
+        <span class="use-case-icon">⚡</span>
+        <span class="use-case-text">Review and <span class="cta">present immediately</span> — no export needed</span>
+      </div>
+      <div class="use-case">
+        <span class="use-case-icon">🔐</span>
+        <span class="use-case-text">Keep <span class="cta">sensitive content local</span> and offline</span>
+      </div>
+      <div class="use-case">
+        <span class="use-case-icon">🎨</span>
+        <span class="use-case-text"><span class="cta">Customize freely</span> — CSS, charts, interactivity</span>
+      </div>
+    </div>
+  </div>
+
+  <aside class="notes">
+    Explain why this tool exists. AI agents can now generate beautiful HTML slides in seconds. You don't have to fiddle
+    with slide templates anymore. You can generate 10 variations and pick the best one. You can even have the agent
+    regenerate slides on the fly based on audience questions. This is the workflow: AI generates HTML → you review in
+    the viewer → you present directly. No intermediate formats, no export/import dance.
+  </aside>
+</body>
+
+</html>

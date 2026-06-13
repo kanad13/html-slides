@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      background: linear-gradient(135deg, #1a1f2e 0%, #252d3d 100%);
+      color: #f5f6f8;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+
+    .container {
+      max-width: 720px;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .code-block {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(124, 92, 255, 0.2);
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 24px;
+      overflow-x: auto;
+    }
+
+    pre {
+      font-family: 'SF Mono', Monaco, Menlo, monospace;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: #a8b5ff;
+    }
+
+    .keyword {
+      color: #7c5cff;
+      font-weight: 600;
+    }
+
+    .string {
+      color: #80d4ff;
+    }
+
+    .comment {
+      color: #6f7683;
+      font-style: italic;
+    }
+
+    .highlight-box {
+      padding: 20px;
+      background: rgba(124, 92, 255, 0.1);
+      border-left: 3px solid #7c5cff;
+      border-radius: 6px;
+    }
+
+    .highlight-box p {
+      color: #c5cad1;
+      line-height: 1.6;
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 640px) {
+      h2 {
+        font-size: 1.8rem;
+        margin-bottom: 30px;
+      }
+
+      pre {
+        font-size: 0.75rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>💻 Full HTML Freedom</h2>
+    <div class="code-block">
+      <pre><span class="keyword">&lt;aside</span> <span class="keyword">class</span>=<span class="string">"notes"</span><span class="keyword">&gt;</span>
+  Speaker notes hidden until you press N
+<span class="keyword">&lt;/aside&gt;</span>
+
+<span class="keyword">&lt;style&gt;</span>
+  body { background: linear-gradient(...); }
+  .chart { display: grid; gap: 12px; }
+<span class="keyword">&lt;/style&gt;</span>
+
+<span class="keyword">&lt;canvas</span> <span class="keyword">id</span>=<span class="string">"chart"</span><span class="keyword">&gt;&lt;/canvas&gt;</span></pre>
+    </div>
+    <div class="highlight-box">
+      <p><strong>Every slide is a complete HTML document.</strong> Use CSS, JavaScript, Canvas, SVG, embedded media,
+        custom fonts—anything your browser supports. The viewer just loads each slide in its own isolated iframe.</p>
+    </div>
+  </div>
+
+  <aside class="notes">
+    Show the code block and talk about the power and flexibility. Every slide is a complete HTML document, so you can
+    use any modern web feature: CSS animations, JavaScript interactions, Canvas drawing, SVG graphics, embedded videos,
+    custom fonts, you name it. The viewer just creates an iframe for each slide—they're completely isolated, so one
+    slide's code can't break another. This is why AI agents love this approach: maximum creative freedom with no
+    complexity.
+  </aside>
+</body>
+
+</html>

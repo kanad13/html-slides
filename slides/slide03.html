@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      background: linear-gradient(135deg, #1a1f2e 0%, #141820 100%);
+      color: #f5f6f8;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+
+    .container {
+      max-width: 680px;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 50px;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .control {
+      padding: 24px;
+      background: rgba(124, 92, 255, 0.08);
+      border: 1px solid rgba(124, 92, 255, 0.2);
+      border-radius: 10px;
+    }
+
+    .control-icon {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+    }
+
+    .control-title {
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #7c5cff;
+    }
+
+    .control-desc {
+      color: #8b92a0;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .full-width {
+      grid-column: 1 / -1;
+    }
+
+    @media (max-width: 640px) {
+      .controls {
+        grid-template-columns: 1fr;
+      }
+
+      h2 {
+        font-size: 1.8rem;
+        margin-bottom: 40px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>⌨️ Navigation Controls</h2>
+    <div class="controls">
+      <div class="control">
+        <div class="control-icon">→ ←</div>
+        <div class="control-title">Arrow Keys</div>
+        <div class="control-desc">Move between slides</div>
+      </div>
+      <div class="control">
+        <div class="control-icon">Space</div>
+        <div class="control-title">Spacebar</div>
+        <div class="control-desc">Next slide</div>
+      </div>
+      <div class="control">
+        <div class="control-icon">🖱️</div>
+        <div class="control-title">Click Edges</div>
+        <div class="control-desc">Click left/right to navigate</div>
+      </div>
+      <div class="control">
+        <div class="control-icon">📱</div>
+        <div class="control-title">Swipe</div>
+        <div class="control-desc">Swipe on mobile devices</div>
+      </div>
+      <div class="control full-width">
+        <div class="control-icon">🎬</div>
+        <div class="control-title">Z or F for Zen Mode</div>
+        <div class="control-desc">Enter fullscreen presentation mode. Press Esc to exit.</div>
+      </div>
+    </div>
+  </div>
+
+  <aside class="notes">
+    Emphasize the flexibility: you can navigate any way you want. Keyboard shortcuts are great for hands-free
+    presentation. The left and right edges are clickable—useful when you're far from the keyboard. Swipe support means
+    it works on mobile and tablets. Spacebar is the fastest way to advance during a real presentation.
+  </aside>
+</body>
+
+</html>

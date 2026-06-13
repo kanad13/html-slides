@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      background: linear-gradient(135deg, #141820 0%, #1a1f2e 100%);
+      color: #f5f6f8;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+
+    .container {
+      text-align: center;
+      max-width: 700px;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 700;
+      margin-bottom: 20px;
+      line-height: 1.1;
+    }
+
+    .subtitle {
+      font-size: clamp(1rem, 3vw, 1.35rem);
+      color: #8b92a0;
+      margin-bottom: 40px;
+      line-height: 1.6;
+      font-weight: 500;
+    }
+
+    .accent {
+      color: #7c5cff;
+      font-weight: 600;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 60px;
+      font-size: 0.95rem;
+    }
+
+    .feature {
+      padding: 16px;
+      border-radius: 10px;
+      background: rgba(124, 92, 255, 0.1);
+      border: 1px solid rgba(124, 92, 255, 0.3);
+    }
+
+    .feature strong {
+      color: #7c5cff;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .feature span {
+      color: #8b92a0;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 640px) {
+      .features {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Slide Deck Viewer</h1>
+    <p class="subtitle">Transform <span class="accent">HTML slides</span> into a polished <span
+        class="accent">presentation</span></p>
+    <div class="features">
+      <div class="feature">
+        <strong>📁 Pick Locally</strong>
+        <span>Open folders directly from your computer</span>
+      </div>
+      <div class="feature">
+        <strong>🎯 Full Control</strong>
+        <span>HTML/CSS freedom for every slide</span>
+      </div>
+      <div class="feature">
+        <strong>🎬 Zen Mode</strong>
+        <span>Fullscreen presentation without chrome</span>
+      </div>
+      <div class="feature">
+        <strong>📝 Speaker Notes</strong>
+        <span>Keep talking points private and close</span>
+      </div>
+    </div>
+  </div>
+
+  <aside class="notes">
+    This is the entry point. Welcome the audience and briefly explain what they're about to see. Mention that this is a
+    simple, zero-dependency presentation tool built for modern HTML slides. Emphasize that there's no setup
+    required—just open the file and choose a folder.
+  </aside>
+</body>
+
+</html>

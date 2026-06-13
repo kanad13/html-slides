@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      background: linear-gradient(135deg, #252d3d 0%, #1a1f2e 100%);
+      color: #f5f6f8;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+
+    .container {
+      max-width: 700px;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 50px;
+    }
+
+    .steps {
+      display: grid;
+      gap: 32px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 60px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .step-num {
+      width: 60px;
+      height: 60px;
+      background: rgba(124, 92, 255, 0.2);
+      border: 2px solid #7c5cff;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: #7c5cff;
+      flex-shrink: 0;
+    }
+
+    .step-content h3 {
+      font-size: 1.25rem;
+      margin-bottom: 8px;
+      color: #f5f6f8;
+    }
+
+    .step-content p {
+      color: #8b92a0;
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+
+    @media (max-width: 640px) {
+      .step {
+        grid-template-columns: 50px 1fr;
+      }
+
+      .step-num {
+        width: 50px;
+        height: 50px;
+      }
+
+      h2 {
+        font-size: 1.8rem;
+        margin-bottom: 40px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>🎯 Get Started in 3 Steps</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>Name & Sort Files</h3>
+          <p>Use clear names like slide01.html, slide02.html. The viewer sorts them naturally.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>Each File is Independent</h3>
+          <p>Every slide is a complete HTML document. Style, script, and customize freely.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>Re-Pick to Refresh</h3>
+          <p>Change slides anytime. Just open the deck again to load the latest files.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <aside class="notes">
+    Walk through the workflow: File naming is important—use natural sort order like slide01, slide02, etc. Each slide is
+    completely independent, so you can edit or regenerate slides without affecting others. Refreshing the deck is easy:
+    just re-open the viewer and pick the folder again. This makes it perfect for rapid iteration with AI agents.
+  </aside>
+</body>
+
+</html>

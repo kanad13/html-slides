@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      background: linear-gradient(135deg, #252d3d 0%, #1a1f2e 100%);
+      color: #f5f6f8;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+
+    .container {
+      max-width: 720px;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 50px;
+      text-align: center;
+    }
+
+    .shortcuts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .shortcut {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      background: rgba(124, 92, 255, 0.08);
+      border: 1px solid rgba(124, 92, 255, 0.15);
+      border-radius: 8px;
+    }
+
+    .shortcut-label {
+      color: #8b92a0;
+      font-size: 0.95rem;
+    }
+
+    .shortcut-key {
+      display: inline-flex;
+      gap: 6px;
+      font-weight: 600;
+      color: #7c5cff;
+      font-family: monospace;
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 640px) {
+      .shortcuts {
+        grid-template-columns: 1fr;
+      }
+
+      h2 {
+        font-size: 1.8rem;
+        margin-bottom: 40px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>⌨️ Keyboard Shortcuts</h2>
+    <div class="shortcuts">
+      <div class="shortcut">
+        <span class="shortcut-label">Next slide</span>
+        <span class="shortcut-key">→ / Space</span>
+      </div>
+      <div class="shortcut">
+        <span class="shortcut-label">Previous slide</span>
+        <span class="shortcut-key">←</span>
+      </div>
+      <div class="shortcut">
+        <span class="shortcut-label">First slide</span>
+        <span class="shortcut-key">Home</span>
+      </div>
+      <div class="shortcut">
+        <span class="shortcut-label">Last slide</span>
+        <span class="shortcut-key">End</span>
+      </div>
+      <div class="shortcut">
+        <span class="shortcut-label">Zen mode</span>
+        <span class="shortcut-key">Z / F</span>
+      </div>
+      <div class="shortcut">
+        <span class="shortcut-label">Overview</span>
+        <span class="shortcut-key">O</span>
+      </div>
+      <div class="shortcut">
+        <span class="shortcut-label">Speaker notes</span>
+        <span class="shortcut-key">N</span>
+      </div>
+      <div class="shortcut">
+        <span class="shortcut-label">Presenter window</span>
+        <span class="shortcut-key">P</span>
+      </div>
+      <div class="shortcut">
+        <span class="shortcut-label">Slide list</span>
+        <span class="shortcut-key">L</span>
+      </div>
+      <div class="shortcut">
+        <span class="shortcut-label">Theme toggle</span>
+        <span class="shortcut-key">M</span>
+      </div>
+      <div class="shortcut">
+        <span class="shortcut-label">Open deck</span>
+        <span class="shortcut-key">D</span>
+      </div>
+      <div class="shortcut">
+        <span class="shortcut-label">Help</span>
+        <span class="shortcut-key">H / ?</span>
+      </div>
+    </div>
+  </div>
+
+  <aside class="notes">
+    This is a reference slide. Quickly review the shortcuts during a Q&A or break. Point out that every action has both
+    a button and a keyboard shortcut. The shortcuts are designed to be intuitive—arrow keys for movement, Z for Zen
+    mode. You can display this slide on a projector for the audience so they know what's available. All shortcuts work
+    whether you're presenting or reviewing slides in the viewer.
+  </aside>
+</body>
+
+</html>

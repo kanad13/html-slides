@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      background: linear-gradient(135deg, #1a1f2e 0%, #252d3d 100%);
+      color: #f5f6f8;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+
+    .container {
+      max-width: 680px;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 40px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 30px;
+    }
+
+    .feature-card {
+      padding: 28px 20px;
+      background: rgba(124, 92, 255, 0.08);
+      border: 1px solid rgba(124, 92, 255, 0.2);
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .feature-icon {
+      font-size: 2.2rem;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .feature-title {
+      font-weight: 600;
+      color: #7c5cff;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .feature-desc {
+      color: #8b92a0;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .highlight-box {
+      padding: 24px;
+      background: rgba(124, 92, 255, 0.12);
+      border-left: 3px solid #7c5cff;
+      border-radius: 6px;
+      text-align: left;
+    }
+
+    .highlight-box strong {
+      color: #7c5cff;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .highlight-box span {
+      color: #8b92a0;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 640px) {
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+
+      h2 {
+        font-size: 1.8rem;
+        margin-bottom: 30px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>📊 Advanced Features</h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <span class="feature-icon">👁️</span>
+        <div class="feature-title">Overview</div>
+        <div class="feature-desc">Grid view of all slides for quick navigation</div>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">📝</span>
+        <div class="feature-title">Speaker Notes</div>
+        <div class="feature-desc">Private talking points beside your slides</div>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🎙️</span>
+        <div class="feature-title">Presenter View</div>
+        <div class="feature-desc">Separate window with notes and timer</div>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🌙</span>
+        <div class="feature-title">Theme Toggle</div>
+        <div class="feature-desc">Switch between dark and light modes</div>
+      </div>
+    </div>
+    <div class="highlight-box">
+      <strong>🔐 Your Privacy</strong>
+      <span>All slides stay on your machine. Works completely offline. Nothing is uploaded or shared.</span>
+    </div>
+  </div>
+
+  <aside class="notes">
+    Go deeper into the advanced features. Overview (press O) lets you jump around the deck in any order—great for
+    handling questions. Speaker Notes (press N) keep your talking points private. Presenter Mode (press P) opens a
+    separate window on a second monitor with your notes, a timer, and slide navigation. Theme toggle lets you adapt to
+    the room's lighting. All of these work without any external tools or services.
+  </aside>
+</body>
+
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      background: linear-gradient(135deg, #141820 0%, #1a1f2e 100%);
+      color: #f5f6f8;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+
+    .container {
+      max-width: 800px;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 50px;
+      text-align: center;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .stat-card {
+      padding: 28px 20px;
+      background: rgba(124, 92, 255, 0.08);
+      border: 1px solid rgba(124, 92, 255, 0.2);
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #7c5cff;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      color: #8b92a0;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .insight {
+      padding: 24px;
+      background: rgba(124, 92, 255, 0.1);
+      border-left: 3px solid #7c5cff;
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    .insight p {
+      color: #c5cad1;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    @media (max-width: 640px) {
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      h2 {
+        font-size: 1.8rem;
+        margin-bottom: 40px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>📈 Performance Metrics</h2>
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-number">45KB</div>
+        <div class="stat-label">Single File</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">0ms</div>
+        <div class="stat-label">Load Time</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">∞</div>
+        <div class="stat-label">Offline Ready</div>
+      </div>
+    </div>
+    <div class="insight">
+      <p><strong>Zero dependencies.</strong> Everything works in your browser. No servers, build steps, or external
+        libraries. Just open the file and go.</p>
+    </div>
+  </div>
+
+  <aside class="notes">
+    Talk about why this lightweight approach matters. The entire viewer is only 45KB—fits on any device, loads
+    instantly, no bloat. It loads with zero delay because there's no network call, no build step, no compilation. It's
+    ready to work offline from the moment you open the file. Compare this to web-based presentation tools that need
+    accounts, internet connectivity, and load animations. This is the efficiency pitch.
+  </aside>
+</body>
+
+</html>
