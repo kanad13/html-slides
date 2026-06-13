@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Slide Deck Viewer</title>
+<style>
+  *{margin:0;box-sizing:border-box}
+  html,body{height:100%;overflow:hidden;font-family:system-ui,sans-serif}
+
+  /* ---------- Picker screen ---------- */
+  #picker{
+    height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:16px;background:#0f172a;color:#fff;text-align:center;padding:20px;
+  }
+  #picker h1{font-size:1.6rem;font-weight:600}
+  #picker p{color:#94a3b8;max-width:480px;font-size:.95rem;line-height:1.5}
+  #pickBtn{
+    padding:12px 28px;font-size:1rem;border:0;border-radius:8px;
+    background:#3b82f6;color:#fff;cursor:pointer;transition:background .15s;
+  }
+  #pickBtn:hover{background:#2563eb}
+  #picker input[type=file]{display:none}
+
+  /* ---------- Deck screen ---------- */
+  #deck{height:100vh;display:flex;transition:transform .35s ease}
+  .slide{min-width:100vw;height:100vh;border:0;display:block}
+
+  #dots{
+    position:fixed;bottom:18px;left:50%;transform:translateX(-50%);
+    display:flex;gap:8px;z-index:10;
+  }
+  .dot{width:10px;height:10px;border-radius:50%;background:rgba(0,0,0,.25);cursor:pointer}
+  .dot.active{background:rgba(0,0,0,.65)}
+
+  #nav{
+    position:fixed;top:0;bottom:0;width:8%;z-index:9;
+    background:transparent;border:0;cursor:pointer;
+  }
+  #navPrev{left:0}
+  #navNext{right:0}
+
+  #counter{
+    position:fixed;top:14px;right:16px;font:12px/1 monospace;
+    color:rgba(0,0,0,.4);z-index:10;background:rgba(255,255,255,.6);
+    padding:4px 8px;border-radius:6px;
+  }
+
+  #changeFolder{
+    position:fixed;top:14px;left:16px;font:12px/1 monospace;z-index:10;
+    background:rgba(255,255,255,.6);border:0;border-radius:6px;
+    padding:4px 8px;cursor:pointer;color:#333;
+  }
+
+  .hidden{display:none !important}
+</style>
+</head>
+<body>
+
+<!-- ===== Folder picker (shown first) ===== -->
+<div id="picker">
+  <h1>Slide Deck Viewer</h1>
+  <p>
+    Pick a local folder containing your slide files (e.g. <code>slide01.html</code>,
+    <code>slide02.html</code>, ...). Files are sorted alphabetically/numerically
+    and shown as a swipeable deck. Nothing leaves your browser.
+  </p>
+  <button id="pickBtn">Choose Folder</button>
+  <input type="file" id="folderInput" webkitdirectory directory multiple>
+</div>
+
+<!-- ===== Deck (shown after a folder is picked) ===== -->
+<div id="deck" class="hidden"></div>
+<div id="dots" class="hidden"></div>
+<button id="navPrev" class="hidden" aria-label="Previous slide"></button>
+<button id="navNext" class="hidden" aria-label="Next slide"></button>
+<div id="counter" class="hidden"></div>
+<button id="changeFolder" class="hidden">Change folder</button>
+
+<script>
+const picker      = document.getElementById('picker');
+const folderInput = document.getElementById('folderInput');
+const pickBtn     = document.getElementById('pickBtn');
+const deck        = document.getElementById('deck');
+const dotsEl      = document.getElementById('dots');
+const counter     = document.getElementById('counter');
+const navPrev     = document.getElementById('navPrev');
+const navNext     = document.getElementById('navNext');
+const changeFolderBtn = document.getElementById('changeFolder');
+
+let i = 0;
+let slideCount = 0;
+let objectUrls = [];
+
+pickBtn.addEventListener('click', () => folderInput.click());
+folderInput.addEventListener('change', handleFolderSelect);
+changeFolderBtn.addEventListener('click', resetToPicker);
+
+function handleFolderSelect(e){
+  const files = [...e.target.files].filter(f => /\.html?$/i.test(f.name));
+
+  if(files.length === 0){
+    alert('No .html files found in that folder.');
+    return;
+  }
+
+  // Sort alphabetically/numerically by filename (e.g. slide2 before slide10)
+  files.sort((a, b) =>
+    a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' })
+  );
+
+  buildDeck(files);
+}
+
+function buildDeck(files){
+  // Clean up any previous deck
+  revokeObjectUrls();
+  deck.innerHTML = '';
+  dotsEl.innerHTML = '';
+  i = 0;
+  slideCount = files.length;
+
+  files.forEach((file, idx) => {
+    const url = URL.createObjectURL(file);
+    objectUrls.push(url);
+
+    const iframe = document.createElement('iframe');
+    iframe.className = 'slide';
+    iframe.src = url;
+    deck.appendChild(iframe);
+
+    const dot = document.createElement('div');
+    dot.className = 'dot' + (idx === 0 ? ' active' : '');
+    dot.addEventListener('click', () => goTo(idx));
+    dotsEl.appendChild(dot);
+  });
+
+  picker.classList.add('hidden');
+  [deck, dotsEl, navPrev, navNext, counter, changeFolderBtn]
+    .forEach(el => el.classList.remove('hidden'));
+
+  updateCounter();
+}
+
+function resetToPicker(){
+  revokeObjectUrls();
+  deck.innerHTML = '';
+  dotsEl.innerHTML = '';
+  folderInput.value = '';
+  [deck, dotsEl, navPrev, navNext, counter, changeFolderBtn]
+    .forEach(el => el.classList.add('hidden'));
+  picker.classList.remove('hidden');
+}
+
+function revokeObjectUrls(){
+  objectUrls.forEach(u => URL.revokeObjectURL(u));
+  objectUrls = [];
+}
+
+function goTo(n){
+  i = Math.max(0, Math.min(slideCount - 1, n));
+  deck.style.transform = `translateX(-${i * 100}vw)`;
+  [...dotsEl.children].forEach((d, idx) => d.classList.toggle('active', idx === i));
+  updateCounter();
+}
+
+function updateCounter(){
+  counter.textContent = `${i + 1} / ${slideCount}`;
+}
+
+navPrev.addEventListener('click', () => goTo(i - 1));
+navNext.addEventListener('click', () => goTo(i + 1));
+
+document.addEventListener('keydown', e => {
+  if(slideCount === 0) return;
+  if(e.key === 'ArrowRight' || e.key === ' ') goTo(i + 1);
+  if(e.key === 'ArrowLeft') goTo(i - 1);
+});
+
+// Touch swipe
+let startX = 0;
+document.addEventListener('touchstart', e => startX = e.touches[0].clientX);
+document.addEventListener('touchend', e => {
+  if(slideCount === 0) return;
+  const diff = e.changedTouches[0].clientX - startX;
+  if(diff < -50) goTo(i + 1);
+  if(diff > 50) goTo(i - 1);
+});
+</script>
+</body>
+</html>
