@@ -11,54 +11,65 @@ It prioritises consistency, readability, maintainability, and brand flexibility.
 ## Folder Structure
 
 ```text
-300-templates/
-├── README.md
-├── TEMPLATE-SYSTEM.md
-├── 100-basic.html
+html-slides/
 ├── 100-viewer.html
-├── 200-light/
-│   └── 005-design-system.html
-└── 300-dark/
-    └── 005-design-system.html
+├── 300-templates/
+│   ├── readme.md
+│   ├── TEMPLATE-SYSTEM.md
+│   ├── 100-basic.html
+│   ├── 200-light/
+│   │   ├── 005-design-system.html
+│   │   ├── 010-*.html
+│   │   ├── ...
+│   │   ├── 250-*.html
+│   ├── 300-dark/
+│   │   ├── 005-design-system.html
+│   │   ├── 010-*.html
+│   │   ├── ...
+│   │   ├── 250-*.html
 ```
 
 ---
 
 ## File Roles
 
-### README.md
+### `readme.md`
 
-High-level overview.
+High-level overview of the template library.
 
-Read this first when onboarding.
+Keep this lean and use it for orientation.
 
-### TEMPLATE-SYSTEM.md
+### `TEMPLATE-SYSTEM.md`
 
 Operational manual.
 
 Use this when creating or editing templates.
 
-### 100-basic.html
+### `100-basic.html`
 
-Starter template.
+Minimal starter template.
 
-Copy this file when creating a new template.
+Use this when creating a truly new layout from scratch.
 
-### 100-viewer.html
+### `../100-viewer.html`
 
-Simple browser-based viewer.
+Root-level browser-based viewer.
 
-Use this to preview templates locally.
+Use this to preview and present templates locally.
 
-### 200-light/005-design-system.html
+### `200-light/005-design-system.html`
 
-Visual design-system reference for light slides.
+Canonical visual design-system reference for light slides.
 
-### 300-dark/005-design-system.html
+### `300-dark/005-design-system.html`
 
-Visual design-system reference for dark slides.
+Canonical visual design-system reference for dark slides.
 
----
+### `200-light/010-250` and `300-dark/010-250`
+
+Primary template library.
+
+When generating or authoring a slide, prefer the closest existing template before creating a new one.
 
 ## Naming Convention
 
@@ -533,16 +544,17 @@ When generating a new slide:
 
 When creating a new template:
 
-1. Copy `100-basic.html`.
-2. Rename according to the naming convention.
-3. Update metadata.
-4. Keep the token block.
-5. Build layout using tokenised components.
-6. Test with default brand tokens.
-7. Test with a different brand palette.
-8. Test in both light and dark themes where applicable.
-9. Add the template to the viewer.
-10. Document any special usage rules.
+1. Check for an existing template that can be adapted.
+2. Copy `100-basic.html` only when creating a truly new layout.
+3. Rename according to the naming convention.
+4. Update metadata.
+5. Keep the token block.
+6. Build layout using tokenised components.
+7. Test with default brand tokens.
+8. Test with a different brand palette.
+9. Test in both light and dark themes where applicable.
+10. Add the template to the root viewer when ready.
+11. Document any special usage rules.
 
 ---
 
