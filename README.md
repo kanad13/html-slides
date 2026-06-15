@@ -1,4 +1,4 @@
-# Slide Deck Viewer
+# HTML Slide Deck Viewer
 
 **Transform HTML slides into a polished presentation.** No servers. No build steps. No dependencies.
 
@@ -90,7 +90,7 @@ On touch devices, swipe left and right to navigate.
 
 ## Build Your Slides
 
-Each slide is a standalone HTML file. Use whatever HTML, CSS, and JavaScript you need.
+Each slide is a standalone HTML file. Use broad HTML, CSS, and JavaScript freedom per slide, subject to normal browser restrictions for local files.
 
 **Minimal slide example:**
 
@@ -139,16 +139,60 @@ The `300-templates/` folder is the slide-authoring and slide-generation referenc
 
 Current structure:
 
-| Path                                              | Purpose                                               |
-| ------------------------------------------------- | ----------------------------------------------------- |
-| `300-templates/100-basic.html`                    | Canonical standalone slide scaffold                   |
-| `300-templates/110-systems/`                      | Token contract and light/dark token packs             |
-| `300-templates/120-layouts/010-layout-catalog.md` | Structural layout patterns                            |
-| `300-templates/130-workflows/`                    | AI generation, output, arcs, and maintenance guidance |
+| Path                                              | Purpose                                                               |
+| ------------------------------------------------- | --------------------------------------------------------------------- |
+| `300-templates/100-basic.html`                    | Canonical standalone slide scaffold                                   |
+| `300-templates/110-systems/`                      | Token contract, default token packs, and custom theme intake guidance |
+| `300-templates/120-layouts/010-layout-catalog.md` | Structural layout patterns                                            |
+| `300-templates/130-workflows/`                    | AI generation, output, arcs, and maintenance guidance                 |
 
-The layout catalog currently documents 25 structural patterns including classic title, titlebody, split diagram/text, image focus, three columns, big quote, stats, section headers, two-column split, bold statement, data table, split bands, sidebar accent, gradient glass, diagonal split, top accent band, minimal typography, pyramid, and full-bleed grid.
+The layout catalog documents structural patterns such as classic title, title-body, split diagram/text, image focus, three columns, big quote, stats, section headers, agenda, comparison, timeline, data table, sidebar accent, diagonal split, pyramid, and full-bleed layouts.
 
 To start a new slide, use `300-templates/100-basic.html` as the default base, adapt the structure using the layout catalog, and keep token names aligned with `300-templates/110-systems/010-token-reference.md`.
+
+### Theme and Token System
+
+Slides use a token-based visual system.
+
+The framework includes two default complete token packs:
+
+1. **Light default**:
+   Use this for normal light-background decks.
+
+2. **Dark default**:
+   Use this for dark-background or high-contrast decks.
+
+A deck can also use a **custom token pack**.
+
+Custom token packs are useful when the user says things like:
+
+- "Make it look like this company."
+- "Use this screenshot as inspiration."
+- "Use these hex colours."
+- "Make it mild and professional."
+- "Use olive green and black."
+- "Make it bright and energetic."
+- "Create something suitable for an executive technology briefing."
+
+The rule is simple:
+
+> External inspiration is allowed. Direct external styling is not.
+> All visual inspiration must be converted into the canonical token contract before slide generation.
+
+That means colours from a company reference, screenshot, URL, mood description, or hex input should be mapped into tokens such as:
+
+- `--surface-0`
+- `--surface-1`
+- `--text-primary`
+- `--brand-primary`
+- `--success`
+- `--warning`
+- `--danger`
+- `--chart-1`
+
+Generated slides should then consume those tokens rather than scattering random hardcoded colours across components.
+
+By default, token values and CSS are embedded inline in each standalone slide. This keeps the slides portable and compatible with the local viewer.
 
 ## AI Deck Workflow
 
@@ -159,14 +203,23 @@ For AI-assisted deck creation and maintenance, use the docs in `300-templates/13
 - `030-deck-arcs.md` — reusable deck arcs based on common presentation best practices
 - `040-maintenance-context.md` — `deck-context.md` sidecar contract for future updates
 
+For custom visual direction, use:
+
+- `300-templates/110-systems/020-theme-intake-and-tokenization.md`
+
 Recommended default workflow:
 
-1. Clarify audience, purpose, and source material
-2. Choose a deck arc
-3. Use `100-basic.html` as the base scaffold
-4. Choose a small set of layouts from the catalog
-5. generate standalone slides into `500-output/`
-6. write a `deck-context.md` file beside the slides
+- Clarify audience, purpose, and source material
+- Choose a deck arc
+- Choose a theme path:
+  - default light token pack
+  - default dark token pack
+  - or custom token pack from user inspiration
+- Use `100-basic.html` as the base scaffold
+- Choose a small set of layouts from the catalog
+- Generate standalone slides into `500-output/`
+- Write a `deck-context.md` file beside the slides
+- Record the theme source and token strategy in `deck-context.md`
 
 ## Generated Deck Output
 
@@ -184,6 +237,9 @@ Recommended structure:
 ```
 
 Prefer one subfolder per deck and zero-padded slide names such as `slide01.html`.
+
+Each slide should remain standalone by default.
+Do not create a shared CSS file unless the user explicitly asks for that structure.
 
 ## Advanced Features
 
@@ -206,11 +262,14 @@ Open a second window with:
 - Speaker notes for the current slide
 - Countdown timer
 - Slide navigator
-- Perfect for displaying slides on a projector while you present on another monitor
+- Useful for displaying slides on a projector while you present on another monitor
 
 ### Theme Toggle
 
-Switch between dark and light themes with the **Theme** button or press `M`. Your preference is saved in browser storage.
+Switch between dark and light themes for the viewer chrome with the **Theme** button or press M.
+
+This changes the viewer interface only.
+It does not change the slide iframe contents.
 
 ## Browser Support
 
@@ -233,12 +292,12 @@ The viewer uses browser-native file APIs. If folder picking doesn't work, use **
 
 ## Why Not Just Use…
 
-| Tool                 | Why This Is Different                                   |
-| -------------------- | ------------------------------------------------------- |
-| PowerPoint / Keynote | This gives you code-level HTML/CSS control              |
-| Google Slides        | This works offline and keeps your slides local          |
-| Reveal.js / Remark   | This needs no build step or dependencies                |
-| PDF export           | This is a live presentation tool, not a document format |
+| Tool                 | Why This Is Different                                                       |
+| -------------------- | --------------------------------------------------------------------------- |
+| PowerPoint / Keynote | `HTML Slide Deck Viewer` gives you code-level HTML/CSS control              |
+| Google Slides        | `HTML Slide Deck Viewer` works offline and keeps your slides local          |
+| Reveal.js / Remark   | `HTML Slide Deck Viewer` needs no build step or dependencies                |
+| PDF export           | `HTML Slide Deck Viewer` is a live presentation tool, not a document format |
 
 ## Development & Maintenance
 
@@ -258,7 +317,8 @@ Browsers don't let static HTML files scan arbitrary folders by path—that's a s
 - ✅ Works offline, completely local-first
 - ✅ No dependencies, no build steps
 - ✅ Perfect for AI-generated presentations
-- ✅ Full HTML/CSS/JS freedom per slide
+- ✅ Full HTML/CSS/JS freedom per slide, within normal browser limits
+- ✅ Compatible with default and custom tokenized slide themes
 
 ## What This Isn't
 
@@ -268,3 +328,4 @@ Browsers don't let static HTML files scan arbitrary folders by path—that's a s
 - ❌ A collaborative editor
 - ❌ A web app that requires a server
 - ❌ A tool that uploads your content
+- ❌ A runtime theme generator for already-loaded slides

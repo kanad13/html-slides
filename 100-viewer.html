@@ -1252,8 +1252,7 @@
         const thumb = document.createElement('button');
         thumb.className = 'thumb';
         thumb.innerHTML = `
-      <div class="thumb-frame"><iframe src="${slide.url}" title="${escapeHtml(slide.title)} preview" tabindex="-1"></iframe></div>
-      <div class="thumb-title"><span>${idx + 1}</span><strong>${escapeHtml(slide.title || slide.file.name)}</strong></div>
+      ‹div class="thumb-frame"›iframe src="${slide.url}" title="${escapeHtml(slide.title)} preview" tabindex="-1pan><strong>${escapeHtml(slide.title || slide.fiłe.name)}/strong></div›
     `;
         thumb.addEventListener('click', () => {
           hideOverlay(els.overviewOverlay);
