@@ -36,13 +36,4 @@ The viewer does not upload selected files.
 
 However, a slide is HTML. If a slide file contains remote images, fonts, scripts, stylesheets, CSS URLs, or application code that makes network requests, the browser may request those remote resources when the slide renders.
 
-For fully offline or no-network decks:
-
-- avoid remote runtime references;
-- keep assets deck-local;
-- run `python3 600-tools/validate_deck.py <deck-folder>`;
-- review slide HTML before presenting untrusted decks.
-
-## Hosted Viewer Note
-
-A static hosted viewer can still preserve the no-upload file-selection model, but arbitrary uploaded slide HTML needs a stricter policy if the promise is "nothing leaves the browser." Hosted mode is intentionally not implemented in this repo yet.
+This is fine and should be validated with the user as part of the deck creation process.

@@ -14,7 +14,6 @@ Future changes should preserve both contracts:
 
 - `100-viewer.html` must remain usable by opening it directly in a browser.
 - Do not require Python, Node, npm, a web server, a package manager, or a browser extension for normal viewer use.
-- Do not add external runtime dependencies, CDN scripts, web fonts, tracking, analytics, or remote assets.
 - Do not upload, sync, or transmit selected slide files anywhere.
 - Keep slide files isolated in iframes so one slide cannot break the viewer or another slide.
 - Keep the folder/file picker flow. Static HTML cannot scan arbitrary local folders without user selection.
@@ -92,7 +91,7 @@ Rules:
 ## Generated Deck Output Rules
 
 - Generated decks belong in `500-output/`, preferably one subfolder per deck.
-- Use zero-padded slide names such as `slide01.html`, `slide02.html`, `slide03.html`.
+- Use zero-padded 4-digit slide names: `slide0100.html`, `slide0200.html`, `slide0300.html`, and so on.
 - Each slide must be a complete standalone HTML document.
 - Each slide should include:
   - `<!DOCTYPE html>`;
@@ -104,6 +103,7 @@ Rules:
   - slide markup;
   - optional `<aside class="notes">`.
 - By default, embed all token values and CSS inside each slide.
+- External rendering libraries (such as Mermaid or Chart.js) may be embedded via CDN if documented in `deck-context.md`. This keeps slides portable when moved or shared.
 - Do not create or require a deck-level shared CSS file unless the user explicitly asks for it.
 - Every generated deck should usually include `deck-context.md`.
 
@@ -178,12 +178,9 @@ Before considering a tooling, PDF export, or CI change done:
 ## Things To Avoid
 
 - React, Vue, Svelte, Astro, Vite, Webpack, or similar tooling.
-- Markdown-to-slide pipelines inside this repo.
 - PDF export/conversion inside the normal viewer runtime. Optional offline export tooling may exist separately.
 - Server-side slide generation.
 - WebSocket presenter sync.
 - Service workers unless there is a very strong reason and the offline/file behavior is preserved.
-- External runtime assets, fonts, scripts, analytics, or tracking.
 - Shared CSS requirements for generated decks unless explicitly requested by the user.
 - Random hardcoded colour values in slide components.
-- Claiming official brand compliance unless the user provided official brand guidance.

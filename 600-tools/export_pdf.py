@@ -69,7 +69,7 @@ def render_slides(slides: list[Path], tmp_dir: Path, args: argparse.Namespace) -
             except PlaywrightTimeoutError:
                 pass
             page.wait_for_timeout(args.settle_ms)
-            page.emulate_media(media="screen")
+            page.emulate_media(media="print")
             page.add_style_tag(content=f"""
               @page {{ size: {args.paper_width} {args.paper_height}; margin: 0; }}
               html, body {{ width: {args.paper_width} !important; height: {args.paper_height} !important; margin: 0; overflow: hidden !important; }}

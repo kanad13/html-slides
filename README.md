@@ -1,10 +1,20 @@
 # HTML Deck Studio
 
-HTML Deck Studio turns a folder of standalone HTML files into a portable presentation system. It combines a dependency-free local viewer with an authoring contract for AI-assisted slide creation, maintenance, validation, and optional PDF export.
+HTML Deck Studio is a local-first presentation system built on a simple idea: slides should be portable, standalone HTML files that work anywhere—in a browser, in version control, in PDF, or shared with others. No accounts, no servers, no lock-in.
+
+## The Problem
+
+Most presentation tools make you choose: either you get portability (slides as files) or you get features (cloud editing, rich formatting, AI collaboration). HTML Deck Studio does both. Your slides stay as inspectable, diffable HTML while you get a full presentation experience.
+
+## What You Get
+
+**Three components working together:**
+
+1. **`100-viewer.html`** — Open any folder of `.html` slides and present immediately. No installation, no build step, works offline.
+2. **`300-templates/`** — A stable contract for creating slides with AI agents. Token-based theming, consistent layouts, and reusable components.
+3. **Optional PDF export** — Turn your slide folder into a print-ready, full-bleed 16:9 PDF using the local Python toolchain.
 
 ## Why this exists
-
-Most presentation workflows trade portability for tooling, or tooling for privacy. This repository keeps both: slides remain ordinary, complete HTML files that can be opened locally, versioned, reviewed, and shared without a hosted editor or runtime service.
 
 - **Local-first and private:** selecting a deck does not upload it.
 - **Portable by design:** each slide carries its own markup, tokens, and CSS.
@@ -25,13 +35,13 @@ Most presentation workflows trade portability for tooling, or tooling for privac
 - Teams that want slides to be inspectable, diffable source files rather than opaque binaries.
 - AI-generated or frequently updated decks that need a clear visual and content contract.
 
-## How to Use
+## Three Paths
 
-- Open a folder of standalone `.html` slides in `100-viewer.html`.
-- Present with slide navigation, overview, speaker notes, presenter window, and fullscreen mode.
-- Export a deck to PDF with the optional local Python/Playwright toolchain.
-- Generate and maintain AI-created decks using the tokenized authoring system in `300-templates/`.
-- Keep slide files local, portable, editable, and versionable.
+**Just present?** Open `100-viewer.html`, pick your slide folder, and go.
+
+**Generate decks with AI?** Use `300-templates/` to guide your agent. Slides come out as complete HTML with theme tokens baked in.
+
+**Need a PDF?** Use the optional export toolchain. One command, full-bleed output.
 
 ## Quick Start
 
@@ -39,7 +49,7 @@ Most presentation workflows trade portability for tooling, or tooling for privac
 
 1. Open `100-viewer.html` in a modern browser.
 2. Click **Choose Folder**.
-3. Select a folder containing `slide100.html`, `slide200.html`, and so on.
+3. Select a folder containing `slide0100.html`, `slide0200.html`, and so on.
 4. Present with arrow keys, toolbar buttons, overview mode, notes, or fullscreen.
 
 If your browser does not support folder picking, use **Choose Files** and select the slide files. If the deck uses local assets such as `assets/chart.png`, choose the full folder so those assets are included.
@@ -70,7 +80,7 @@ Recommended starting points:
 
 Generated decks should usually go in `500-output/<deck-name>/` with standalone slide files and a `deck-context.md`.
 
-Name slide files with insertion-safe numbers: start at `slide100.html`, then use `slide200.html`, `slide300.html`, and so on. Insert future material with an available number such as `slide110.html`; this preserves PDF order without renaming existing files.
+Name slide files with zero-padded 4-digit numbers: start at `slide0100.html`, then use `slide0200.html`, `slide0300.html`, and so on. Insert future material with an available number such as `slide0110.html`; this preserves PDF order without renaming existing files and ensures consistent sorting even as decks grow.
 
 ## Security and Privacy
 

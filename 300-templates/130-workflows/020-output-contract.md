@@ -13,9 +13,9 @@ Example:
 ```
 500-output/
 └─ project-update-q3/
-   ├─ slide100.html
-   ├─ slide200.html
-   ├─ slide300.html
+   ├─ slide0100.html
+   ├─ slide0200.html
+   ├─ slide0300.html
    └─ deck-context.md
 ```
 
@@ -25,7 +25,7 @@ Do not place long-lived generated decks directly at the root of `500-output/` un
 
 Every generated deck should usually include:
 
-- `slide100.html`, `slide200.html`, `slide300.html`, ...
+- `slide0100.html`, `slide0200.html`, `slide0300.html`, ...
 - `deck-context.md`
 
 Optional:
@@ -34,8 +34,9 @@ Optional:
 
 ## Slide naming
 
-- Start at `slide100.html` and use increasing integer values: `slide200.html`, `slide300.html`, and so on.
-- Reserve gaps for inserts. For example, place a new framing slide between `slide100.html` and `slide200.html` at `slide110.html` or `slide150.html`.
+- Use zero-padded 4-digit numbers: `slide0100.html`, `slide0200.html`, `slide0300.html`, and so on.
+- This ensures consistent sorting in all file browsers and tools, even when decks grow beyond 999 slides.
+- Reserve gaps for inserts. For example, place a new framing slide between `slide0100.html` and `slide0200.html` at `slide0110.html` or `slide0150.html`.
 - Never renumber the whole deck merely to insert a slide. Stable filenames preserve the intended viewer and PDF order, reduce noisy diffs, and make future edits safe.
 - Keep the sequence numeric and strictly increasing. Record intentional additions in `deck-context.md`.
 
@@ -100,18 +101,22 @@ Do not create a shared deck-level CSS file unless the user explicitly asks for t
 
 This keeps each slide portable, editable, and compatible with the local viewer.
 
-## Optional local assets
+## Images and libraries
 
-Standalone slides are preferred. If a deck needs supporting assets, keep them inside the deck folder, preferably in an `assets/` subfolder.
+Standalone slides are preferred.
+Embed images and external libraries directly in the slide when possible, for maximum portability.
 
-Rules:
+```html
+<body>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({ startOnLoad: true });
+  </script>
+</body>
+```
 
-- asset references should be relative paths such as `assets/chart.png`;
-- do not depend on remote images, scripts, fonts, or stylesheets;
-- do not import Mermaid or other rendering libraries from a CDN. Convert diagrams to inline SVG, or use native HTML/CSS/SVG components so each slide remains offline and standalone;
-- when using the viewer, select the deck folder so supporting assets are included in the browser's selected files;
-- do not use deck-local assets as a substitute for a shared CSS dependency unless the user explicitly asked for that
-  structure.
+- This approach helps keep slides portable when they are moved or shared, as long as the CDN is accessible.
+- Document the external dependency in `deck-context.md`.
 
 ## Optional PDF export
 

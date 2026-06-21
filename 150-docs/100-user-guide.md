@@ -14,9 +14,9 @@ A normal deck is a folder like this:
 
 ```text
 my-deck/
-├── slide100.html
-├── slide200.html
-├── slide300.html
+├── slide0100.html
+├── slide0200.html
+├── slide0300.html
 └── deck-context.md
 ```
 
@@ -24,8 +24,8 @@ If a deck uses local images or media, keep them in the same deck folder:
 
 ```text
 my-deck/
-├── slide100.html
-├── slide200.html
+├── slide0100.html
+├── slide0200.html
 ├── assets/
 │   └── chart.png
 └── deck-context.md
@@ -37,28 +37,30 @@ When using local assets, choose the folder so the browser grants access to the s
 
 Use the toolbar or keyboard:
 
-| Action | Shortcut |
-| --- | --- |
-| Next slide | `Right Arrow` or `Space` |
-| Previous slide | `Left Arrow` |
-| First slide | `Home` |
-| Last slide | `End` |
-| Overview | `O` |
-| Speaker notes | `N` |
-| Presenter window | `P` |
-| Slide list | `L` |
-| Fullscreen/Zen | `Z` or `F` |
-| Theme toggle | `M` |
-| Open another deck | `D` |
-| Help | `H` or `?` |
-| Close overlay or exit | `Esc` |
+| Action                | Shortcut                 |
+| --------------------- | ------------------------ |
+| Next slide            | `Right Arrow` or `Space` |
+| Previous slide        | `Left Arrow`             |
+| First slide           | `Home`                   |
+| Last slide            | `End`                    |
+| Overview              | `O`                      |
+| Speaker notes         | `N`                      |
+| Presenter window      | `P`                      |
+| Slide list            | `L`                      |
+| Fullscreen/Zen        | `Z` or `F`               |
+| Theme toggle          | `M`                      |
+| Open another deck     | `D`                      |
+| Help                  | `H` or `?`               |
+| Close overlay or exit | `Esc`                    |
 
 ## Speaker Notes
 
 Slides can include hidden notes:
 
 ```html
-<aside class="notes">Mention the customer feedback before moving to the roadmap.</aside>
+<aside class="notes">
+  Mention the customer feedback before moving to the roadmap.
+</aside>
 ```
 
 The viewer extracts notes without executing slide scripts. Press `N` to show notes in the docked notes panel, or `P` to open the presenter window.

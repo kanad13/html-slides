@@ -40,14 +40,15 @@
 
 ## Slide Map
 
-- slide01.html - opener and purpose
-- slide02.html - standalone slide contract
-- slide03.html - token roles
-- slide04.html - theme intake flow
-- slide05.html - layout choice
-- slide06.html - viewer runtime contract
-- slide07.html - deck context
-- slide08.html - quality gates
+- slide0100.html - opener and purpose
+- slide0200.html - standalone slide contract
+- slide0300.html - token roles
+- slide0400.html - theme intake flow
+- slide0500.html - layout choice
+- slide0600.html - viewer runtime contract
+- slide0700.html - deck context
+- slide0800.html - quality gates
+- slide0900.html - PDF export
 - slide09.html - optional PDF export
 
 ## Update Notes
