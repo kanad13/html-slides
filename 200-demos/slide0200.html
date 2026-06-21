@@ -4,29 +4,29 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Standalone Slide Contract</title>
+  <title>Three Ways to Use It</title>
   <style>
     :root {
-      --surface-0: #0f172a;
-      --surface-1: #1a2332;
-      --surface-2: #233044;
-      --text-primary: #f1f5f9;
-      --text-secondary: #94a3b8;
-      --border: #334155;
-      --brand-primary: #06b6d4;
-      --brand-secondary: #22d3ee;
-      --brand-tertiary: #4ade80;
-      --brand-quaternary: #818cf8;
-      --success: #22c55e;
+      --surface-0: #ffffff;
+      --surface-1: #f8fafc;
+      --surface-2: #eef2f7;
+      --text-primary: #0f172a;
+      --text-secondary: #64748b;
+      --border: #e2e8f0;
+      --brand-primary: #2563eb;
+      --brand-secondary: #06b6d4;
+      --brand-tertiary: #d97706;
+      --brand-quaternary: #7c3aed;
+      --success: #10b981;
       --warning: #f59e0b;
-      --danger: #f87171;
-      --info: #38bdf8;
-      --chart-1: #06b6d4;
-      --chart-2: #22d3ee;
-      --chart-3: #4ade80;
+      --danger: #ef4444;
+      --info: #3b82f6;
+      --chart-1: #2563eb;
+      --chart-2: #06b6d4;
+      --chart-3: #10b981;
       --chart-4: #f59e0b;
-      --chart-5: #818cf8;
-      --chart-6: #f87171;
+      --chart-5: #7c3aed;
+      --chart-6: #ef4444;
       --space-1: 0.25rem;
       --space-2: 0.5rem;
       --space-3: 0.75rem;
@@ -39,7 +39,7 @@
       --radius-md: 0.9rem;
       --radius-lg: 1.25rem;
       --radius-xl: 1.75rem;
-      --shadow-soft: 0 24px 70px rgba(0, 0, 0, 0.35);
+      --shadow-soft: 0 18px 50px rgba(15, 23, 42, 0.08);
     }
 
     @page {
@@ -70,12 +70,12 @@
     .slide {
       width: 100vw;
       height: 100vh;
-      padding: var(--space-7);
+      padding: var(--space-8);
       display: grid;
-      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+      align-content: center;
       gap: var(--space-7);
-      align-items: center;
-      background: linear-gradient(135deg, var(--surface-0), var(--surface-1));
+      background: linear-gradient(135deg, var(--surface-1), var(--surface-0));
+      overflow: hidden;
     }
 
     .eyebrow {
@@ -89,51 +89,46 @@
 
     h1 {
       margin: 0;
-      font-size: 4.3rem;
-      line-height: 1;
+      max-width: 900px;
+      font-size: 5.4rem;
+      line-height: 0.96;
       font-weight: 850;
     }
 
-    .body {
+    .lead {
+      max-width: 760px;
       margin: var(--space-5) 0 0;
       color: var(--text-secondary);
-      font-size: 1.15rem;
-      line-height: 1.6;
+      font-size: 1.35rem;
+      line-height: 1.55;
     }
 
-    .contract-list {
+    .card-grid {
       display: grid;
-      gap: var(--space-3);
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .contract-list li {
-      display: grid;
-      grid-template-columns: 2.5rem 1fr;
+      grid-template-columns: repeat(3, 1fr);
       gap: var(--space-4);
-      align-items: start;
+      max-width: 1000px;
+      margin-top: var(--space-8);
+    }
+
+    .card {
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       background: var(--surface-1);
-      padding: var(--space-4);
+      padding: var(--space-5);
     }
 
-    .index {
-      color: var(--brand-secondary);
-      font-weight: 850;
-      font-variant-numeric: tabular-nums;
+    .card h2 {
+      margin: 0 0 var(--space-3) 0;
+      font-size: 1.5rem;
+      color: var(--brand-primary);
     }
 
-    .contract-list strong {
-      display: block;
-      margin-bottom: var(--space-1);
-    }
-
-    .contract-list span:last-child {
+    .card p {
+      margin: 0;
       color: var(--text-secondary);
-      line-height: 1.45;
+      line-height: 1.55;
+      font-size: 0.95rem;
     }
 
     aside.notes {
@@ -148,12 +143,15 @@
       .slide {
         height: auto;
         min-height: 100vh;
-        grid-template-columns: 1fr;
         padding: var(--space-6);
       }
 
       h1 {
-        font-size: 2.55rem;
+        font-size: 2.8rem;
+      }
+
+      .card-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -162,25 +160,32 @@
 <body>
   <main class="slide">
     <section>
-      <p class="eyebrow">Output rule</p>
-      <h1>Every slide carries what it needs.</h1>
-      <p class="body">The viewer should not need a build step, shared stylesheet, package manager, or server to display a
-        normal generated deck.</p>
+      <p class="eyebrow">Three paths</p>
+      <h1>Choose how you want to work.</h1>
+      <p class="lead">HTML Deck Studio supports presenting, generating, and exporting—all in local HTML.</p>
+
+      <div class="card-grid">
+        <div class="card">
+          <h2>Present</h2>
+          <p>Open 100-viewer.html, pick your slide folder, and present immediately. No installation, no dependencies.
+          </p>
+        </div>
+        <div class="card">
+          <h2>Generate</h2>
+          <p>Give an AI agent the templates folder. It creates standalone HTML slides with embedded tokens and CSS.</p>
+        </div>
+        <div class="card">
+          <h2>Export</h2>
+          <p>Convert your slide folder to a full-bleed 16:9 PDF. Optional local Python toolchain, production ready.</p>
+        </div>
+      </div>
     </section>
-    <ol class="contract-list">
-      <li><span class="index">01</span><span><strong>Complete document</strong>DOCTYPE, language, viewport, title, style,
-          markup, and notes all live in the file.</span></li>
-      <li><span class="index">02</span><span><strong>Inline tokens</strong>Resolved token values are embedded inside each
-          slide by default.</span></li>
-      <li><span class="index">03</span><span><strong>Inline CSS</strong>Layout CSS consumes tokens instead of ad hoc
-          colors.</span></li>
-      <li><span class="index">04</span><span><strong>Local assets only</strong>Optional assets stay beside the deck and are
-          selected by the user.</span></li>
-    </ol>
   </main>
 
-  <aside class="notes">Stress that standalone means operational portability. It does not mean every deck must avoid local
-    assets, but the default should be fully embedded HTML and CSS.</aside>
+  <aside class="notes">Three paths are the core of HTML Deck Studio. Users can pick any combination based on their
+    workflow.</aside>
 </body>
+
+</html>
 
 </html>

@@ -4,29 +4,19 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Token Roles Before Styling</title>
+  <title>Present a Deck</title>
   <style>
     :root {
-      --surface-0: #0f172a;
-      --surface-1: #1a2332;
-      --surface-2: #233044;
-      --text-primary: #f1f5f9;
-      --text-secondary: #94a3b8;
-      --border: #334155;
-      --brand-primary: #06b6d4;
-      --brand-secondary: #22d3ee;
-      --brand-tertiary: #4ade80;
-      --brand-quaternary: #818cf8;
-      --success: #22c55e;
-      --warning: #f59e0b;
-      --danger: #f87171;
-      --info: #38bdf8;
-      --chart-1: #06b6d4;
-      --chart-2: #22d3ee;
-      --chart-3: #4ade80;
-      --chart-4: #f59e0b;
-      --chart-5: #818cf8;
-      --chart-6: #f87171;
+      --surface-0: #ffffff;
+      --surface-1: #f8fafc;
+      --surface-2: #eef2f7;
+      --text-primary: #0f172a;
+      --text-secondary: #64748b;
+      --border: #e2e8f0;
+      --brand-primary: #2563eb;
+      --brand-secondary: #06b6d4;
+      --brand-tertiary: #d97706;
+      --success: #10b981;
       --space-1: 0.25rem;
       --space-2: 0.5rem;
       --space-3: 0.75rem;
@@ -35,11 +25,8 @@
       --space-6: 2rem;
       --space-7: 3rem;
       --space-8: 4rem;
-      --radius-sm: 0.5rem;
-      --radius-md: 0.9rem;
       --radius-lg: 1.25rem;
-      --radius-xl: 1.75rem;
-      --shadow-soft: 0 24px 70px rgba(0, 0, 0, 0.35);
+      --shadow-soft: 0 18px 50px rgba(15, 23, 42, 0.08);
     }
 
     @page {
@@ -70,122 +57,285 @@
     .slide {
       width: 100vw;
       height: 100vh;
-      padding: var(--space-7);
+      padding: var(--space-8);
       display: grid;
-      grid-template-rows: auto 1fr;
-      gap: var(--space-6);
-      background:
-        radial-gradient(circle at 12% 88%, color-mix(in srgb, var(--brand-quaternary) 20%, transparent), transparent 32%),
-        var(--surface-0);
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      gap: var(--space-6);
-      align-items: end;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: var(--space-5);
-    }
-
-    .eyebrow {
-      margin: 0 0 var(--space-3);
-      color: var(--brand-primary);
-      font-size: 0.78rem;
-      font-weight: 800;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
+      align-content: center;
+      gap: var(--space-7);
+      background: linear-gradient(135deg, var(--surface-1), var(--surface-0));
     }
 
     h1 {
-      max-width: 720px;
       margin: 0;
-      font-size: 3.8rem;
-      line-height: 1.02;
+      font-size: 4.5rem;
+      line-height: 0.96;
       font-weight: 850;
     }
 
-    .caption {
-      max-width: 360px;
-      color: var(--text-secondary);
-      line-height: 1.5;
-    }
-
-    .token-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: var(--space-4);
-      align-content: center;
-    }
-
-    .token-card {
-      min-height: 11rem;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      background: var(--surface-1);
-      padding: var(--space-5);
-      display: grid;
-      align-content: space-between;
-      gap: var(--space-4);
-    }
-
-    .token-swatch {
-      height: 0.65rem;
-      border-radius: var(--radius-sm);
-      background: var(--brand-primary);
-    }
-
-    .token-card:nth-child(2) .token-swatch {
-      background: var(--brand-tertiary);
-    }
-
-    .token-card:nth-child(3) .token-swatch {
-      background: var(--warning);
-    }
-
-    .token-card:nth-child(4) .token-swatch {
-      background: var(--chart-5);
-    }
-
-    .token-card h2 {
+    p {
       margin: 0;
-      font-size: 1.1rem;
     }
 
-    .token-card p {
-      margin: 0;
+    .lead {
+      margin-top: var(--space-4);
       color: var(--text-secondary);
-      line-height: 1.5;
+      font-size: 1.3rem;
+      line-height: 1.55;
+      max-width: 760px;
+    }
+
+    .steps {
+      display: grid;
+      gap: var(--space-5);
+      margin-top: var(--space-7);
+      max-width: 800px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: var(--space-5);
+      align-items: start;
+    }
+
+    .step-num {
+      font-size: 2.5rem;
+      font-weight: 850;
+      color: var(--brand-primary);
+      line-height: 1;
+    }
+
+    .step-text h3 {
+      margin: 0 0 var(--space-2) 0;
+      font-size: 1.2rem;
+    }
+
+    .step-text p {
+      color: var(--text-secondary);
+      margin: 0;
+      line-height: 1.55;
     }
 
     aside.notes {
       display: none;
     }
-
-    @media (max-width: 900px) {
-      body {
-        overflow: auto;
-      }
-
-      .slide {
-        height: auto;
-        min-height: 100vh;
-        padding: var(--space-6);
-      }
-
-      h1 {
-        font-size: 2.45rem;
-      }
-
-      header {
-        display: block;
-      }
-
-      .token-grid {
-        grid-template-columns: 1fr;
-      }
-    }
   </style>
+</head>
+
+<body>
+  <main class="slide">
+    <h1>Open a folder of slides, then present.</h1>
+    <p class="lead">HTML Deck Studio's viewer requires no installation or internet.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">
+          <h3>Open 100-viewer.html</h3>
+          <p>Double-click it in your file browser or drag it into a web browser.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">
+          <h3>Choose a folder</h3>
+          <p>Click "Choose Folder" and select any folder containing slide0100.html, slide0200.html, etc.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">
+          <h3>Present</h3>
+          <p>Use arrow keys, toolbar buttons, notes, overview, or fullscreen. Works offline, on any device.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+  <aside class="notes">The viewer is the simplest part. It's a single HTML file that reads local slide files in iframes.
+  </aside>
+</body>
+
+</html>
+<style>
+  :root {
+    --surface-0: #0f172a;
+    --surface-1: #1a2332;
+    --surface-2: #233044;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --border: #334155;
+    --brand-primary: #06b6d4;
+    --brand-secondary: #22d3ee;
+    --brand-tertiary: #4ade80;
+    --brand-quaternary: #818cf8;
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --danger: #f87171;
+    --info: #38bdf8;
+    --chart-1: #06b6d4;
+    --chart-2: #22d3ee;
+    --chart-3: #4ade80;
+    --chart-4: #f59e0b;
+    --chart-5: #818cf8;
+    --chart-6: #f87171;
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-5: 1.5rem;
+    --space-6: 2rem;
+    --space-7: 3rem;
+    --space-8: 4rem;
+    --radius-sm: 0.5rem;
+    --radius-md: 0.9rem;
+    --radius-lg: 1.25rem;
+    --radius-xl: 1.75rem;
+    --shadow-soft: 0 24px 70px rgba(0, 0, 0, 0.35);
+  }
+
+  @page {
+    size: 16in 9in;
+    margin: 0;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--surface-0);
+    color: var(--text-primary);
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body {
+    overflow: hidden;
+  }
+
+  .slide {
+    width: 100vw;
+    height: 100vh;
+    padding: var(--space-7);
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: var(--space-6);
+    background:
+      radial-gradient(circle at 12% 88%, color-mix(in srgb, var(--brand-quaternary) 20%, transparent), transparent 32%),
+      var(--surface-0);
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-6);
+    align-items: end;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: var(--space-5);
+  }
+
+  .eyebrow {
+    margin: 0 0 var(--space-3);
+    color: var(--brand-primary);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    max-width: 720px;
+    margin: 0;
+    font-size: 3.8rem;
+    line-height: 1.02;
+    font-weight: 850;
+  }
+
+  .caption {
+    max-width: 360px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .token-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-4);
+    align-content: center;
+  }
+
+  .token-card {
+    min-height: 11rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--surface-1);
+    padding: var(--space-5);
+    display: grid;
+    align-content: space-between;
+    gap: var(--space-4);
+  }
+
+  .token-swatch {
+    height: 0.65rem;
+    border-radius: var(--radius-sm);
+    background: var(--brand-primary);
+  }
+
+  .token-card:nth-child(2) .token-swatch {
+    background: var(--brand-tertiary);
+  }
+
+  .token-card:nth-child(3) .token-swatch {
+    background: var(--warning);
+  }
+
+  .token-card:nth-child(4) .token-swatch {
+    background: var(--chart-5);
+  }
+
+  .token-card h2 {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+
+  .token-card p {
+    margin: 0;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  aside.notes {
+    display: none;
+  }
+
+  @media (max-width: 900px) {
+    body {
+      overflow: auto;
+    }
+
+    .slide {
+      height: auto;
+      min-height: 100vh;
+      padding: var(--space-6);
+    }
+
+    h1 {
+      font-size: 2.45rem;
+    }
+
+    header {
+      display: block;
+    }
+
+    .token-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
 </head>
 
 <body>

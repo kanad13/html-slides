@@ -7,26 +7,26 @@
   <title>HTML Deck Studio Demo</title>
   <style>
     :root {
-      --surface-0: #0f172a;
-      --surface-1: #1a2332;
-      --surface-2: #233044;
-      --text-primary: #f1f5f9;
-      --text-secondary: #94a3b8;
-      --border: #334155;
-      --brand-primary: #06b6d4;
-      --brand-secondary: #22d3ee;
-      --brand-tertiary: #4ade80;
-      --brand-quaternary: #818cf8;
-      --success: #22c55e;
+      --surface-0: #ffffff;
+      --surface-1: #f8fafc;
+      --surface-2: #eef2f7;
+      --text-primary: #0f172a;
+      --text-secondary: #64748b;
+      --border: #e2e8f0;
+      --brand-primary: #2563eb;
+      --brand-secondary: #06b6d4;
+      --brand-tertiary: #d97706;
+      --brand-quaternary: #7c3aed;
+      --success: #10b981;
       --warning: #f59e0b;
-      --danger: #f87171;
-      --info: #38bdf8;
-      --chart-1: #06b6d4;
-      --chart-2: #22d3ee;
-      --chart-3: #4ade80;
+      --danger: #ef4444;
+      --info: #3b82f6;
+      --chart-1: #2563eb;
+      --chart-2: #06b6d4;
+      --chart-3: #10b981;
       --chart-4: #f59e0b;
-      --chart-5: #818cf8;
-      --chart-6: #f87171;
+      --chart-5: #7c3aed;
+      --chart-6: #ef4444;
       --space-1: 0.25rem;
       --space-2: 0.5rem;
       --space-3: 0.75rem;
@@ -39,7 +39,7 @@
       --radius-md: 0.9rem;
       --radius-lg: 1.25rem;
       --radius-xl: 1.75rem;
-      --shadow-soft: 0 24px 70px rgba(0, 0, 0, 0.35);
+      --shadow-soft: 0 18px 50px rgba(15, 23, 42, 0.08);
     }
 
     @page {
@@ -75,8 +75,8 @@
       align-content: center;
       gap: var(--space-7);
       background:
-        radial-gradient(circle at 86% 16%, color-mix(in srgb, var(--brand-primary) 24%, transparent), transparent 30%),
-        linear-gradient(135deg, var(--surface-0), var(--surface-1));
+        radial-gradient(circle at 86% 16%, color-mix(in srgb, var(--brand-primary) 16%, transparent), transparent 30%),
+        linear-gradient(135deg, var(--surface-1), var(--surface-0));
       overflow: hidden;
     }
 
@@ -163,29 +163,29 @@
 <body>
   <main class="slide">
     <section>
-      <p class="eyebrow">Demo deck</p>
-      <h1>Standalone HTML slides with a real contract.</h1>
-      <p class="lead">This deck demonstrates the repo standard: complete local HTML files, embedded tokens, inline CSS,
-        speaker notes, and viewer-compatible structure.</p>
+      <p class="eyebrow">Welcome</p>
+      <h1>Portable presentations. No lock-in.</h1>
+      <p class="lead">Open any folder of HTML slides in your browser. Present immediately, offline, with no
+        installation. Your slides stay as local files.</p>
     </section>
-    <section class="meta-grid" aria-label="Deck principles">
+    <section class="meta-grid" aria-label="Core principles">
+      <article class="meta-card">
+        <strong>Local-first</strong>
+        <span>Files stay on your machine. No accounts, no servers, no uploads.</span>
+      </article>
       <article class="meta-card">
         <strong>Portable</strong>
-        <span>Every slide opens as its own HTML document.</span>
+        <span>Each slide is a complete standalone HTML file. Share, version, or move anywhere.</span>
       </article>
       <article class="meta-card">
-        <strong>Tokenized</strong>
-        <span>Components consume named tokens instead of scattered colors.</span>
-      </article>
-      <article class="meta-card">
-        <strong>Local first</strong>
-        <span>The viewer reads user-selected files in the browser.</span>
+        <strong>AI-ready</strong>
+        <span>Clear templates and tokens make it easy for agents to generate and update decks.</span>
       </article>
     </section>
   </main>
 
-  <aside class="notes">Open by explaining that this demo is now a reference deck, not just sample content. Each slide is
-    intentionally standalone and tokenized.</aside>
+  <aside class="notes">This demo showcases HTML Deck Studio in light theme. The framework supports three user paths:
+    present, generate, and export. We'll walk through each.</aside>
 </body>
 
 </html>

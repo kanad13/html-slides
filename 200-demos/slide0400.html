@@ -4,29 +4,19 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Theme Intake Flow</title>
+  <title>Generate with AI</title>
   <style>
     :root {
-      --surface-0: #0f172a;
-      --surface-1: #1a2332;
-      --surface-2: #233044;
-      --text-primary: #f1f5f9;
-      --text-secondary: #94a3b8;
-      --border: #334155;
-      --brand-primary: #06b6d4;
-      --brand-secondary: #22d3ee;
-      --brand-tertiary: #4ade80;
-      --brand-quaternary: #818cf8;
-      --success: #22c55e;
-      --warning: #f59e0b;
-      --danger: #f87171;
-      --info: #38bdf8;
-      --chart-1: #06b6d4;
-      --chart-2: #22d3ee;
-      --chart-3: #4ade80;
-      --chart-4: #f59e0b;
-      --chart-5: #818cf8;
-      --chart-6: #f87171;
+      --surface-0: #ffffff;
+      --surface-1: #f8fafc;
+      --surface-2: #eef2f7;
+      --text-primary: #0f172a;
+      --text-secondary: #64748b;
+      --border: #e2e8f0;
+      --brand-primary: #2563eb;
+      --brand-secondary: #06b6d4;
+      --brand-tertiary: #d97706;
+      --success: #10b981;
       --space-1: 0.25rem;
       --space-2: 0.5rem;
       --space-3: 0.75rem;
@@ -35,11 +25,8 @@
       --space-6: 2rem;
       --space-7: 3rem;
       --space-8: 4rem;
-      --radius-sm: 0.5rem;
-      --radius-md: 0.9rem;
       --radius-lg: 1.25rem;
-      --radius-xl: 1.75rem;
-      --shadow-soft: 0 24px 70px rgba(0, 0, 0, 0.35);
+      --shadow-soft: 0 18px 50px rgba(15, 23, 42, 0.08);
     }
 
     @page {
@@ -70,96 +57,250 @@
     .slide {
       width: 100vw;
       height: 100vh;
-      padding: var(--space-7);
+      padding: var(--space-8);
       display: grid;
-      grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+      align-content: center;
       gap: var(--space-7);
-      align-items: center;
-      background: var(--surface-0);
-    }
-
-    .eyebrow {
-      margin: 0 0 var(--space-4);
-      color: var(--brand-primary);
-      font-size: 0.78rem;
-      font-weight: 800;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
+      background: linear-gradient(135deg, var(--surface-1), var(--surface-0));
     }
 
     h1 {
       margin: 0;
-      font-size: 4.3rem;
-      line-height: 1;
+      font-size: 4.5rem;
+      line-height: 0.96;
       font-weight: 850;
     }
 
-    .body {
-      margin: var(--space-5) 0 0;
+    .lead {
+      margin-top: var(--space-4);
       color: var(--text-secondary);
-      font-size: 1.14rem;
-      line-height: 1.6;
+      font-size: 1.3rem;
+      line-height: 1.55;
+      max-width: 900px;
     }
 
-    .flow {
+    .examples {
       display: grid;
+      grid-template-columns: repeat(2, 1fr);
       gap: var(--space-4);
-      position: relative;
+      margin-top: var(--space-7);
+      max-width: 1000px;
     }
 
-    .step {
-      display: grid;
-      grid-template-columns: 4rem 1fr;
-      gap: var(--space-4);
-      align-items: center;
+    .example {
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
-      background: linear-gradient(135deg, var(--surface-1), var(--surface-2));
+      background: var(--surface-1);
       padding: var(--space-5);
     }
 
-    .step-number {
-      width: 4rem;
-      height: 4rem;
-      border-radius: var(--radius-xl);
-      display: grid;
-      place-items: center;
-      background: color-mix(in srgb, var(--brand-primary) 20%, var(--surface-0));
-      color: var(--brand-secondary);
-      font-weight: 850;
-    }
-
-    .step strong {
+    .example code {
       display: block;
-      margin-bottom: var(--space-1);
+      background: var(--surface-2);
+      padding: var(--space-3);
+      border-radius: 0.5rem;
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: var(--brand-primary);
+      overflow: auto;
     }
 
-    .step span:last-child {
+    .example p {
+      margin: var(--space-3) 0 0;
       color: var(--text-secondary);
-      line-height: 1.45;
+      font-size: 0.9rem;
     }
 
     aside.notes {
       display: none;
     }
-
-    @media (max-width: 900px) {
-      body {
-        overflow: auto;
-      }
-
-      .slide {
-        height: auto;
-        min-height: 100vh;
-        grid-template-columns: 1fr;
-        padding: var(--space-6);
-      }
-
-      h1 {
-        font-size: 2.55rem;
-      }
-    }
   </style>
+</head>
+
+<body>
+  <main class="slide">
+    <h1>Use AI to create and update decks.</h1>
+    <p class="lead">The template system provides a clear contract for coding agents. Give them the 300-templates/ folder
+      and they generate complete slides.</p>
+
+    <div class="examples">
+      <div class="example">
+        <p style="margin: 0; margin-bottom: var(--space-3);"><strong>Prompt to Claude or GPT:</strong></p>
+        <code>Here is my deck framework: [300-templates/]
+Create 5 slides about our Q4 strategy.
+Use light theme. Output to 500-output/q4-deck/</code>
+      </div>
+      <div class="example">
+        <p style="margin: 0; margin-bottom: var(--space-3);"><strong>Agent generates:</strong></p>
+        <code>500-output/q4-deck/
+  slide0100.html
+  slide0200.html
+  slide0300.html
+  ...
+  deck-context.md</code>
+      </div>
+    </div>
+  </main>
+  <aside class="notes">Templates ensure AI output is consistent, tokenized, and standalone. No custom build steps
+    needed.</aside>
+</body>
+
+</html>
+<style>
+  :root {
+    --surface-0: #0f172a;
+    --surface-1: #1a2332;
+    --surface-2: #233044;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --border: #334155;
+    --brand-primary: #06b6d4;
+    --brand-secondary: #22d3ee;
+    --brand-tertiary: #4ade80;
+    --brand-quaternary: #818cf8;
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --danger: #f87171;
+    --info: #38bdf8;
+    --chart-1: #06b6d4;
+    --chart-2: #22d3ee;
+    --chart-3: #4ade80;
+    --chart-4: #f59e0b;
+    --chart-5: #818cf8;
+    --chart-6: #f87171;
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-5: 1.5rem;
+    --space-6: 2rem;
+    --space-7: 3rem;
+    --space-8: 4rem;
+    --radius-sm: 0.5rem;
+    --radius-md: 0.9rem;
+    --radius-lg: 1.25rem;
+    --radius-xl: 1.75rem;
+    --shadow-soft: 0 24px 70px rgba(0, 0, 0, 0.35);
+  }
+
+  @page {
+    size: 16in 9in;
+    margin: 0;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--surface-0);
+    color: var(--text-primary);
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body {
+    overflow: hidden;
+  }
+
+  .slide {
+    width: 100vw;
+    height: 100vh;
+    padding: var(--space-7);
+    display: grid;
+    grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+    gap: var(--space-7);
+    align-items: center;
+    background: var(--surface-0);
+  }
+
+  .eyebrow {
+    margin: 0 0 var(--space-4);
+    color: var(--brand-primary);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 4.3rem;
+    line-height: 1;
+    font-weight: 850;
+  }
+
+  .body {
+    margin: var(--space-5) 0 0;
+    color: var(--text-secondary);
+    font-size: 1.14rem;
+    line-height: 1.6;
+  }
+
+  .flow {
+    display: grid;
+    gap: var(--space-4);
+    position: relative;
+  }
+
+  .step {
+    display: grid;
+    grid-template-columns: 4rem 1fr;
+    gap: var(--space-4);
+    align-items: center;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, var(--surface-1), var(--surface-2));
+    padding: var(--space-5);
+  }
+
+  .step-number {
+    width: 4rem;
+    height: 4rem;
+    border-radius: var(--radius-xl);
+    display: grid;
+    place-items: center;
+    background: color-mix(in srgb, var(--brand-primary) 20%, var(--surface-0));
+    color: var(--brand-secondary);
+    font-weight: 850;
+  }
+
+  .step strong {
+    display: block;
+    margin-bottom: var(--space-1);
+  }
+
+  .step span:last-child {
+    color: var(--text-secondary);
+    line-height: 1.45;
+  }
+
+  aside.notes {
+    display: none;
+  }
+
+  @media (max-width: 900px) {
+    body {
+      overflow: auto;
+    }
+
+    .slide {
+      height: auto;
+      min-height: 100vh;
+      grid-template-columns: 1fr;
+      padding: var(--space-6);
+    }
+
+    h1 {
+      font-size: 2.55rem;
+    }
+  }
+</style>
 </head>
 
 <body>
@@ -167,22 +308,26 @@
     <section>
       <p class="eyebrow">Custom themes</p>
       <h1>Inspiration is input, not implementation.</h1>
-      <p class="body">Brand names, screenshots, URLs, mood words, and hex values should be interpreted first, then mapped
+      <p class="body">Brand names, screenshots, URLs, mood words, and hex values should be interpreted first, then
+        mapped
         into the canonical token contract.</p>
     </section>
     <section class="flow" aria-label="Theme intake workflow">
       <article class="step"><span class="step-number">1</span><span><strong>Interpret the source</strong>Identify visual
           intent, audience fit, and theme mode.</span></article>
-      <article class="step"><span class="step-number">2</span><span><strong>Map token roles</strong>Assign surface, text,
+      <article class="step"><span class="step-number">2</span><span><strong>Map token roles</strong>Assign surface,
+          text,
           brand, semantic, and chart values.</span></article>
-      <article class="step"><span class="step-number">3</span><span><strong>Check readability</strong>Adjust derived values
+      <article class="step"><span class="step-number">3</span><span><strong>Check readability</strong>Adjust derived
+          values
           when exact source colors do not work.</span></article>
       <article class="step"><span class="step-number">4</span><span><strong>Document decisions</strong>Record source,
           rationale, and tradeoffs in deck-context.md.</span></article>
     </section>
   </main>
 
-  <aside class="notes">Make the distinction explicit: external references can inspire the token pack, but generated slide
+  <aside class="notes">Make the distinction explicit: external references can inspire the token pack, but generated
+    slide
     components should not copy arbitrary external CSS.</aside>
 </body>
 
