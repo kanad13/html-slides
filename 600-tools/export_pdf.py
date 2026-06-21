@@ -27,8 +27,8 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("deck", type=Path, help="Directory containing slideNN.html files")
     parser.add_argument("--out", type=Path, required=True, help="Output PDF path")
-    parser.add_argument("--width", type=int, default=1600, help="Browser viewport width in CSS pixels")
-    parser.add_argument("--height", type=int, default=900, help="Browser viewport height in CSS pixels")
+    parser.add_argument("--width", type=int, default=1536, help="Browser viewport width in CSS pixels")
+    parser.add_argument("--height", type=int, default=864, help="Browser viewport height in CSS pixels")
     parser.add_argument("--paper-width", default="16in", help="PDF page width with CSS unit")
     parser.add_argument("--paper-height", default="9in", help="PDF page height with CSS unit")
     parser.add_argument("--settle-ms", type=int, default=250, help="Wait after load before printing each slide")
@@ -72,7 +72,10 @@ def render_slides(slides: list[Path], tmp_dir: Path, args: argparse.Namespace) -
             page.emulate_media(media="screen")
             page.add_style_tag(content=f"""
               @page {{ size: {args.paper_width} {args.paper_height}; margin: 0; }}
-              html, body {{ margin: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }}
+              html, body {{ width: {args.paper_width} !important; height: {args.paper_height} !important; margin: 0; overflow: hidden !important; }}
+              .slide {{ width: {args.paper_width} !important; height: {args.paper_height} !important; margin: 0; overflow: hidden !important; }}
+              .standard {{ grid-template-rows: 4.15rem minmax(0, 1fr) !important; }}
+              html, body {{ -webkit-print-color-adjust: exact; print-color-adjust: exact; }}
             """)
             out = tmp_dir / f"slide-{index:04d}.pdf"
             page.pdf(
@@ -93,8 +96,10 @@ def merge_pdfs(paths: list[Path], output: Path) -> None:
     writer = PdfWriter()
     for path in paths:
         reader = PdfReader(str(path))
-        for page in reader.pages:
-            writer.add_page(page)
+        overflow = reader.pages[1:]
+        if any((page.extract_text() or "").strip() for page in overflow):
+            raise RuntimeError(f"{path.name} produced content beyond its first PDF page")
+        writer.add_page(reader.pages[0])
     with output.open("wb") as handle:
         writer.write(handle)
 

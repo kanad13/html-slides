@@ -10,13 +10,11 @@ The viewer uses browser-native file inputs:
 - multi-file input as a fallback;
 - drag-and-drop as a browser-dependent enhancement.
 
-The browser grants access only to files the user selects. Static HTML cannot scan arbitrary local folders without that
-selection.
+The browser grants access only to files the user selects. Static HTML cannot scan arbitrary local folders without that selection.
 
 ## Object URLs
 
-Selected slide and asset files are represented with `URL.createObjectURL(file)`. Old object URLs are revoked when a new
-deck replaces the current one.
+Selected slide and asset files are represented with `URL.createObjectURL(file)`. Old object URLs are revoked when a new deck replaces the current one.
 
 This keeps file handling in the browser tab and avoids direct arbitrary local path access.
 
@@ -30,15 +28,13 @@ This means:
 - slide content is separated from the viewer chrome;
 - the viewer does not grant same-origin access to selected slide frames.
 
-The viewer extracts lightweight metadata such as titles and notes with `DOMParser` before creating the iframe URL. That
-metadata extraction does not execute slide scripts.
+The viewer extracts lightweight metadata such as titles and notes with `DOMParser` before creating the iframe URL. That metadata extraction does not execute slide scripts.
 
 ## Network Boundary
 
 The viewer does not upload selected files.
 
-However, a slide is HTML. If a slide file contains remote images, fonts, scripts, stylesheets, CSS URLs, or application
-code that makes network requests, the browser may request those remote resources when the slide renders.
+However, a slide is HTML. If a slide file contains remote images, fonts, scripts, stylesheets, CSS URLs, or application code that makes network requests, the browser may request those remote resources when the slide renders.
 
 For fully offline or no-network decks:
 
@@ -49,6 +45,4 @@ For fully offline or no-network decks:
 
 ## Hosted Viewer Note
 
-A static hosted viewer can still preserve the no-upload file-selection model, but arbitrary uploaded slide HTML needs a
-stricter policy if the promise is "nothing leaves the browser." Hosted mode is intentionally not implemented in this repo
-yet.
+A static hosted viewer can still preserve the no-upload file-selection model, but arbitrary uploaded slide HTML needs a stricter policy if the promise is "nothing leaves the browser." Hosted mode is intentionally not implemented in this repo yet.

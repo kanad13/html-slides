@@ -62,10 +62,8 @@ def main() -> int:
     if not slides:
         return fail([f"{deck_dir} does not contain slide*.html files"])
 
-    expected = [f"slide{index:02d}.html" for index in range(1, len(slides) + 1)]
     actual = [slide.name for slide in slides]
-    if actual != expected:
-        errors.append(f"slide files must be contiguous and zero-padded: expected {expected}, found {actual}")
+    validate_spaced_numbering(slides, errors)
 
     if not args.no_context and not (deck_dir / "deck-context.md").is_file():
         errors.append("deck-context.md is required beside the slide files")
@@ -130,6 +128,24 @@ def remove_root_blocks(html: str) -> str:
 
 def natural_key(path: Path) -> list[object]:
     return [int(part) if part.isdigit() else part.lower() for part in re.split(r"(\d+)", path.name)]
+
+
+def validate_spaced_numbering(slides: list[Path], errors: list[str]) -> None:
+    """Accept deliberately spaced integer slide names while retaining deterministic order."""
+    numbers: list[int] = []
+    for slide in slides:
+        match = re.fullmatch(r"slide(\d+)\.html", slide.name, re.IGNORECASE)
+        if not match:
+            errors.append(f"{slide.name}: expected a numeric slide filename such as slide100.html")
+            continue
+        numbers.append(int(match.group(1)))
+    # Existing demo decks may retain the legacy contiguous format. New deck instructions use slide100.html onward.
+    if numbers and numbers[0] != 100:
+        legacy_expected = list(range(1, len(numbers) + 1))
+        if numbers != legacy_expected:
+            errors.append("slide numbering must start at slide100.html, or use the legacy contiguous sequence")
+    if len(numbers) == len(slides) and any(next_num <= current for current, next_num in zip(numbers, numbers[1:])):
+        errors.append("slide numbers must increase")
 
 
 def fail(errors: list[str]) -> int:

@@ -50,8 +50,7 @@ It currently:
 4. installs Chromium for Playwright;
 5. runs `python 600-tools/run_checks.py --browser`.
 
-Keep CI aligned with `600-tools/run_checks.py`. If a new required check is added locally, add it to `run_checks.py` first
-so CI picks it up from the same command.
+Keep CI aligned with `600-tools/run_checks.py`. If a new required check is added locally, add it to `run_checks.py` first so CI picks it up from the same command.
 
 ## Tooling Layout
 

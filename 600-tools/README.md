@@ -36,4 +36,10 @@ python3 -m venv .venv
 .venv/bin/python 600-tools/export_pdf.py 200-demos --out demo.pdf
 ```
 
+Decks use insertion-safe numeric filenames beginning with `slide100.html`, then `slide200.html`, `slide300.html`, and so on. Use available values such as `slide110.html` or `slide150.html` for inserted material so PDF order stays correct without renumbering existing slides. Validate the numeric sequence with:
+
+```bash
+python3 600-tools/validate_deck.py 500-output/my-deck
+```
+
 Keep new required checks inside `run_checks.py` so local development and CI run the same suite.

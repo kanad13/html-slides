@@ -95,10 +95,10 @@ A short list of slide numbers with their role.
 
 Example:
 
-- slide01.html — opener
-- slide02.html — agenda
-- slide03.html — current state
-- slide04.html — recommendation
+- slide100.html — opener
+- slide200.html — agenda
+- slide300.html — current state
+- slide400.html — recommendation
 
 ### 7. Update notes
 

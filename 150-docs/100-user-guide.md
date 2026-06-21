@@ -6,8 +6,7 @@
 2. Choose **Choose Folder**.
 3. Select the folder containing the slide files.
 
-The viewer loads `.html` and `.htm` files, sorts them naturally, and shows them as a presentation. Use **Choose Files** if
-folder picking is unavailable in your browser.
+The viewer loads `.html` and `.htm` files, sorts them naturally, and shows them as a presentation. Use **Choose Files** if folder picking is unavailable in your browser.
 
 ## Deck Shape
 
@@ -15,9 +14,9 @@ A normal deck is a folder like this:
 
 ```text
 my-deck/
-├── slide01.html
-├── slide02.html
-├── slide03.html
+├── slide100.html
+├── slide200.html
+├── slide300.html
 └── deck-context.md
 ```
 
@@ -25,8 +24,8 @@ If a deck uses local images or media, keep them in the same deck folder:
 
 ```text
 my-deck/
-├── slide01.html
-├── slide02.html
+├── slide100.html
+├── slide200.html
 ├── assets/
 │   └── chart.png
 └── deck-context.md
@@ -62,8 +61,7 @@ Slides can include hidden notes:
 <aside class="notes">Mention the customer feedback before moving to the roadmap.</aside>
 ```
 
-The viewer extracts notes without executing slide scripts. Press `N` to show notes in the docked notes panel, or `P` to
-open the presenter window.
+The viewer extracts notes without executing slide scripts. Press `N` to show notes in the docked notes panel, or `P` to open the presenter window.
 
 ## Viewer Theme
 

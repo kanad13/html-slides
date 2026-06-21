@@ -30,8 +30,8 @@ For generated decks:
 ## Options
 
 - `--out <file>` - output PDF path.
-- `--width 1600` - browser viewport width in CSS pixels.
-- `--height 900` - browser viewport height in CSS pixels.
+- `--width 1536` - browser viewport width in CSS pixels.
+- `--height 864` - browser viewport height in CSS pixels.
 - `--paper-width 16in` - PDF page width.
 - `--paper-height 9in` - PDF page height.
 - `--settle-ms 250` - wait after each slide loads before printing.
@@ -55,11 +55,12 @@ body {
 }
 ```
 
-If a PDF shows a white border, check that:
+If a PDF shows a white border or an unexpected second page, check that:
 
 - the exporter is using matching paper dimensions;
 - the slide uses full-page layout such as `width: 100vw` and `height: 100vh`;
 - the slide body has no default margin;
+- the slide height is constrained to the PDF page size during printing;
 - the PDF viewer is not adding its own page background or preview padding.
 
 ## What Export Does Not Do

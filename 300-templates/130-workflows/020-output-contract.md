@@ -13,9 +13,9 @@ Example:
 ```
 500-output/
 └─ project-update-q3/
-   ├─ slide01.html
-   ├─ slide02.html
-   ├─ slide03.html
+   ├─ slide100.html
+   ├─ slide200.html
+   ├─ slide300.html
    └─ deck-context.md
 ```
 
@@ -25,7 +25,7 @@ Do not place long-lived generated decks directly at the root of `500-output/` un
 
 Every generated deck should usually include:
 
-- `slide01.html`, `slide02.html`, `slide03.html`, ...
+- `slide100.html`, `slide200.html`, `slide300.html`, ...
 - `deck-context.md`
 
 Optional:
@@ -34,9 +34,10 @@ Optional:
 
 ## Slide naming
 
-- Use zero padded numbering: `slide01.html`, `slide02.html`, `slide03.html`
-- keep numbering contiguous
-- Prefer stable names so future edits do not reorder the entire deck unnecessarily
+- Start at `slide100.html` and use increasing integer values: `slide200.html`, `slide300.html`, and so on.
+- Reserve gaps for inserts. For example, place a new framing slide between `slide100.html` and `slide200.html` at `slide110.html` or `slide150.html`.
+- Never renumber the whole deck merely to insert a slide. Stable filenames preserve the intended viewer and PDF order, reduce noisy diffs, and make future edits safe.
+- Keep the sequence numeric and strictly increasing. Record intentional additions in `deck-context.md`.
 
 ## Slide contract
 
@@ -101,13 +102,13 @@ This keeps each slide portable, editable, and compatible with the local viewer.
 
 ## Optional local assets
 
-Standalone slides are preferred. If a deck needs supporting assets, keep them inside the deck folder, preferably in an
-`assets/` subfolder.
+Standalone slides are preferred. If a deck needs supporting assets, keep them inside the deck folder, preferably in an `assets/` subfolder.
 
 Rules:
 
 - asset references should be relative paths such as `assets/chart.png`;
 - do not depend on remote images, scripts, fonts, or stylesheets;
+- do not import Mermaid or other rendering libraries from a CDN. Convert diagrams to inline SVG, or use native HTML/CSS/SVG components so each slide remains offline and standalone;
 - when using the viewer, select the deck folder so supporting assets are included in the browser's selected files;
 - do not use deck-local assets as a substitute for a shared CSS dependency unless the user explicitly asked for that
   structure.
